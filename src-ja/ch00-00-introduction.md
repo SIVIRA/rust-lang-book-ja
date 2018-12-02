@@ -1,4 +1,4 @@
-# イントロダクション
+# 導入
 
 > 注：この本の本版は、No Starch Pressの印刷版および電子ブック形式で入手できるThe Rust Programming Languageと同じです。
 

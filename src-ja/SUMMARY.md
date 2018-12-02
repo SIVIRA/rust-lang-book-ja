@@ -1,49 +1,49 @@
 # プログラミング言語 Rust
 
 [前書き](foreword.md)
-[イントロダクション](ch00-00-introduction.md)
+[導入](ch00-00-introduction.md)
 
-## Getting started
+## 入門
 
-- [Getting Started](ch01-00-getting-started.md)
-    - [Installation](ch01-01-installation.md)
+- [入門](ch01-00-getting-started.md)
+    - [インストール](ch01-01-installation.md)
     - [Hello, World!](ch01-02-hello-world.md)
     - [Hello, Cargo!](ch01-03-hello-cargo.md)
 
-- [Programming a Guessing Game](ch02-00-guessing-game-tutorial.md)
+- [数あてゲーム](ch02-00-guessing-game-tutorial.md)
 
-- [Common Programming Concepts](ch03-00-common-programming-concepts.md)
-    - [Variables and Mutability](ch03-01-variables-and-mutability.md)
-    - [Data Types](ch03-02-data-types.md)
-    - [How Functions Work](ch03-03-how-functions-work.md)
-    - [Comments](ch03-04-comments.md)
-    - [Control Flow](ch03-05-control-flow.md)
+- [プログラミングの共通概念](ch03-00-common-programming-concepts.md)
+    - [変数と変更可能性](ch03-01-variables-and-mutability.md)
+    - [データ型](ch03-02-data-types.md)
+    - [関数の動作](ch03-03-how-functions-work.md)
+    - [コメント](ch03-04-comments.md)
+    - [制御フロー](ch03-05-control-flow.md)
 
-- [Understanding Ownership](ch04-00-understanding-ownership.md)
-    - [What is Ownership?](ch04-01-what-is-ownership.md)
-    - [References & Borrowing](ch04-02-references-and-borrowing.md)
-    - [Slices](ch04-03-slices.md)
+- [所有権について](ch04-00-understanding-ownership.md)
+    - [所有権とはなにか？](ch04-01-what-is-ownership.md)
+    - [参照と借用](ch04-02-references-and-borrowing.md)
+    - [スライス](ch04-03-slices.md)
 
-- [Using Structs to Structure Related Data](ch05-00-structs.md)
-    - [Defining and Instantiating Structs](ch05-01-defining-structs.md)
-    - [An Example Program Using Structs](ch05-02-example-structs.md)
-    - [Method Syntax](ch05-03-method-syntax.md)
+- [構造体を使用して関係のあるデータを構造化する](ch05-00-structs.md)
+    - [構造体を定義し、インスタンス化する](ch05-01-defining-structs.md)
+    - [構造体を使用したプログラム例](ch05-02-example-structs.md)
+    - [メソッド記法](ch05-03-method-syntax.md)
 
-- [Enums and Pattern Matching](ch06-00-enums.md)
-    - [Defining an Enum](ch06-01-defining-an-enum.md)
-    - [The `match` Control Flow Operator](ch06-02-match.md)
-    - [Concise Control Flow with `if let`](ch06-03-if-let.md)
+- [Enumとパターンマッチング](ch06-00-enums.md)
+    - [Enumとパターンマッチング](ch06-01-defining-an-enum.md)
+    - [`match`制御フロー演算子](ch06-02-match.md)
+    - [`if let`による簡潔な制御フロー](ch06-03-if-let.md)
 
-## Basic Rust Literacy
+## Rustの基礎知識
 
-- [Packages, Crates, and Modules](ch07-00-packages-crates-and-modules.md)
-    - [Packages and crates for making libraries and executables](ch07-01-packages-and-crates-for-making-libraries-and-executables.md)
-    - [Modules and `use` to control scope and privacy](ch07-02-modules-and-use-to-control-scope-and-privacy.md)
+- [パッケージ、Crates、モジュール](ch07-00-packages-crates-and-modules.md)
+    - [Pライブラリと実行可能ファイルを作成するためのパッケージとCrates](ch07-01-packages-and-crates-for-making-libraries-and-executables.md)
+    - [スコープとプライバシーを制御するモジュールシステム](ch07-02-modules-and-use-to-control-scope-and-privacy.md)
 
-- [Common Collections](ch08-00-common-collections.md)
-    - [Vectors](ch08-01-vectors.md)
-    - [Strings](ch08-02-strings.md)
-    - [Hash Maps](ch08-03-hash-maps.md)
+- [共通コレクション](ch08-00-common-collections.md)
+    - [ベクタで一連の値を保持する](ch08-01-vectors.md)
+    - [UTF-8でエンコードされた文字列を格納する](ch08-02-strings.md)
+    - [関連付けられた値を持つキーをハッシュマップに格納する](ch08-03-hash-maps.md)
 
 - [Error Handling](ch09-00-error-handling.md)
     - [Unrecoverable Errors with `panic!`](ch09-01-unrecoverable-errors-with-panic.md)
