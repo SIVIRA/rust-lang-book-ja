@@ -1,7 +1,9 @@
 language: rust
 cache:
-- cargo
-before_install:
+  directories:
+    - /home/travis/.cargo
+before_cache:
+  - rm -rf /home/travis/.cargo/registry
 install:
 - source ~/.cargo/env || true
 - bash ci/install.sh

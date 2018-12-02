@@ -1,6 +1,6 @@
 # プログラミング言語 Rust
 
-[Foreword](foreword.md)
+[前書き](foreword.md)
 [Introduction](ch00-00-introduction.md)
 
 ## Getting started
