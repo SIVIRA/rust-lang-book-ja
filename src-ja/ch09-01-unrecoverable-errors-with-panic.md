@@ -1,32 +1,19 @@
-## Unrecoverable Errors with `panic!`
+## `panic!`で回復不能なエラー
 
-Sometimes, bad things happen in your code, and there’s nothing you can do about
-it. In these cases, Rust has the `panic!` macro. When the `panic!` macro
-executes, your program will print a failure message, unwind and clean up the
-stack, and then quit. This most commonly occurs when a bug of some kind has
-been detected and it’s not clear to the programmer how to handle the error.
+時として、コードに悪いことが起こることもあります。それに対して、できることは何もありません。このような場合、Rustには`panic!`マクロがあります。`panic!`マクロが実行されると、プログラムは失敗メッセージを出力し、スタックの巻き戻しとクリーンアップを行い、終了します。これは最も一般的には、ある種のバグが検出されたときに発生し、プログラマーにエラーを処理する方法が明確でない場合に発生します。
 
-> ### Unwinding the Stack or Aborting in Response to a Panic
+> ### パニックに対してスタックを巻き戻すか異常終了するか
 >
-> By default, when a panic occurs, the program starts *unwinding*, which
-> means Rust walks back up the stack and cleans up the data from each function
-> it encounters. But this walking back and cleanup is a lot of work. The
-> alternative is to immediately *abort*, which ends the program without
-> cleaning up. Memory that the program was using will then need to be cleaned
-> up by the operating system. If in your project you need to make the resulting
-> binary as small as possible, you can switch from unwinding to aborting upon a
-> panic by adding `panic = 'abort'` to the appropriate `[profile]` sections in
-> your *Cargo.toml* file. For example, if you want to abort on panic in release
-> mode, add this:
->
+> デフォルトでは、パニックが発生するとプログラムは*巻き戻し*を開始します。これは、Rustがスタックをさかのぼり、遭遇した各関数からデータをクリーンアップすることを意味します。しかし、このさかのぼってクリーンアップするには多くの仕事が発生します。代わりに、即座に*異常終了する*があります。これは、クリーンアップせずにプログラムを終了します。この場合、プログラムが使用していたメモリは、オペレーティングシステムによってクリーンアップする必要があります。プロジェクトでバイナリを可能な限り小さくする必要がある場合は、の*Cargo.toml*ファイルの適切な`[profile]`セクションに`panic='abort'`を追加することで、パニック時に巻き戻しから異常終了に切り替えることができます。たとえば、リリースモードでパニックを中止する場合は、次のように追加します。
+> 
 > ```toml
 > [profile.release]
 > panic = 'abort'
 > ```
 
-Let’s try calling `panic!` in a simple program:
+単純なプログラムでpanic!の呼び出しを試してみましょう。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,should_panic,panics
 fn main() {
@@ -34,7 +21,7 @@ fn main() {
 }
 ```
 
-When you run the program, you’ll see something like this:
+プログラムを実行すると、次のように表示されます。
 
 ```text
 $ cargo run
@@ -45,28 +32,15 @@ thread 'main' panicked at 'crash and burn', src/main.rs:2:4
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 
-The call to `panic!` causes the error message contained in the last two lines.
-The first line shows our panic message and the place in our source code where
-the panic occurred: *src/main.rs:2:4* indicates that it’s the second line,
-fourth character of our *src/main.rs* file.
+`panic!`を呼び出すと、最後の2行に含まれるエラーメッセージが表示されます。最初の行は、パニックメッセージとパニックが発生したソースコード内の場所を示しています。*src/main.rs:2:4*は、*src/main.rs*ファイルの2行目4文字目であることを示します。
 
-In this case, the line indicated is part of our code, and if we go to that
-line, we see the `panic!` macro call. In other cases, the `panic!` call might
-be in code that our code calls, and the filename and line number reported by
-the error message will be someone else’s code where the `panic!` macro is
-called, not the line of our code that eventually led to the `panic!` call. We
-can use the backtrace of the functions the `panic!` call came from to figure
-out the part of our code that is causing the problem. We’ll discuss what a
-backtrace is in more detail next.
+この場合、示された行はコードの一部で、その行に行くと`panic!`マクロ呼び出しが表示されます。panic!呼び出しが、自分のコードが呼び出しているコードの一部になっている可能性もあります。エラーメッセージで報告されるファイル名と行番号が、結果的に`panic!`呼び出しに導いた自分のコードの行ではなく、`panic!`マクロが呼び出されている他人のコードになるでしょう。問題の原因となっているコードの部分を理解するために、`panic!`呼び出しが出てきた関数のバックトレースを使うことができます。次に、バックトレースの詳細を次に説明します。
 
-### Using a `panic!` Backtrace
+### `panic!`バックトレースを使用する
 
-Let’s look at another example to see what it’s like when a `panic!` call comes
-from a library because of a bug in our code instead of from our code calling
-the macro directly. Listing 9-1 has some code that attempts to access an
-element by index in a vector.
+マクロを直接呼び出すコードではなく、コードのバグのために、ライブラリから`panic!`呼び出されたときの様子を見てみましょう。コードリスト9-1に、ベクタのインデックスで要素にアクセスしようとするコードがあります。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,should_panic,panics
 fn main() {
@@ -76,26 +50,13 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 9-1: Attempting to access an element beyond the
-end of a vector, which will cause a call to `panic!`</span>
+<span class="caption">リスト 9-1: ベクタの境界を超えて要素へのアクセスを試み、`panic!`の呼び出しを発生させる</span>
 
-Here, we’re attempting to access the 100th element of our vector (which is at
-index 99 because indexing starts at zero), but it has only 3 elements. In this
-situation, Rust will panic. Using `[]` is supposed to return an element, but if
-you pass an invalid index, there’s no element that Rust could return here that
-would be correct.
+ここでは、ベクタの100番目の要素(インデックスがゼロから始まるため、インデックス99にあります)にアクセスしようとしていますが、要素は3つしかありません。この状況では、Rustはパニックします。`[]`を使うと要素を返すことになっていますが、無効なインデックスを渡すとRustが返すことのできる要素がなくなります。
 
-Other languages, like C, will attempt to give you exactly what you asked for in
-this situation, even though it isn’t what you want: you’ll get whatever is at
-the location in memory that would correspond to that element in the vector,
-even though the memory doesn’t belong to the vector. This is called a *buffer
-overread* and can lead to security vulnerabilities if an attacker is able to
-manipulate the index in such a way as to read data they shouldn’t be allowed to
-that is stored after the array.
+C言語など他の言語は、この場面で欲しいものではないにもかかわらず、要求したものを返そうとしてきます。例えば、ベクタの要素に対応するメモリ上の場所、たとえメモリがベクタに属していなくても、返してきます。これは*buffer overread*と呼ばれ、攻撃者が配列の後に格納されるべきではないデータを読み取るような方法でインデックスを操作することができれば、セキュリティ脆弱性につながる可能性があります。
 
-To protect your program from this sort of vulnerability, if you try to read an
-element at an index that doesn’t exist, Rust will stop execution and refuse to
-continue. Let’s try it and see:
+この種の脆弱性からプログラムを保護するために、存在しないインデックスの要素を読み込もうとすると、Rustは実行を停止し続行を拒否します。それを試して見てみましょう。
 
 ```text
 $ cargo run
@@ -107,22 +68,9 @@ thread 'main' panicked at 'index out of bounds: the len is 3 but the index is
 note: Run with `RUST_BACKTRACE=1` for a backtrace.
 ```
 
-This error points at a file we didn’t write, *vec.rs*. That’s the
-implementation of `Vec<T>` in the standard library. The code that gets run when
-we use `[]` on our vector `v` is in *vec.rs*, and that is where the `panic!` is
-actually happening.
+このエラーは、自分のファイルではなくファイル*vec.rs*を指しています。これが標準ライブラリの`Vec<T>`の実装です。ベクタ`v`で`[]`を使ったときに実行されるコードは*vec.rs*の中にあり、それは`panic!`が実際に起こっている場所です。
 
-The next note line tells us that we can set the `RUST_BACKTRACE` environment
-variable to get a backtrace of exactly what happened to cause the error. A
-*backtrace* is a list of all the functions that have been called to get to this
-point. Backtraces in Rust work as they do in other languages: the key to
-reading the backtrace is to start from the top and read until you see files you
-wrote. That’s the spot where the problem originated. The lines above the lines
-mentioning your files are code that your code called; the lines below are code
-that called your code. These lines might include core Rust code, standard
-library code, or crates that you’re using. Let’s try getting a backtrace by
-setting the `RUST_BACKTRACE` environment variable to any value except 0.
-Listing 9-2 shows output similar to what you’ll see.
+次の注釈行は、`RUST_BACKTRACE`環境変数を設定して、エラーの原因となったもののバックトレースを取得できることを示しています。*バックトレース*は、この時点までに呼び出されたすべての関数のリストです。Rustのバックトレースは他の言語と同じように動作します。バックトレースを読むためのコツは、先頭から始め、書き込んだファイルが見えるまで読むことです。そこが問題が発生した場所です。自分のファイルに言及している行の上の行は、自分のコードが呼び出しているコードです。以下の行は自分のコードを呼び出すコードです。これらの行には、Rustの核となる標準ライブラリのコード、または使用しているクレートが含まれている場合があります。`RUST_BACKTRACE`環境変数を0以外の任意の値に設定して、バックトレースを取得します。リスト9-2と同様の出力が得られます。
 
 ```text
 $ RUST_BACKTRACE=1 cargo run
@@ -166,26 +114,11 @@ stack backtrace:
   16: <unknown>
 ```
 
-<span class="caption">Listing 9-2: The backtrace generated by a call to
-`panic!` displayed when the environment variable `RUST_BACKTRACE` is set</span>
+<span class="caption">リスト 9-2: `RUST_BACKTRACE`環境変数をセットした時に表示される、`panic!`呼び出しが生成するバックトレース</span>
 
-That’s a lot of output! The exact output you see might be different depending
-on your operating system and Rust version. In order to get backtraces with this
-information, debug symbols must be enabled. Debug symbols are enabled by
-default when using `cargo build` or `cargo run` without the `--release` flag,
-as we have here.
+出力がとても多いです。お使いのオペレーティングシステムとRustバージョンによって出力は異なる場合があります。この情報でバックトレースを取得するには、デバッグシンボルを有効にする必要があります。`--release`フラグを付けずに`cargo build`や`cargo run`を使うと、デフォルトでデバッグシンボルが有効になります。
 
-In the output in Listing 9-2, line 11 of the backtrace points to the line in
-our project that’s causing the problem: line 4 of *src/main.rs*. If we don’t
-want our program to panic, the location pointed to by the first line mentioning
-a file we wrote is where we should start investigating. In Listing 9-1, where
-we deliberately wrote code that would panic in order to demonstrate how to use
-backtraces, the way to fix the panic is to not request an element at index 99
-from a vector that only contains 3 items. When your code panics in the future,
-you’ll need to figure out what action the code is taking with what values to
-cause the panic and what the code should do instead.
+リスト9-2の出力では、バックトレースの11行目が、問題を引き起こしているプロジェクトの行を指しています。*src/main.rs*の4行目です。プログラムがパニックするのを避けたいのであれば、自分の書いたファイルに言及している最初の行で指し示されている場所が調査を開始する場所です。リスト9-1では、バックトレースを使用する方法を示すためにパニックになるコードを意図的に記述したましたが、パニックを修正する方法は、3つの項目のみを含むベクタからインデックス99の要素を要求しないことです。将来、コードがパニックに陥った場合、パニックを引き起こす値とそのコードが何をすべきかをコードがどのような動作を取っているのか把握する必要があります。
 
-We’ll come back to `panic!` and when we should and should not use `panic!` to
-handle error conditions in the “To `panic!` or Not to `panic!`” section later
-in this chapter. Next, we’ll look at how to recover from an error using
-`Result`.
+また、この章の後ほど、「`panic!`するかするまいか」節で`panic!`とエラー状態を扱うのにpanic!を使うべき時と使わぬべき時に戻ってきます。次は、`Result`を使用してエラーから回復する方法を見ましょう。
+
