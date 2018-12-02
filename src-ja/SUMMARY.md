@@ -1,7 +1,7 @@
 # プログラミング言語 Rust
 
 [前書き](foreword.md)
-[イントロダクション](ch00-00-introduction.md)
+[導入](ch00-00-introduction.md)
 
 ## 入門
 
