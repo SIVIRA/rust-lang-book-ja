@@ -1,15 +1,18 @@
 language: rust
+
+# ref. https://levans.fr/rust_travis_cache.html
 cache:
   directories:
     - /home/travis/.cargo
 before_cache:
   - rm -rf /home/travis/.cargo/registry
+
 install:
-- source ~/.cargo/env || true
-- bash ci/install.sh
+  - source ~/.cargo/env || true
+  - bash ci/install.sh
 script:
-- mdbook build
-- mdbook test
+  - mdbook build
+  - mdbook test
 notifications:
   email:
     on_success: never
