@@ -1,4 +1,6 @@
 language: rust
+rust:
+  - stable
 
 # ref. https://levans.fr/rust_travis_cache.html
 cache:
