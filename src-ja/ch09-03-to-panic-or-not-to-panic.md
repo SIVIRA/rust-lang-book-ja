@@ -1,51 +1,20 @@
-## To `panic!` or Not to `panic!`
+## `panic!`すべきかするまいか
 
-So how do you decide when you should call `panic!` and when you should return
-`Result`? When code panics, there’s no way to recover. You could call `panic!`
-for any error situation, whether there’s a possible way to recover or not, but
-then you’re making the decision on behalf of the code calling your code that a
-situation is unrecoverable. When you choose to return a `Result` value, you
-give the calling code options rather than making the decision for it. The
-calling code could choose to attempt to recover in a way that’s appropriate for
-its situation, or it could decide that an `Err` value in this case is
-unrecoverable, so it can call `panic!` and turn your recoverable error into an
-unrecoverable one. Therefore, returning `Result` is a good default choice when
-you’re defining a function that might fail.
+では、`panic!`を呼ぶべきときと`Result`を返すべきときをどう決めるのでしょうか？コードがパニックすると、回復する方法はありません。復旧の可能性があるかどうかにかかわらず、エラー状況に応じて`panic!`を呼び出すことができますが、呼び出す側のコードの立場に立ってこの場面は回復不能だという決定を下すことになります。`Result`値を返すことを選択した場合、決断を下すのではなく、呼び出し側に選択肢を与えます。呼び出しコードは、状況に適した方法で回復しようとするか、この場合の`Err`値が回復不能であると判断して、`panic!`を呼び出して回復可能だったエラーを回復不能に変換することもできます。したがって、失敗する可能性のある関数を定義するときは、`Result`を返すのが良い選択です。
 
-In rare situations, it’s more appropriate to write code that panics instead of
-returning a `Result`. Let’s explore why it’s appropriate to panic in examples,
-prototype code, and tests. Then we’ll discuss situations in which the compiler
-can’t tell that failure is impossible, but you as a human can. The chapter will
-conclude with some general guidelines on how to decide whether to panic in
-library code.
+`Result`を返す代わりにパニックするコードを書く方が適切な場合がたまにあります。例やプロトタイプコード、テストでなぜパニックになるのが適切かを調べてみましょう。そして、コンパイラが失敗かどうかを人間のように考えることができない状況について話し合いましょう。この章では、ライブラリコードをパニックするかどうかを決定する方法に関する一般的なガイドラインを示します。
 
-### Examples, Prototype Code, and Tests
+###例、プロトタイプコード、テスト
 
-When you’re writing an example to illustrate some concept, having robust
-error-handling code in the example as well can make the example less clear. In
-examples, it’s understood that a call to a method like `unwrap` that could
-panic is meant as a placeholder for the way you’d want your application to
-handle errors, which can differ based on what the rest of your code is doing.
+いくつかの概念を説明するための例を書くときには、堅牢なエラー処理コードを使用することで、この例をあまり明確にすることはできません。例では、`unwrap`のような、パニックに陥る可能性のあるメソッドへの呼び出しは、アプリケーションにエラーを処理してほしい方法へのプレースホルダーを意味していると理解され、残りのコードが何をしているかによって異なります。
 
-Similarly, the `unwrap` and `expect` methods are very handy when prototyping,
-before you’re ready to decide how to handle errors. They leave clear markers in
-your code for when you’re ready to make your program more robust.
+同様に、`unwrap`と`expect`メソッドはエラーを処理する方法を決める準備が整う前のプロトタイプ作成時に非常に便利です。プログラムをより堅牢にする準備ができたときに、コードに明瞭なマーカーが残っているからです。
 
-If a method call fails in a test, you’d want the whole test to fail, even if
-that method isn’t the functionality under test. Because `panic!` is how a test
-is marked as a failure, calling `unwrap` or `expect` is exactly what should
-happen.
+テストでメソッド呼び出しが失敗した場合、たとえそのメソッドがテスト中の機能ではなくても、テスト全体が失敗することが望しいです。`panic!`はテストが失敗としてマークされる方法であるため、`unwrap`や`expect`を呼び出すことはまさに何が起こるべきかです。
 
-### Cases in Which You Have More Information Than the Compiler
+### コンパイラよりもプログラマがより情報を持っている場合
 
-It would also be appropriate to call `unwrap` when you have some other logic
-that ensures the `Result` will have an `Ok` value, but the logic isn’t
-something the compiler understands. You’ll still have a `Result` value that you
-need to handle: whatever operation you’re calling still has the possibility of
-failing in general, even though it’s logically impossible in your particular
-situation. If you can ensure by manually inspecting the code that you’ll never
-have an `Err` variant, it’s perfectly acceptable to call `unwrap`. Here’s an
-example:
+`Result`が`Ok`値を持つことを確実にする他のロジックがあるときに`unwrap`を呼び出すことも適切でしょうが、ロジックはコンパイラが理解できるものではありません。それでも、まだ処理しなければならない`Result`値を持っています。なぜなら、呼び出している処理が何であれ、自分の特定の場面では論理的に起こり得なくても、一般的にまだ失敗する可能性はあるからです。手動でコードを調査して`Err`バリアントは存在しないと確認できたら、`unwrap`を呼び出すことは完全に受容できることです。ここに例があります。
 
 ```rust
 use std::net::IpAddr;
@@ -53,82 +22,27 @@ use std::net::IpAddr;
 let home: IpAddr = "127.0.0.1".parse().unwrap();
 ```
 
-We’re creating an `IpAddr` instance by parsing a hardcoded string. We can see
-that `127.0.0.1` is a valid IP address, so it’s acceptable to use `unwrap`
-here. However, having a hardcoded, valid string doesn’t change the return type
-of the `parse` method: we still get a `Result` value, and the compiler will
-still make us handle the `Result` as if the `Err` variant is a possibility
-because the compiler isn’t smart enough to see that this string is always a
-valid IP address. If the IP address string came from a user rather than being
-hardcoded into the program and therefore *did* have a possibility of failure,
-we’d definitely want to handle the `Result` in a more robust way instead.
+ハードコーディングされた文字列を解析することによって`IpAddr`インスタンスを作成しています。`127.0.0.1`は有効なIPアドレスであることがわかります。ここで` unwrap`を使用することは可能です。しかし、ハードコードされた有効な文字列を持っていても、`parse`メソッドの戻り値の型は変更されません。`Result`値が得られ、`Err`のように`Result`を処理します。コンパイラはこの文字列が常に有効なIPアドレスであることを知るほどスマートではないからです。IPアドレス文字列がプログラムにハードコードされているのではなく、失敗している可能性がある場合は、より堅牢な方法で`Result`を処理しなければなりません。
 
-### Guidelines for Error Handling
+### エラー処理のガイドライン
 
-It’s advisable to have your code panic when it’s possible that your code
-could end up in a bad state. In this context, a *bad state* is when some
-assumption, guarantee, contract, or invariant has been broken, such as when
-invalid values, contradictory values, or missing values are passed to your
-code—plus one or more of the following:
+コードが悪い状態になる可能性がある場合は、コードパニックを起こすことをお勧めします。この文脈において*悪い状態*は、無効な値、矛盾する値、欠損値がコードに渡されたり、次のうちの1つ以上が発生した場合など、いくつかの前提条件、保証、契約、または不変条件が破られた状態です。
 
-* The bad state is not something that’s *expected* to happen occasionally.
-* Your code after this point needs to rely on not being in this bad state.
-* There’s not a good way to encode this information in the types you use.
+* 悪い状態がときに起こるとは*想定*されないとき
+* この時点以降、この悪い状態にないことを頼りにコードが書かれている場合
+* 使用している型にこの情報をコード化するいい手段がないとき
 
-If someone calls your code and passes in values that don’t make sense, the best
-choice might be to call `panic!` and alert the person using your library to the
-bug in their code so they can fix it during development. Similarly, `panic!` is
-often appropriate if you’re calling external code that is out of your control
-and it returns an invalid state that you have no way of fixing.
+誰かが自分のコードを呼び出して筋の通らない値を渡してきたら、最善の選択肢は`panic!`し、開発段階で修正できるように自分たちのコードにバグがあることをライブラリ使用者に通知することかもしれません。同様に自分の制御下にない外部コードを呼び出し、修正しようのない無効な状態を返すときに`panic!`はしばしば適切です。
 
-However, when failure is expected, it is more appropriate to return a `Result`
-than to make a `panic!` call. Examples include a parser being given malformed
-data or an HTTP request returning a status that indicates you have hit a rate
-limit. In these cases, returning a `Result` indicates that failure is an
-expected possibility that the calling code must decide how to handle.
+しかし、失敗が予想されるときは、`panic!`呼び出しを行うよりも`Result`を返す方が適切です。例えば、不正なデータが与えられたパーサーやレート制限を超えたことを示すステータスを返すHTTPリクエストが含まれます。このような場合、`Result`を返すことは、呼び出し元コードがどのように処理するかを決定しなければならない可能性が高いことを示します。
 
-When your code performs operations on values, your code should verify the
-values are valid first and panic if the values aren’t valid. This is mostly for
-safety reasons: attempting to operate on invalid data can expose your code to
-vulnerabilities. This is the main reason the standard library will call
-`panic!` if you attempt an out-of-bounds memory access: trying to access memory
-that doesn’t belong to the current data structure is a common security problem.
-Functions often have *contracts*: their behavior is only guaranteed if the
-inputs meet particular requirements. Panicking when the contract is violated
-makes sense because a contract violation always indicates a caller-side bug and
-it’s not a kind of error you want the calling code to have to explicitly
-handle. In fact, there’s no reasonable way for calling code to recover; the
-calling *programmers* need to fix the code. Contracts for a function,
-especially when a violation will cause a panic, should be explained in the API
-documentation for the function.
+コードが値に対して操作を実行するとき、コードは値が有効であることを確認し、値が有効でない場合はパニックにする必要があります。これは主に安全上の理由によるものです。不正なデータの処理を試みると、コードを脆弱性に晒す可能性があります。これは、境界外のメモリアクセスを試みると、標準ライブラリが `panic!`を呼び出す主な理由です。現在のデータ構造に属さないメモリにアクセスしようとするのはセキュリティ上の一般的な問題です。関数にはしばしば*契約*が伴います。入力が特定の要件を満たしている場合にのみその動作が保証されます。契約違反は常に呼び出し側のバグを示し、呼び出しコードで明示的に処理しなければならない種類のエラーではないため、契約違反時にパニックが発生します。実際、コードを呼び出すための合理的な方法はありません。呼び出し元の*プログラマ*はコードを修正する必要があります。関数の契約、特に違反がパニックの原因となる場合は、関数のAPIドキュメントで説明する必要があります。
 
-However, having lots of error checks in all of your functions would be verbose
-and annoying. Fortunately, you can use Rust’s type system (and thus the type
-checking the compiler does) to do many of the checks for you. If your function
-has a particular type as a parameter, you can proceed with your code’s logic
-knowing that the compiler has already ensured you have a valid value. For
-example, if you have a type rather than an `Option`, your program expects to
-have *something* rather than *nothing*. Your code then doesn’t have to handle
-two cases for the `Some` and `None` variants: it will only have one case for
-definitely having a value. Code trying to pass nothing to your function won’t
-even compile, so your function doesn’t have to check for that case at runtime.
-Another example is using an unsigned integer type such as `u32`, which ensures
-the parameter is never negative.
+しかし、すべての機能で多くのエラーチェックを行うと、冗長で煩わしいことです。幸いなことに、Rustの型システム(コンパイラが行う型チェック)を使用して、多くのチェックを行うことができます。関数にパラメータとして特定の型がある場合は、コンパイラが有効な値を持つことを既に確認していることを確認して、コードのロジックを進めることができます。例えば、`Option`ではなく型を持っているならば、プログラムは*何もない*ではなく*何かある*ことを想定します。そうするとコードは、`Some`と`None`バリアントの2つのケースを処理する必要はありません。それは確実に値を持つケースが1つしかありません。あなたの関数に何も渡そうとしないコードはコンパイルされないので、実行時にその関数をチェックする必要はありません。もう一つの例は`u32`のような符号なし整数型を使用して、パラメータが決して負でないことを保証するものです。
 
-Let’s take the idea of using Rust’s type system to ensure we have a valid value
-one step further and look at creating a custom type for validation. Recall the
-guessing game in Chapter 2 in which our code asked the user to guess a number
-between 1 and 100. We never validated that the user’s guess was between those
-numbers before checking it against our secret number; we only validated that
-the guess was positive. In this case, the consequences were not very dire: our
-output of “Too high” or “Too low” would still be correct. But it would be a
-useful enhancement to guide the user toward valid guesses and have different
-behavior when a user guesses a number that’s out of range versus when a user
-types, for example, letters instead.
+Rustの型システムを使用して有効な値をさらに確実に取得し、検証用のカスタム型を作成する方法を考えてみましょう。第2章の数あてゲームを思い出してください。このコードでは、1から100までの数字を推測するようにユーザーに求めました。その数字の間にユーザーの推測があることを確認してから、推測が肯定的であることを確認しました。この場合、その結果はそれほど悲惨ではありませんでした。「大きすぎ」、「小さすぎ」という結果は正しいでしょう。しかし、ユーザを有効な推測に導き、ユーザが範囲外の数字を推測したり、例えばユーザが文字を代わりに入力したりしたときに別の挙動をするようにしたら、有益な改善になるでしょう。
 
-One way to do this would be to parse the guess as an `i32` instead of only a
-`u32` to allow potentially negative numbers, and then add a check for the
-number being in range, like so:
+これを行う一つの方法は、ただの`u32`の代わりに`i32`として推測をパースし、負の数になる可能性を許可し、それから数字が範囲に収まっているというチェックを追加することです。
 
 ```rust,ignore
 loop {
@@ -149,23 +63,11 @@ loop {
 }
 ```
 
-The `if` expression checks whether our value is out of range, tells the user
-about the problem, and calls `continue` to start the next iteration of the loop
-and ask for another guess. After the `if` expression, we can proceed with the
-comparisons between `guess` and the secret number knowing that `guess` is
-between 1 and 100.
+この`if`式は値が範囲外であるかどうかをチェックし、ユーザに問題を告通知し、`continue`を呼び出してループの次の繰り返しを始め、別の推測を求めます。`if`式の後、`guess`は1から100の間にあることを知って、秘密の数の比較を進めることができます。
 
-However, this is not an ideal solution: if it was absolutely critical that the
-program only operated on values between 1 and 100, and it had many functions
-with this requirement, having a check like this in every function would be
-tedious (and might impact performance).
+しかし、これは理想的な解決策ではありません。プログラムが1〜100の値でしか動作しないことが絶対に重要で、この要件を持つ多くの機能を持っていれば、このようなチェックをすべての機能に持たせることは面倒でパフォーマンスにも影響を及ぼす可能性があります。
 
-Instead, we can make a new type and put the validations in a function to create
-an instance of the type rather than repeating the validations everywhere. That
-way, it’s safe for functions to use the new type in their signatures and
-confidently use the values they receive. Listing 9-10 shows one way to define a
-`Guess` type that will only create an instance of `Guess` if the `new` function
-receives a value between 1 and 100:
+その代わりに新しい型を作成し、検証をどこにでも繰り返すのではなく型のインスタンスを作成する関数に入れることができます。そうすれば、関数が新しい型をシグネチャに使用し、受け取った値を確実に使用することは安全です。リスト9-10は、`new`関数が1と100の間の値を受け取った場合にのみ、`Guess`のインスタンスを生成する`Guess`型を定義する1つの方法を示しています：
 
 ```rust
 pub struct Guess {
@@ -189,52 +91,18 @@ impl Guess {
 }
 ```
 
-<span class="caption">Listing 9-10: A `Guess` type that will only continue with
-values between 1 and 100</span>
+<span class="caption">リスト 9-10: 値が1から100の場合のみ処理を継続する`Guess`型</span>
 
-First, we define a struct named `Guess` that has a field named `value` that
-holds a `i32`. This is where the number will be stored.
+まず、`u32`型のvalueをフィールドに持つ`Guess`という名前の構造体を定義しています。ここに数値が保管されます。
 
-Then we implement an associated function named `new` on `Guess` that creates
-instances of `Guess` values. The `new` function is defined to have one
-parameter named `value` of type `i32` and to return a `Guess`. The code in the
-body of the `new` function tests `value` to make sure it’s between 1 and 100.
-If `value` doesn’t pass this test, we make a `panic!` call, which will alert
-the programmer who is writing the calling code that they have a bug they need
-to fix, because creating a `Guess` with a `value` outside this range would
-violate the contract that `Guess::new` is relying on. The conditions in which
-`Guess::new` might panic should be discussed in its public-facing API
-documentation; we’ll cover documentation conventions indicating the possibility
-of a `panic!` in the API documentation that you create in Chapter 14. If
-`value` does pass the test, we create a new `Guess` with its `value` field set
-to the `value` parameter and return the `Guess`.
+次に、`Guess`に`new`という名前の関数を実装して、`Guess`値のインスタンスを生成します。`new`関数は、`i32`型の`value`という1つのパラメータを持ち、`Guess`を返すように定義されています。`new`関数の本体にあるコードは`value`をテストして1から100の間であることを確認します。`value`がこのテストに合格しなかった場合、`panic!`呼び出しを行います。この範囲外の`value`を持つ`Guess`を作成すると`Guess::new`が依存している契約に違反するので、修正する必要があるバグがあるという呼び出しコードを書いています。`Guess::new`がパニックに陥るかもしれない条件は、公開されているAPIドキュメントで議論されるべきです。第14章で作成したAPIドキュメントに`panic!`の可能性を示すドキュメントの表記法について説明します。1valueがテスト1に合格した場合、`value`フィールドが`value`引数にセットされた新しいGuessを作成して返します。
 
-Next, we implement a method named `value` that borrows `self`, doesn’t have any
-other parameters, and returns a `i32`. This kind of method is sometimes called
-a *getter*, because its purpose is to get some data from its fields and return
-it. This public method is necessary because the `value` field of the `Guess`
-struct is private. It’s important that the `value` field be private so code
-using the `Guess` struct is not allowed to set `value` directly: code outside
-the module *must* use the `Guess::new` function to create an instance of
-`Guess`, thereby ensuring there’s no way for a `Guess` to have a `value` that
-hasn’t been checked by the conditions in the `Guess::new` function.
+次に、`self`を借用し、他のパラメータを持たず、`i32`を返す`value`というメソッドを実装します。この種のメソッドは、*ゲッター*と呼ばれることもあります。その目的は、フィールドからデータを取得して返すことです。`Guess`構造体の`value`フィールドがプライベートであるため、このパブリックメソッドは必要です。`value`フィールドはプライベートであることが重要です。`Guess`構造体を使用するコードは`value`を直接設定することはできません。モジュールの外側のコードは、`Guess::new`関数を使って `Guess`が`Guess::new`関数の条件でチェックされていない`value`を持つことができないようにします。
 
-A function that has a parameter or returns only numbers between 1 and 100 could
-then declare in its signature that it takes or returns a `Guess` rather than a
-`i32` and wouldn’t need to do any additional checks in its body.
+引数を一つ持つか、1から100の範囲の数値のみを返す関数はシグニチャで`u32`ではなく、`Guess`を取るか返し、本体内で追加の確認を行う必要はなくなります。
 
-## Summary
+## まとめ
 
-Rust’s error handling features are designed to help you write more robust code.
-The `panic!` macro signals that your program is in a state it can’t handle and
-lets you tell the process to stop instead of trying to proceed with invalid or
-incorrect values. The `Result` enum uses Rust’s type system to indicate that
-operations might fail in a way that your code could recover from. You can use
-`Result` to tell code that calls your code that it needs to handle potential
-success or failure as well. Using `panic!` and `Result` in the appropriate
-situations will make your code more reliable in the face of inevitable problems.
+Rustのエラー処理機能は、プログラマがより頑健なコードを書く手助けをするように設計されています。`panic!`マクロは、プログラムが処理できない状態にあり、無効だったり不正な値で処理を継続するのではなく、プロセスに処理を中止するよう指示することを通知します。`Result`列挙型は、Rustの型システムを使用して、コードが回復可能な方法で処理が失敗するかもしれないことを示唆します。`Result`を使用して、呼び出し側のコードに成功や失敗する可能性を処理する必要があることも教えます。適切な場面で`panic!`や`Result`を使用することで、必然的な問題の眼前でコードの信頼性を上げてくれます。
 
-Now that you’ve seen useful ways that the standard library uses generics with
-the `Option` and `Result` enums, we’ll talk about how generics work and how you
-can use them in your code.
-
+ここまでで、標準ライブラリが`Option`や`Resul`列挙型などでジェネリクスを有効活用するところを目の当たりにしたので、ジェネリクスの動作法と自分のコードでの使用方法について語りましょう。
