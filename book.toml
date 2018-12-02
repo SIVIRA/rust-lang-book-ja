@@ -1,6 +1,6 @@
 [book]
-title = "プログラミング言語Rust"
-author = ["Toshihiko Ryugo@SIVIRA", "Motoki Sato@SIVIRA"]
+title = "プログラミング言語 Rust"
+author = ["Toshihiko Ryugo @SIVIRA", "Motoki Sato @SIVIRA"]
 src = "src-ja"
 
 [output.html]
