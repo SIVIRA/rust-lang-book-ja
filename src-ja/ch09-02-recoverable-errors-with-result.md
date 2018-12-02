@@ -1,14 +1,8 @@
-## Recoverable Errors with `Result`
+## Resultで回復可能なエラー
 
-Most errors aren’t serious enough to require the program to stop entirely.
-Sometimes, when a function fails, it’s for a reason that you can easily
-interpret and respond to. For example, if you try to open a file and that
-operation fails because the file doesn’t exist, you might want to create the
-file instead of terminating the process.
+多くのエラーは、プログラムを完全にストップさせるほど深刻ではありません。時には関数が失敗すると容易に解釈し、対応できるからです。例えば、ファイルを開こうとしてファイルが存在しないために処理が失敗した場合、プロセスを殺すのではなくファイルを作成することができます。
 
-Recall from “[Handling Potential Failure with the `Result`
-Type][handle_failure]<!-- ignore -->” in Chapter 2 that the `Result` enum is
-defined as having two variants, `Ok` and `Err`, as follows:
+第2章の「`Result`型による潜在的な障害の処理」で`Result`列挙型が以下のように、OkとErrの2値からなるよう定義されていることを思い出してください。
 
 [handle_failure]: ch02-00-guessing-game-tutorial.html#handling-potential-failure-with-the-result-type
 
@@ -19,19 +13,11 @@ enum Result<T, E> {
 }
 ```
 
-The `T` and `E` are generic type parameters: we’ll discuss generics in more
-detail in Chapter 10. What you need to know right now is that `T` represents
-the type of the value that will be returned in a success case within the `Ok`
-variant, and `E` represents the type of the error that will be returned in a
-failure case within the `Err` variant. Because `Result` has these generic type
-parameters, we can use the `Result` type and the functions that the standard
-library has defined on it in many different situations where the successful
-value and error value we want to return may differ.
+`T`と`E`はジェネリック型のパラメータです。ジェネリックについては第10章で詳しく説明します。今知る必要があるのは、`T`が成功した時に`Ok`バリアントに含まれて返される値の型を表すことと、`E`は失敗した時に`Err`バリアントに含まれて返されるエラーの型を表すことです。`Result`はこのようなジェネリックな型引数を含むので、 標準ライブラリ上に定義されている`Result`型や関数などを、成功した時とエラーの値が異なるような様々な場面で使用できるのです。
 
-Let’s call a function that returns a `Result` value because the function could
-fail. In Listing 9-3 we try to open a file.
+関数が失敗する可能性があるために`Result`値を返す関数を呼び出しましょう。リスト9-3では、ファイルを開こうとしています。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 use std::fs::File;
@@ -41,21 +27,15 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 9-3: Opening a file</span>
+<span class="caption">リスト 9-3: ファイルを開く</span>
 
-How do we know `File::open` returns a `Result`? We could look at the [standard
-library API documentation](../std/index.html)<!-- ignore -->, or we could ask
-the compiler! If we give `f` a type annotation that we know is *not* the return
-type of the function and then try to compile the code, the compiler will tell
-us that the types don’t match. The error message will then tell us what the
-type of `f` *is*. Let’s try it! We know that the return type of `File::open`
-isn’t of type `u32`, so let’s change the `let f` statement to this:
+`File::open`が`Result`を返すことをどうやって知ることができるでしょうか？ [標準ライブラリAPIドキュメント](https://doc.rust-lang.org/std/)<!--ignore-->を見るか、コンパイラに尋ねることでできます。関数の戻り値ではない型注釈を与えてコンパイルしようとすると、コンパイラはその型が一致しないことを知らせます。エラーメッセージは`f`の型が何であるかを教えてくれます。`File::open`の戻り値の型は`u32`型ではないので、`let f`文をこれに変更しましょう。
 
 ```rust,ignore
 let f: u32 = File::open("hello.txt");
 ```
 
-Attempting to compile now gives us the following output:
+コンパイルしようとすると、以下のように出力されます。
 
 ```text
 error[E0308]: mismatched types
@@ -69,30 +49,15 @@ error[E0308]: mismatched types
              found type `std::result::Result<std::fs::File, std::io::Error>`
 ```
 
-This tells us the return type of the `File::open` function is a `Result<T, E>`.
-The generic parameter `T` has been filled in here with the type of the success
-value, `std::fs::File`, which is a file handle. The type of `E` used in the
-error value is `std::io::Error`.
+これは `File::open`関数の戻り値の型が`Result<T, E>`であることを示しています。ジェネリックパラメータ`T`は成功値の型`std::fs::File`で埋められています。これはファイルハンドルです。エラー値に使用される`E`の型は`std::io::Error`です。
 
-This return type means the call to `File::open` might succeed and return a file
-handle that we can read from or write to. The function call also might fail:
-for example, the file might not exist, or we might not have permission to
-access the file. The `File::open` function needs to have a way to tell us
-whether it succeeded or failed and at the same time give us either the file
-handle or error information. This information is exactly what the `Result` enum
-conveys.
+この戻り値の型は`File::open`の呼び出しが成功し、読み書きできるファイルハンドルを返すことを意味します。また関数呼び出しは失敗する可能性もあります。たとえば、ファイルが存在しないか、ファイルにアクセスする権限がないなどです。`File::open`関数には、成功したか失敗したかを知らせる方法と、同時にファイルハンドルまたはエラー情報を与える方法が必要です。この情報は正確に`Result`列挙型が伝えるものです。
 
-In the case where `File::open` succeeds, the value in the variable `f` will be
-an instance of `Ok` that contains a file handle. In the case where it fails,
-the value in `f` will be an instance of `Err` that contains more information
-about the kind of error that happened.
+`File::open`が成功した場合、変数`f`の値はファイルハンドルを含む`Ok`のインスタンスになります。失敗した場合、`f`の値は発生したエラーの種類に関するより多くの情報を含む`Err`のインスタンスになります。
 
-We need to add to the code in Listing 9-3 to take different actions depending
-on the value `File::open` returns. Listing 9-4 shows one way to handle the
-`Result` using a basic tool, the `match` expression that we discussed in
-Chapter 6.
+リスト9-3のコードに`File::open`が返す値に応じて異なるアクションを取るための処理を追加する必要があります。リスト9-4は、基本的なツールを使用して`Result`を処理する方法の1つ、第6章で説明した`match`式を示しています。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,should_panic
 use std::fs::File;
@@ -109,41 +74,26 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 9-4: Using a `match` expression to handle the
-`Result` variants that might be returned</span>
+<span class="caption">リスト 9-4: `match`式を使用して返却される可能性のあるResult列挙子を処理する</span>
 
-Note that, like the `Option` enum, the `Result` enum and its variants have been
-brought into scope by the prelude, so we don’t need to specify `Result::`
-before the `Ok` and `Err` variants in the `match` arms.
+`Option`列挙型のように、`Result`列挙型とそのバリアントは、初期化処理でインポートされているので、`match`arm内で`Ok`と`Err`バリアントの前に`Result::`を指定する必要がないことに注目してください。
 
-Here we tell Rust that when the result is `Ok`, return the inner `file` value
-out of the `Ok` variant, and we then assign that file handle value to the
-variable `f`. After the `match`, we can use the file handle for reading or
-writing.
+ここでは、結果が`Ok`であるとき、内部の`file`値を`Ok`バリアントから戻し、そのファイルハンドル値を変数`f`に代入することをRustに伝えます。`match`の後で、ファイルハンドルを読み書きのために使うことができます。
 
-The other arm of the `match` handles the case where we get an `Err` value from
-`File::open`. In this example, we’ve chosen to call the `panic!` macro. If
-there’s no file named *hello.txt* in our current directory and we run this
-code, we’ll see the following output from the `panic!` macro:
+`match`のもう一方のarmは`File::open`から`Err`値を取得する場合を扱います。この例では、`panic!`マクロを呼び出すことにしました。現在のディレクトリに*hello.txt*という名前のファイルがなく、このコードを実行すると、`panic!`マクロから次の出力が表示されます。
 
 ```text
 thread 'main' panicked at 'There was a problem opening the file: Error { repr:
 Os { code: 2, message: "No such file or directory" } }', src/main.rs:9:12
 ```
 
-As usual, this output tells us exactly what has gone wrong.
+いつものように、この出力は何が間違っているかを正確に教えてくれます。
 
-### Matching on Different Errors
+### 色々なエラーにマッチする
 
-The code in Listing 9-4 will `panic!` no matter why `File::open` failed. What
-we want to do instead is take different actions for different failure reasons:
-if `File::open` failed because the file doesn’t exist, we want to create the
-file and return the handle to the new file. If `File::open` failed for any
-other reason—for example, because we didn’t have permission to open the file—we
-still want the code to `panic!` in the same way as it did in Listing 9-4. Look
-at Listing 9-5, which adds another arm to the `match`.
+リスト9-4のコードは`File::open`が失敗した理由にかかわらず`panic!`になります。ファイルが存在しないために`File::open`が失敗した場合、ファイルを作成して新しいファイルにハンドルを戻したいと考えています。ファイルを開く権限がないなどの理由で`File::open`が他の理由で失敗した場合、リスト9-4と同じ方法でコードに`panic!`を残しておきます。リスト9-5を見てください。これは、`match`に別のarmを追加します。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 <!-- ignore this test because otherwise it creates hello.txt which causes other
 tests to fail lol -->
@@ -168,30 +118,13 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 9-5: Handling different kinds of errors in
-different ways</span>
+<span class="caption">リスト 9-5: 色々な種類のエラーを異なる方法で扱う</span>
 
-The type of the value that `File::open` returns inside the `Err` variant is
-`io::Error`, which is a struct provided by the standard library. This struct
-has a method `kind` that we can call to get an `io::ErrorKind` value. The enum
-`io::ErrorKind` is provided by the standard library and has variants
-representing the different kinds of errors that might result from an `io`
-operation. The variant we want to use is `ErrorKind::NotFound`, which indicates
-the file we’re trying to open doesn’t exist yet. So we `match` on `f`, but we
-also have an inner `match` on `error.kind()`.
+`File::open`が`Err`バリアントの中で返す値の型は`io::Error`です。これは標準ライブラリによって提供される構造体です。この構造体には`io::ErrorKind`値を得るために呼び出すことができる`kind`メソッドがあります。列挙型`io::ErrorKind`は、標準ライブラリによって提供され、`io`操作の結果として生じるかもしれないさまざまな種類のエラーを表すバリアントを持っています。使用するバリアントは`ErrorKind::NotFound`です。これは開こうとしているファイルがまだ存在しないことを示します。そのため、`f`に`match`しますが、error.kind()に内部の`match`もあります。
 
-The condition we want to check in the match guard is whether the value returned
-by `error.kind()` is the `NotFound` variant of the `ErrorKind` enum. If it is,
-we try to create the file with `File::create`. However, because `File::create`
-could also fail, we need to add another inner `match` expression as well. When
-the file can’t be opened, a different error message will be printed. The last
-arm of the outer `match` stays the same so the program panics on any error
-besides the missing file error.
+マッチガードでチェックしたい条件は、`error.kind()`によって返された値が`ErrorKind`列挙型の`NotFound`バリアントかどうかです。そうであれば、`File::create`でファイルを作成しようとします。しかし、`File::create`も失敗する可能性があるので、内部の`match`式も追加する必要があります。ファイルを開くことができない場合は、別のエラーメッセージが表示されます。外側の`match`の最後のarmは同じままなので、プログラムには欠落しているファイルエラー以外のエラーが発生します。
 
-That’s a lot of `match`! `match` is very powerful, but also very much a
-primitive. In Chapter 13, we’ll learn about closures. The `Result<T, E>` type
-has many methods that accept a closure, and are implemented as `match`
-expressions. A more seasoned Rustacean might write this:
+それはたくさんの`match`です。`match`は非常に強力ですが、非常にプリミティブです。第13章では、クロージャについて学びます。`Result<T、E>`型はクロージャを受け入れる多くのメソッドを持ち、`match`式として実装されています。より熟練のRust開発者がこれを書くかもしれません。
 
 ```rust,ignore
 use std::fs::File;
@@ -210,22 +143,13 @@ fn main() {
 }
 ```
 
-Come back to this example after you’ve read Chapter 13, and look up what the
-`map_err` and `unwrap_or_else` methods do in the standard library
-documentation. There’s many more of these methods that can clean up huge nested
-`match` expressions when dealing with errors.
+第13章を読んだ後、この例に戻って、標準ライブラリのドキュメントで`map_err`と`unwrap_or_else`メソッドが何をするのか調べてみましょう。エラーを処理するときに、巨大なネストされた`match`式をクリーンアップすることができるこれらのメソッドの多くがあります。
 
-### Shortcuts for Panic on Error: `unwrap` and `expect`
+### エラー時にパニックするショートカット: unwrapとexpect
 
-Using `match` works well enough, but it can be a bit verbose and doesn’t always
-communicate intent well. The `Result<T, E>` type has many helper methods
-defined on it to do various tasks. One of those methods, called `unwrap`, is a
-shortcut method that is implemented just like the `match` expression we wrote in
-Listing 9-4. If the `Result` value is the `Ok` variant, `unwrap` will return
-the value inside the `Ok`. If the `Result` is the `Err` variant, `unwrap` will
-call the `panic!` macro for us. Here is an example of `unwrap` in action:
+`match`を使うとうまくいきますが、少し冗長になり、必ずしも意図をうまく伝えるとは限りません。`Result<T、E>`型は、さまざまなタスクを実行するために多くのヘルパーメソッドが定義されています。`unwrap`と呼ばれるメソッドの1つは、リスト9-4で書いた`match`式のように実装されたショートカットメソッドです。`Result`値が`Ok`バリアントである場合、`unwrap`は`Ok`の値を返します。`Result`が`Err`バリアントの場合、`unwrap`は`panic!`マクロを呼び出します。実際の`unwrap`の例を以下に示します。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,should_panic
 use std::fs::File;
@@ -235,8 +159,7 @@ fn main() {
 }
 ```
 
-If we run this code without a *hello.txt* file, we’ll see an error message from
-the `panic!` call that the `unwrap` method makes:
+*hello.txt*ファイルなしでこのコードを実行すると、`unwrap`メソッドが行う`panic!`呼び出しからのエラーメッセージが表示されます。
 
 ```text
 thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Error {
@@ -244,12 +167,9 @@ repr: Os { code: 2, message: "No such file or directory" } }',
 src/libcore/result.rs:906:4
 ```
 
-Another method, `expect`, which is similar to `unwrap`, lets us also choose the
-`panic!` error message. Using `expect` instead of `unwrap` and providing good
-error messages can convey your intent and make tracking down the source of a
-panic easier. The syntax of `expect` looks like this:
+`unwrap`に似ているもう一つの`expect`メソッドは、`panic!`エラーメッセージを選択することもできます。`unwrap`の代わりに`expect`を使い、良いエラーメッセージを提供することで意図を伝え、パニックの原因を簡単に追跡することができます。 `expect`の構文は次のようになります。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,should_panic
 use std::fs::File;
@@ -259,36 +179,22 @@ fn main() {
 }
 ```
 
-We use `expect` in the same way as `unwrap`: to return the file handle or call
-the `panic!` macro. The error message used by `expect` in its call to `panic!`
-will be the parameter that we pass to `expect`, rather than the default
-`panic!` message that `unwrap` uses. Here’s what it looks like:
+`unwrap`と同じ方法で`expect`を使うことで、ファイルハンドルを返すか`panic!`マクロを呼び出します。`panic!`の呼び出しで`expect`によって使用されるエラーメッセージは`unwrap`が使うデフォルトの`panic!`メッセージではなく`expect`に渡すパラメータになります。以下はその様子です。
 
 ```text
 thread 'main' panicked at 'Failed to open hello.txt: Error { repr: Os { code:
 2, message: "No such file or directory" } }', src/libcore/result.rs:906:4
 ```
 
-Because this error message starts with the text we specified, `Failed to open
-hello.txt`, it will be easier to find where in the code this error message is
-coming from. If we use `unwrap` in multiple places, it can take more time to
-figure out exactly which `unwrap` is causing the panic because all `unwrap`
-calls that panic print the same message.
+このエラーメッセージは、指定したテキスト`Failed to open hello.txt`で始まるので、このエラーメッセージがどこから来たのかを簡単に見つけることができます。複数の場所で`unwrap`を使用すると、`unwrap`が同じメッセージを表示するすべての`unwrap`を呼び出すため、`unwrap`がパニックを起こしていることを正確に把握するのに時間がかかることがあります。
 
-### Propagating Errors
+### エラーを委譲する
 
-When you’re writing a function whose implementation calls something that might
-fail, instead of handling the error within this function, you can return the
-error to the calling code so that it can decide what to do. This is known as
-*propagating* the error and gives more control to the calling code, where there
-might be more information or logic that dictates how the error should be
-handled than what you have available in the context of your code.
+失敗する可能性のある何かを呼び出す実装をした関数を書く際、関数内でエラーを処理する代わりに、呼び出し元がどうするかを決められるようにエラーを返すことができます。これはエラーの*委譲*として認知され、呼び出し元に自分のコードの文脈で利用可能なものよりも、エラーの処理法を規定する情報やロジックがより多くある箇所を制御してもらいます。
 
-For example, Listing 9-6 shows a function that reads a username from a file. If
-the file doesn’t exist or can’t be read, this function will return those errors
-to the code that called this function:
+たとえば、コードリスト9-6は、ファイルからユーザー名を読み取る関数を示しています。ファイルが存在しないか読み取れない場合、この関数は、この関数を呼び出したコードにこれらのエラーを返します。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 use std::io;
@@ -312,63 +218,23 @@ fn read_username_from_file() -> Result<String, io::Error> {
 }
 ```
 
-<span class="caption">Listing 9-6: A function that returns errors to the
-calling code using `match`</span>
+<span class="caption">リスト 9-6: `match`でエラーを呼び出し元のコードに返す関数</span>
 
-This function can be written in a much shorter way, but we’re going to start by
-doing a lot of it manually in order to explore error handling; at the end,
-we’ll show the easy way. Let’s look at the return type of the function first:
-`Result<String, io::Error>`. This means the function is returning a value of
-the type `Result<T, E>` where the generic parameter `T` has been filled in
-with the concrete type `String`, and the generic type `E` has been filled in
-with the concrete type `io::Error`. If this function succeeds without any
-problems, the code that calls this function will receive an `Ok` value that
-holds a `String`—the username that this function read from the file. If this
-function encounters any problems, the code that calls this function will
-receive an `Err` value that holds an instance of `io::Error` that contains
-more information about what the problems were. We chose `io::Error` as the
-return type of this function because that happens to be the type of the error
-value returned from both of the operations we’re calling in this function’s
-body that might fail: the `File::open` function and the `read_to_string`
-method.
+この関数ははるかに短い方法で記述することができますが、エラー処理を探索するために手動で多くの作業を行うことから始めます。最後に、簡単な方法を示します。最初に関数の戻り値の型を見てみましょう。`Result<String, io::Error>`です。これは、ジェネリックパラメータ`T`が具体型`String`で埋められ、ジェネリック型`E`が具体的型`io::Error`の場合に、関数が`Result<T, E>`型の値を返すことを意味します。この関数が問題なく成功した場合、この関数を呼び出すコードは、`String`(この関数がファイルから読み取ったユーザー名)を保持する`Ok`値を受け取ります。この関数が何らかの問題に遭遇した場合、この関数を呼び出すコードは、問題の内容に関する詳細情報を含む `io::Error`のインスタンスを保持する`Err`値を受け取ります。関数の戻り値の型に`io::Error`を選んだのは、この関数本体で呼び出している失敗する可能性のある処理が両方(`File::open`関数と`read_to_string`メソッド)とも偶然この型をエラー値として返すからです。
 
-The body of the function starts by calling the `File::open` function. Then we
-handle the `Result` value returned with a `match` similar to the `match` in
-Listing 9-4, only instead of calling `panic!` in the `Err` case, we return
-early from this function and pass the error value from `File::open` back to the
-calling code as this function’s error value. If `File::open` succeeds, we store
-the file handle in the variable `f` and continue.
+関数の本体は`File::open`関数を呼び出すことから始まります。リスト9-4の`match`に似た`match`で返された`Result`値を扱い、`Err`の場合に`panic!`を呼び出すのではなく、この関数から早くリターンして、この関数のエラー値として`File::open`からのエラー値を呼び出しコードに返します。`File::open`が成功すると、ファイルハンドルを変数`f`に格納して処理を続行します。
 
-Then we create a new `String` in variable `s` and call the `read_to_string`
-method on the file handle in `f` to read the contents of the file into `s`. The
-`read_to_string` method also returns a `Result` because it might fail, even
-though `File::open` succeeded. So we need another `match` to handle that
-`Result`: if `read_to_string` succeeds, then our function has succeeded, and we
-return the username from the file that’s now in `s` wrapped in an `Ok`. If
-`read_to_string` fails, we return the error value in the same way that we
-returned the error value in the `match` that handled the return value of
-`File::open`. However, we don’t need to explicitly say `return`, because this
-is the last expression in the function.
+次に、変数`s`に新しい`String`を作成し、`f`のファイルハンドルの`read_to_string`メソッドを呼び出して、ファイルの内容を`s`に読み込みます。`read_to_string`メソッドは、`File::open`が成功したとしても、失敗する可能性があるため、`Result`を返します。`result`を処理するために別の`match`が必要です。もし`read_to_string`が成功すれば関数は成功し、`s`の`Ok`でラップされたファイルからユーザ名を返します。`read_to_string`が失敗した場合、`File::open`の戻り値を処理した`match`にエラー値を返したのと同じ方法でエラー値を返します。しかし、関数の最後の式であるため、`return`を明示的に言う必要はありません。
 
-The code that calls this code will then handle getting either an `Ok` value
-that contains a username or an `Err` value that contains an `io::Error`. We
-don’t know what the calling code will do with those values. If the calling code
-gets an `Err` value, it could call `panic!` and crash the program, use a
-default username, or look up the username from somewhere other than a file, for
-example. We don’t have enough information on what the calling code is actually
-trying to do, so we propagate all the success or error information upward for
-it to handle appropriately.
+このコードを呼び出すコードは、ユーザ名を含む`Ok`値か、`io::Error`を含む`Err`値を得て扱います。呼び出し元のコードがそれらの値をどうするかはわかりません。呼び出しコードが`Err`値を得たら、 例えば、`panic!`を呼び出してプログラムをクラッシュさせたり、デフォルトのユーザ名を使ったり、ファイル以外の場所からユーザ名を検索したりできるでしょう。呼び出し元のコードが実際に何をしようとするかについて、十分な情報がないので、成功や失敗情報を全て委譲して適切に扱えるようにするのです。
 
-This pattern of propagating errors is so common in Rust that Rust provides the
-question mark operator `?` to make this easier.
+Rustにおいて、この種のエラー委譲は非常に一般的なので、Rustにはこれをしやすくする`?`演算子が用意されています。
 
-#### A Shortcut for Propagating Errors: the `?` Operator
+#### エラー委譲のショートカット: ?演算子
 
-Listing 9-7 shows an implementation of `read_username_from_file` that has the
-same functionality as it had in Listing 9-6, but this implementation uses the
-question mark operator:
+リスト9-7は、リスト9-6と同じ機能を持つ`read_username_from_file`の実装を示していますが、この実装では`?`演算子を使います。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 use std::io;
@@ -383,39 +249,17 @@ fn read_username_from_file() -> Result<String, io::Error> {
 }
 ```
 
-<span class="caption">Listing 9-7: A function that returns errors to the
-calling code using `?`</span>
+<span class="caption">リスト 9-7: `?`を使って呼び出し元のコードにエラーを返す関数</span>
 
-The `?` placed after a `Result` value is defined to work in almost the same way
-as the `match` expressions we defined to handle the `Result` values in Listing
-9-6. If the value of the `Result` is an `Ok`, the value inside the `Ok` will
-get returned from this expression, and the program will continue. If the value
-is an `Err`, the `Err` will be returned from the whole function as if we had
-used the `return` keyword so the error value gets propagated to the calling
-code.
+`Result`値の後に置かれた`?`は、リスト9-6の`Result`値を扱うために定義した`match`式とほぼ同じように動作します。`Result`の値が`Ok`ならば、`Ok`の値がこの式から返され、プログラムは続行されます。値が`Err`の場合、`return`キーワードを使用したかのように関数全体から`Err`が返され、エラー値は呼び出し元のコードに委譲されます。
 
-There is a difference between what the `match` expression from Listing 9-6 and
-`?` do: error values taken by `?` go through the `from` function, defined in
-the `From` trait in the standard library, which is used to convert errors from
-one type into another. When `?` calls the `from` function, the error type
-received is converted into the error type defined in the return type of the
-current function. This is useful when a function returns one error type to
-represent all the ways a function might fail, even if parts might fail for many
-different reasons. As long as each error type implements the `from` function to
-define how to convert itself to the returned error type, `?` takes care of the
-conversion automatically.
+リスト9-6の`match`式と`?`演算子には違いは、`?`で取られたエラー値は、あるタイプから別のタイプへのエラーを変換するために使用される標準ライブラリの`From`特性で定義された`from`関数を通って行きます。`?`が`from`関数を呼び出すと、受け取ったエラーの型は、現在の関数の戻り値の型で定義されているエラーの型に変換されます。これは、関数が多くの異なる理由で失敗する可能性がある場合でも、関数が失敗する可能性のあるすべての方法を表す1つのエラータイプを返す場合に便利です。各エラータイプが`from`関数を実装して、返されたエラータイプに変換する方法を定義する限り、`?`は変換を自動的に処理します。
 
-In the context of Listing 9-7, the `?` at the end of the `File::open` call will
-return the value inside an `Ok` to the variable `f`. If an error occurs, `?`
-will return early out of the whole function and give any `Err` value to the
-calling code. The same thing applies to the `?` at the end of the
-`read_to_string` call.
+リスト9-7の文脈では、`File::open`呼び出しの最後の`?`は、`Ok`の値を変数`f`に返します。エラーが発生した場合、`?`は関数全体からすぐにリターンし、`Err`値を呼び出しコードに与えます。`read_to_string`呼び出しの最後の`?`も同じことが言えます。
 
-The `?` operator eliminates a lot of boilerplate and makes this function’s
-implementation simpler. We could even shorten this code further by chaining
-method calls immediately after the `?`, as shown in Listing 9-8:
+`?`演算子は多くの定型文を削除し、この関数の実装を簡単にします。リスト9-8のように、`?`の直後にメソッド呼び出しを連鎖させることで、このコードをさらに短縮することもできます。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 use std::io;
@@ -431,21 +275,13 @@ fn read_username_from_file() -> Result<String, io::Error> {
 }
 ```
 
-<span class="caption">Listing 9-8: Chaining method calls after `?`</span>
+<span class="caption">リスト 9-8: `?`演算子の後のメソッド呼び出しを連結する</span>
 
-We’ve moved the creation of the new `String` in `s` to the beginning of the
-function; that part hasn’t changed. Instead of creating a variable `f`, we’ve
-chained the call to `read_to_string` directly onto the result of
-`File::open("hello.txt")?`. We still have a `?` at the end of the
-`read_to_string` call, and we still return an `Ok` value containing the
-username in `s` when both `File::open` and `read_to_string` succeed rather than
-returning errors. The functionality is again the same as in Listing 9-6 and
-Listing 9-7; this is just a different, more ergonomic way to write it.
+新しい`String`の作成を`s`の中で関数の始めに移しました。その部分は変更されていません。変数`f`を作成するのではなく、`File::open("hello.txt")?`の結果に`read_to_string`の呼び出しを直接連結しました。`read_to_string`呼び出しの最後に`?`があります。エラーを返すのではなく、`File::open`と`read_to_string`の両方が成功したときに`s`のユーザ名を含む`Ok`値を返します。この機能はリスト9-6とリスト9-7と同じです。ただ単に異なるバージョンのよりプログラマフレンドリーな書き方なのです。
 
-Speaking of different ways to write this function, there’s a way to make this even
-shorter:
+この関数を書くさまざまな方法について言えば、これをもっと短くする方法があります。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 use std::io;
@@ -456,25 +292,15 @@ fn read_username_from_file() -> Result<String, io::Error> {
 }
 ```
 
-<span class="caption">Listing 9-9: Using `fs::read_to_string`</span>
+<span class="caption">リスト 9-9: `fs::read_to_string`を使う</span>
 
-Reading a file into a string is a fairly common operation, and so Rust
-provides a convenience function called `fs::read_to_string` that will
-open the file, create a new `String`, read the contents of the file,
-and put the contents into that `String`, and then return it. Of course,
-this doesn’t give us the opportunity to show off all of this error handling,
-so we did it the hard way at first.
+ファイルを文字列に読み込むのはかなり一般的な操作なので、Rustは`fs::read_to_string`という便利な関数を提供します。これはファイルを開き、新しい`String`を作成し、ファイルの内容を読み込み、内容を`String`に入れて返します。もちろん、これはこのエラー処理の全てを見せる機会を与えるものではないので、最初の方法としては難しいものでした。
 
-#### The `?` Operator Can Only Be Used in Functions That Return `Result`
+#### `?`演算子は、`Result`を返す関数でしか使用できない
 
-The `?` operator can only be used in functions that have a return type of
-`Result`, because it is defined to work in the same way as the `match`
-expression we defined in Listing 9-6. The part of the `match` that requires a
-return type of `Result` is `return Err(e)`, so the return type of the function
-must be a `Result` to be compatible with this `return`.
+`?`演算子は、リスト9-6で定義した`match`式と同じように動作するように定義されているので、`Result`の戻り値型を持つ関数でのみ使用できます。`result`の戻り値の型を必要とする`match`の部分は`return Err(e)`なので、関数の戻り値の型はこの`return`と互換性がある`Result`でなければなりません。
 
-Let’s look at what happens if we use `?` in the `main` function, which you’ll
-recall has a return type of `()`:
+`main`関数で`?`演算子を使用したらどうなるか見てみましょう。main関数は戻り値が`()`でした。
 
 ```rust,ignore
 use std::fs::File;
@@ -484,7 +310,7 @@ fn main() {
 }
 ```
 
-When we compile this code, we get the following error message:
+このコードをコンパイルすると、以下のようなエラーメッセージが得られます。
 
 ```text
 error[E0277]: the `?` operator can only be used in a function that returns `Result` or `Option` (or another type that implements `std::ops::Try`)
@@ -497,13 +323,9 @@ error[E0277]: the `?` operator can only be used in a function that returns `Resu
   = note: required by `std::ops::Try::from_error`
 ```
 
-This error points out that we’re only allowed to use `?` in a function that
-returns `Result<T, E>`. In functions that don’t return `Result<T, E>`, when
-you call other functions that return `Result<T, E>`, you’ll need to use a
-`match` or one of the `Result<T, E>` methods to handle the `Result<T, E>`
-instead of using `?` to potentially propagate the error to the calling code.
+このエラーは、`?`演算子は`Result`を返す関数でしか使用が許可されないと指摘しています。`Result`を返さない関数では、`Result`を返す別の関数を呼び出した時、`?`演算子を使用してエラーを呼び出し元に委譲する可能性を生み出す代わりに、`match`か`Result`のメソッドのどれかを使う必要があるでしょう。
 
-However, the `main` function can return a `Result<T, E>`:
+しかし、 `main`関数は`Result<T,E>`を返すことができます。
 
 ```rust,ignore
 use std::error::Error;
@@ -513,12 +335,9 @@ fn main() -> Result<(), Box<dyn Error>> {
     let f = File::open("hello.txt")?;
 
     Ok(())
-}
+
 ```
 
-The `Box<dyn Error>` is called a “trait object”, which we’ll talk about in Chapter 17.
-For now, you can read `Box<dyn Error>` to mean “any kind of error.”
+`Box<dyn Error>`は"trait object"と呼ばれます。これについては第17章で説明します。今のところ、`Box<dyn Error>`は"あらゆる種類のエラー"を意味します。
 
-Now that we’ve discussed the details of calling `panic!` or returning `Result`,
-let’s return to the topic of how to decide which is appropriate to use in which
-cases.
+ここまでで`panic!`呼び出しや`Result`を返す詳細について議論し終えたので、 どんな場合にどちらを使うのが適切か決める方法についての話に戻りましょう。
