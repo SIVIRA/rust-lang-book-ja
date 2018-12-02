@@ -1,4 +1,4 @@
-# The Rust Programming Language
+# プログラミング言語 Rust
 
 [Foreword](foreword.md)
 [Introduction](ch00-00-introduction.md)
