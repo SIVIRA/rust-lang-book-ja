@@ -1,4 +1,4 @@
-## Traits: Defining Shared Behavior
+## トレイト: 共通の振る舞いを定義する
 
 A *trait* tells the Rust compiler about functionality a particular type has and
 can share with other types. We can use traits to define shared behavior in an

@@ -1,21 +1,14 @@
-## Generic Data Types
+## ジェネリックなデータ型
 
-We can use generics to create definitions for items like function signatures or
-structs, which we can then use with many different concrete data types. Let’s
-first look at how to define functions, structs, enums, and methods using
-generics. Then we’ll discuss how generics affect code performance.
+関数シグネチャや構造体などの項目の定義を作成するためにジェネリックスを使用できます。これらの定義は、さまざまな具体的なデータ型で使用できます。まず、ジェネリックスを使って関数、構造体、列挙型、およびメソッドを定義する方法を見ていきましょう。次に、ジェネリックスがコードのパフォーマンスにどのように影響するかについて説明します。
 
-### In Function Definitions
+### 関数定義において
 
-When defining a function that uses generics, we place the generics in the
-signature of the function where we would usually specify the data types of the
-parameters and return value. Doing so makes our code more flexible and provides
-more functionality to callers of our function while preventing code duplication.
+ジェネリックスを使用する関数を定義するとき、ジェネリックスを関数のシグネチャに置きます。ここでは、通常、パラメータと戻り値のデータ型を指定します。これにより、コードの柔軟性が高まり、コードの重複を防ぎながら、関数の呼び出し側に多くの機能が提供されます。
 
-Continuing with our `largest` function, Listing 10-4 shows two functions that
-both find the largest value in a slice.
+`largest`関数を続けます。リスト10-4はどちらもスライスから最大値を探す2つの関数を示しています。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 fn largest_i32(list: &[i32]) -> i32 {
@@ -57,42 +50,23 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 10-4: Two functions that differ only in their
-names and the types in their signatures</span>
+<span class="caption">リスト 10-4: 名前とシグニチャの型のみが異なる2つの関数</span>
 
-The `largest_i32` function is the one we extracted in Listing 10-3 that finds
-the largest `i32` in a slice. The `largest_char` function finds the largest
-`char` in a slice. The function bodies have the same code, so let’s eliminate
-the duplication by introducing a generic type parameter in a single function.
+`largest_i32`関数は、リスト10-3で抽出したもので、スライス内で最大の`i32`を見つけます。`largest_char`関数はスライス内で最大の`char`を見つけます。関数本体には同じコードがありますので、単一の関数にジェネリック型パラメータを導入して重複を排除しましょう。
 
-To parameterize the types in the new function we’ll define, we need to name the
-type parameter, just as we do for the value parameters to a function. You can
-use any identifier as a type parameter name. But we’ll use `T` because, by
-convention, parameter names in Rust are short, often just a letter, and Rust’s
-type-naming convention is CamelCase. Short for “type,” `T` is the default
-choice of most Rust programmers.
+定義する新しい関数の型をパラメータ化するには、関数への値パラメータの場合と同様に、型パラメータの名前を付ける必要があります。任意の識別子を型パラメータ名として使用できますが、`T`を使用します。"慣習的にRustのパラメータ名は短く(しばしば単なる文字)であり、Rustのタイプ命名規則はキャメルケースだからです。`T`は"type"の略で、ほとんどのRustプログラマのデフォルトの選択です。
 
-When we use a parameter in the body of the function, we have to declare the
-parameter name in the signature so the compiler knows what that name means.
-Similarly, when we use a type parameter name in a function signature, we have
-to declare the type parameter name before we use it. To define the generic
-`largest` function, place type name declarations inside angle brackets, `<>`,
-between the name of the function and the parameter list, like this:
+関数の本体でパラメータを使用するときは、コンパイラがその名前の意味を知るように、シグネチャにパラメータ名を宣言する必要があります。同様に、関数シグネチャに型パラメータ名を使用する場合は、型パラメータ名を宣言してから使用する必要があります。ジェネリックな`largest`関数を定義するには、型名宣言を山カッコ(`<>`)で囲み、関数名と引数リストの間に配置してください。
 
 ```rust,ignore
 fn largest<T>(list: &[T]) -> T {
 ```
 
-We read this definition as: the function `largest` is generic over some type
-`T`. This function has one parameter named `list`, which is a slice of values
-of type `T`. The `largest` function will return a value of the same type `T`.
+この定義を次のように読むことができます。`largest`関数は、なんらかの型`T`に関してジェネリックです。この関数は`list`という名前の1つのパラメータを持ちます。これは`T`型の値のスライスです。`largest`関数は、同じ型の`T`の値を返します。
 
-Listing 10-5 shows the combined `largest` function definition using the generic
-data type in its signature. The listing also shows how we can call the function
-with either a slice of `i32` values or `char` values. Note that this code won’t
-compile yet, but we’ll fix it later in this chapter.
+リスト10-5は、そのシグネチャにジェネリックなデータ型を使用して、`largest`関数定義を組み合わせたものを示しています。リストには、関数を`i32`値のスライスまたは`char`値のいずれかで呼び出す方法も示されています。このコードはまだコンパイルされませんが、この章の後半で修正します。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 fn largest<T>(list: &[T]) -> T {
@@ -120,10 +94,9 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 10-5: A definition of the `largest` function that
-uses generic type parameters but doesn’t compile yet</span>
+<span class="caption">リスト 10-5: ジェネリックな型引数を使用するものの、まだコンパイルできないlargest関数の定義</span>
 
-If we compile this code right now, we’ll get this error:
+このコードをコンパイルすると、このエラーが発生します。
 
 ```text
 error[E0369]: binary operation `>` cannot be applied to type `T`
@@ -135,23 +108,13 @@ error[E0369]: binary operation `>` cannot be applied to type `T`
   = note: an implementation of `std::cmp::PartialOrd` might be missing for `T`
 ```
 
-The note mentions `std::cmp::PartialOrd`, which is a *trait*. We’ll talk about
-traits in the next section. For now, this error states that the body of
-`largest` won’t work for all possible types that `T` could be. Because we want
-to compare values of type `T` in the body, we can only use types whose values
-can be ordered. To enable comparisons, the standard library has the
-`std::cmp::PartialOrd` trait that you can implement on types (see Appendix C
-for more on this trait). You’ll learn how to specify that a generic type has a
-particular trait in the “Trait Bounds” section, but let’s first explore other
-ways of using generic type parameters.
+注釈には`std::cmp::PartialOrd`があります。これは*トレイト*です。トレイトについては次のセクションで説明します。今のところ、このエラーは`T`が可能なすべての可能な型に対して`largest`の本体が機能しないことを述べています。本体の`T`型の値を比較したいので、値を並べ替えることのできる型しか使用できません。比較を可能にするために、標準ライブラリには型に対して実装できる`std::cmp::PartialOrd`特性があります（この特性の詳細については付録Cを参照してください）。"Tトレイト境界"セクションでジェネリック型が特定の特性を持つように指定する方法を学びますが、まずジェネリック型パラメータを使用する他の方法を調べてみましょう。
 
-### In Struct Definitions
+### 構造体定義において
 
-We can also define structs to use a generic type parameter in one or more
-fields using the `<>` syntax. Listing 10-6 shows how to define a `Point<T>`
-struct to hold `x` and `y` coordinate values of any type.
+`<>`構文を使用して、1つ以上のフィールドでジェネリック型パラメータを使用するように構造体を定義することもできます。コードリスト10-6は、任意の型の`x`と`y`座標値を保持する`Point<T>`構造体を定義する方法を示しています。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 struct Point<T> {
@@ -165,22 +128,13 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 10-6: A `Point<T>` struct that holds `x` and `y`
-values of type `T`</span>
+<span class="caption">Listing 10-6: 型`T`の`x`と`y`値を保持する`Point<T>`構造体</span>
 
-The syntax for using generics in struct definitions is similar to that used in
-function definitions. First, we declare the name of the type parameter inside
-angle brackets just after the name of the struct. Then we can use the generic
-type in the struct definition where we would otherwise specify concrete data
-types.
+構造体定義でジェネリックを使用する構文は、関数定義で使用される構文に似ています。まず、構造体の名前の直後に山形括弧で囲まれた型パラメータの名前を宣言します。次に、具体的なデータ型を指定する場合は、構造体定義のジェネリック型を使用できます。
 
-Note that because we’ve used only one generic type to define `Point<T>`, this
-definition says that the `Point<T>` struct is generic over some type `T`, and
-the fields `x` and `y` are *both* that same type, whatever that type may be. If
-we create an instance of a `Point<T>` that has values of different types, as in
-Listing 10-7, our code won’t compile.
+`Point <T>`を定義するためにジェネリック型を1つしか使用していないので、`Point<T>`構造体はある種の`T`型よりも一般的で、`x`と`y`はどちらの型でも同じ型です。リスト10-7のように、異なる型の値を持つ`Point<T>`のインスタンスを作成すると、コードはコンパイルされません。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore,does_not_compile
 struct Point<T> {
@@ -193,13 +147,9 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 10-7: The fields `x` and `y` must be the same
-type because both have the same generic data type `T`.</span>
+<span class="caption">Listing 10-7: `x`と`y`のフィールドは、両方とも同じジェネリックデータ型`T`を持つので、同じ型でなければならない</span>
 
-In this example, when we assign the integer value 5 to `x`, we let the
-compiler know that the generic type `T` will be an integer for this instance of
-`Point<T>`. Then when we specify 4.0 for `y`, which we’ve defined to have the
-same type as `x`, we’ll get a type mismatch error like this:
+この例では、整数値5を`x`に代入すると、ジェネリック型`T`が`Point <T>`のこのインスタンスの整数になることをコンパイラに知らせます。次に`x`と同じ型を持つように定義した`y`に4.0を指定すると、次のような型不一致エラーが発生します。
 
 ```text
 error[E0308]: mismatched types
@@ -213,12 +163,9 @@ floating-point variable
              found type `{float}`
 ```
 
-To define a `Point` struct where `x` and `y` are both generics but could have
-different types, we can use multiple generic type parameters. For example, in
-Listing 10-8, we can change the definition of `Point` to be generic over types
-`T` and `U` where `x` is of type `T` and `y` is of type `U`.
+`x`と`y`が両方ともジェネリックであるが、異なるタイプを持つことができる`Point`構造体を定義するために、複数のジェネリック型パラメータを使うことができます。例えば、リスト10-8では`T`型と`U`型に対して`Point`の定義を変更することができます。`x`型は`T`型で`y`型は`U`型です。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 struct Point<T, U> {
@@ -233,19 +180,13 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 10-8: A `Point<T, U>` generic over two types so
-that `x` and `y` can be values of different types</span>
+<span class="caption">Listing 10-8: `Point<T, U>`は、`x`と`y`は異なる型の値になり得る</span>
 
-Now all the instances of `Point` shown are allowed! You can use as many generic
-type parameters in a definition as you want, but using more than a few makes
-your code hard to read. When you need lots of generic types in your code, it
-could indicate that your code needs restructuring into smaller pieces.
+`Point`のすべてのインスタンスが許可されました。定義には、必要な数のジェネリック型パラメーターを使用できますが、いくつかを使用すると、コードを読みづらくなります。多くのジェネリック型が必要な場合は、コードがより小さな部分に再構成する必要があることのサインかもしれません。
 
-### In Enum Definitions
+### enum定義において
 
-As we did with structs, we can define enums to hold generic data types in their
-variants. Let’s take another look at the `Option<T>` enum that the standard
-library provides, which we used in Chapter 6:
+構造体で行ったように、さまざまな種類の汎用データ型を保持する列挙型を定義できます。 第6章で使用した、標準ライブラリが提供する `Option <T>` enumをもう一度見てみましょう。
 
 ```rust
 enum Option<T> {
@@ -254,15 +195,9 @@ enum Option<T> {
 }
 ```
 
-This definition should now make more sense to you. As you can see, `Option<T>`
-is an enum that is generic over type `T` and has two variants: `Some`, which
-holds one value of type `T`, and a `None` variant that doesn’t hold any value.
-By using the `Option<T>` enum, we can express the abstract concept of having an
-optional value, and because `Option<T>` is generic, we can use this abstraction
-no matter what the type of the optional value is.
+この定義は道理が通っているはずです。`Option<T>`は`T`型のジェネリックな列挙型で、`T`型の1つの値を保持する`Some`と値を何も保持しない`None`の2つのバリアントを持ちます。`Option<T>`列挙型を使うことで、オプショナルな値を持つという抽象的な概念を表現することができます。`Option<T>`はジェネリックスなので、オプショナルな値の型が何であってもこの抽象化を使用できます。
 
-Enums can use multiple generic types as well. The definition of the `Result`
-enum that we used in Chapter 9 is one example:
+Enumは複数のジェネリック型も使用できます。第9章で使用した`Result`列挙体の定義は一例です。
 
 ```rust
 enum Result<T, E> {
@@ -271,26 +206,15 @@ enum Result<T, E> {
 }
 ```
 
-The `Result` enum is generic over two types, `T` and `E`, and has two variants:
-`Ok`, which holds a value of type `T`, and `Err`, which holds a value of type
-`E`. This definition makes it convenient to use the `Result` enum anywhere we
-have an operation that might succeed (return a value of some type `T`) or fail
-(return an error of some type `E`). In fact, this is what we used to open a
-file in Listing 9-3, where `T` was filled in with the type `std::fs::File` when
-the file was opened successfully and `E` was filled in with the type
-`std::io::Error` when there were problems opening the file.
+`Result`列挙型は`T`と`E`の2つの型に関してジェネリックスであり、`T`型の値を保持する`Ok`と`T`型の値を保持する`Err`の2種類のバリアントがあります。この定義は、成功する可能性のある操作（何らかの型の`T`型の値を返す）または失敗する型式（`E`型のエラーを返す）がある箇所で、`Result`列挙型を使うのが便利です。実際には、これはリスト9-3のファイルを開くために使用したものです。ファイルを開くのに成功した時に`T`に型`std::fs::File`が入り、ファイルを開く際に問題があった時に`E`に型`std::io::Error`が入ります。
 
-When you recognize situations in your code with multiple struct or enum
-definitions that differ only in the types of the values they hold, you can
-avoid duplication by using generic types instead.
+自分のコード内で保持している値の型のみが異なる構造体やenum定義の場面を認識したら、代わりにジェネリックな型を使用することで重複を避けることができます。
 
-### In Method Definitions
+### メソッド定義において
 
-We can implement methods on structs and enums (as we did in Chapter 5) and use
-generic types in their definitions, too. Listing 10-9 shows the `Point<T>`
-struct we defined in Listing 10-6 with a method named `x` implemented on it.
+第5章で行ったように構造体と列挙型のメソッドを実装することができます。リスト10-9は、リスト10-6で定義した`Point<T>`構造体に`x`というメソッドを実装したものです。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 struct Point<T> {
@@ -311,21 +235,13 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 10-9: Implementing a method named `x` on the
-`Point<T>` struct that will return a reference to the `x` field of type
-`T`</span>
+<span class="caption">リスト 10-9: 型`T`の`x`フィールドへの参照を返す`x`というメソッドを`Point<T>`構造体に実装する</span>
 
-Here, we’ve defined a method named `x` on `Point<T>` that returns a reference
-to the data in the field `x`.
+ここでは、フィールド`x`のデータへの参照を返す`Point<T>`に`x`という名前のメソッドを定義しました。
 
-Note that we have to declare `T` just after `impl` so we can use it to specify
-that we’re implementing methods on the type `Point<T>`.  By declaring `T` as a
-generic type after `impl`, Rust can identify that the type in the angle
-brackets in `Point` is a generic type rather than a concrete type.
+`impl`の直後に`T`を宣言しなければならないので、`Point<T>`型のメソッドを実装するよう指定する必要があります。`impl`の後に`T`をジェネリック型として宣言することにより、Rustは`Point`の山括弧の型が具体的な型ではなくジェネリック型であることを識別できます。
 
-We could, for example, implement methods only on `Point<f32>` instances rather
-than on `Point<T>` instances with any generic type. In Listing 10-10 we use the
-concrete type `f32`, meaning we don’t declare any types after `impl`.
+たとえば、ジェネリック型の`Point<T>`インスタンスではなく、`Point<f32>`インスタンスでのみメソッドを実装することができます。リスト10-10では、具体的な型`f32`を使用します。つまり、`impl`の後に型を宣言しません。
 
 ```rust
 # struct Point<T> {
@@ -340,24 +256,13 @@ impl Point<f32> {
 }
 ```
 
-<span class="caption">Listing 10-10: An `impl` block that only applies to a
-struct with a particular concrete type for the generic type parameter `T`</span>
+<span class="caption">リスト 10-10: ジェネリックな型引数`T`に対して特定の具体的な型がある構造体にのみ適用される`impl`ブロック</span>
 
-This code means the type `Point<f32>` will have a method named
-`distance_from_origin` and other instances of `Point<T>` where `T` is not of
-type `f32` will not have this method defined. The method measures how far our
-point is from the point at coordinates (0.0, 0.0) and uses mathematical
-operations that are available only for floating point types.
+このコードは、Point<f32>にはdistance_from_originというメソッドが存在するが、 Tがf32ではないPoint<T>の他のインスタンスにはこのメソッドが定義されないことを意味します。このメソッドは、ポイントが座標(0.0、0.0)のポイントからどれだけ離れているかを測定し、浮動小数点型に対してのみ使用可能な数学演算を使用します。
 
-Generic type parameters in a struct definition aren’t always the same as those
-you use in that struct’s method signatures. For example, Listing 10-11 defines
-the method `mixup` on the `Point<T, U>` struct from Listing 10-8. The method
-takes another `Point` as a parameter, which might have different types than the
-`self` `Point` we’re calling `mixup` on. The method creates a new `Point`
-instance with the `x` value from the `self` `Point` (of type `T`) and the `y`
-value from the passed-in `Point` (of type `W`).
+構造体定義のジェネリックな型引数は、必ずしもその構造体のメソッドシグニチャで使用するものと同じにはなりません。例えば、リスト10-11は、リスト10-8の`Point<T, U>`にメソッドmixupを定義しています。このメソッドは、他の`Point`を引数として取り、この引数は`mixup`を呼び出している`self`の`Point`とは異なる型の可能性があります。このメソッドは、型`T`の`self`の`Point`の`x`値と渡した型`W`の`Point`の`y`値から新しい`Point`インスタンスを生成します。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 struct Point<T, U> {
@@ -384,59 +289,32 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 10-11: A method that uses different generic types
-than its struct’s definition</span>
+<span class="caption">リスト 10-11: 構造体定義とは異なるジェネリックな型を使用するメソッド</span>
 
-In `main`, we’ve defined a `Point` that has an `i32` for `x` (with value `5`)
-and an `f64` for `y` (with value `10.4`). The `p2` variable is a `Point` struct
-that has a string slice for `x` (with value `"Hello"`) and a `char` for `y`
-(with value `c`). Calling `mixup` on `p1` with the argument `p2` gives us `p3`,
-which will have an `i32` for `x`, because `x` came from `p1`. The `p3` variable
-will have a `char` for `y`, because `y` came from `p2`. The `println!` macro
-call will print `p3.x = 5, p3.y = c`.
+`main`では`x`（値が5）の`i32`と`y`の`f64`（値は`10.4`）を持つ`Point`を定義しました。`p2`変数は、`x`（値 "Hello"）を持つ文字列スライスと`y`（`c`を持つ）の`char`を持つ`Point`構造体です。引数`p2`で`p1`に`mixup`を呼び出すと、`p3`が得られ、`x`は`i32`になります。`x`は`p1`からきたからです。`p3`変数は、`y`に`char`になります。`y`は`p2`由来だからです。`println!`マクロの呼び出しは、 `p3.x = 5, p3.y = c`と出力するでしょう。
 
-The purpose of this example is to demonstrate a situation in which some generic
-parameters are declared with `impl` and some are declared with the method
-definition. Here, the generic parameters `T` and `U` are declared after `impl`,
-because they go with the struct definition. The generic parameters `V` and `W`
-are declared after `fn mixup`, because they’re only relevant to the method.
+この例の目的は、いくつかの一般的なパラメータが`impl`で宣言され、いくつかがメソッド定義で宣言される状況を示すことです。 ここで、ジェネリックパラメータ`T`と`U`は、`impl`の後に宣言されています。ジェネリックパラメータ`V`と`W`は`fn mixup`の後で宣言されています。なぜならそれらはメソッドにしか関係ないからです。
 
-### Performance of Code Using Generics
+### ジェネリクスを使用したコードのパフォーマンス
 
-You might be wondering whether there is a runtime cost when you’re using
-generic type parameters. The good news is that Rust implements generics in such
-a way that your code doesn’t run any slower using generic types than it would
-with concrete types.
+ジェネリック型パラメータを使用しているときにランタイムコストがあるかどうか疑問に思うかもしれません。良いニュースとして、コンパイラがジェネリクスを具体的な型がある時よりもジェネリックな型を使用したコードを実行するのが遅くならないように実装しています。
 
-Rust accomplishes this by performing monomorphization of the code that is using
-generics at compile time. *Monomorphization* is the process of turning generic
-code into specific code by filling in the concrete types that are used when
-compiled.
+Rustは、コンパイル時にジェネリックを使用しているコードの単相化を実行することでこれを実現します。*単相化(monomorphization)*は、コンパイル時に使用される具体的な型を埋め込むことによって、ジェネリックなコードを特定のコードに変換するプロセスです。
 
-In this process, the compiler does the opposite of the steps we used to create
-the generic function in Listing 10-5: the compiler looks at all the places
-where generic code is called and generates code for the concrete types the
-generic code is called with.
+このプロセスでは、コンパイラはコードリスト10-5のジェネリック関数を作成するために使用した手順の逆を行います。コンパイラはジェネリックコードが呼び出されるすべての場所を調べ、ジェネリックコードが呼び出される具体的な型のコードを生成します。
 
-Let’s look at how this works with an example that uses the standard library’s
-`Option<T>` enum:
+標準ライブラリの`Option<T>`列挙型を使った例を見てみましょう。
 
 ```rust
 let integer = Some(5);
 let float = Some(5.0);
 ```
 
-When Rust compiles this code, it performs monomorphization. During that
-process, the compiler reads the values that have been used in `Option<T>`
-instances and identifies two kinds of `Option<T>`: one is `i32` and the other
-is `f64`. As such, it expands the generic definition of `Option<T>` into
-`Option_i32` and `Option_f64`, thereby replacing the generic definition with
-the specific ones.
+Rustがこのコードをコンパイルすると、単相化が実行されます。その過程で、コンパイラは`Option<T>`インスタンスで使用された値を読み込み、2種類の`Option<T>`を識別します。一つは`i32`で、もう一つは`f64`です。このように、`Option<T>`の一般的な定義を`Option_i32`と`Option_f64`に展開することで、一般的な定義を特定のものに置き換えます。
 
-The monomorphized version of the code looks like the following. The generic
-`Option<T>` is replaced with the specific definitions created by the compiler:
+コードの単形化バージョンは以下のようになります。一般的な`Option<T>`は、コンパイラによって作成された特定の定義に置き換えられます。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 enum Option_i32 {
@@ -455,8 +333,4 @@ fn main() {
 }
 ```
 
-Because Rust compiles generic code into code that specifies the type in each
-instance, we pay no runtime cost for using generics. When the code runs, it
-performs just as it would if we had duplicated each definition by hand. The
-process of monomorphization makes Rust’s generics extremely efficient at
-runtime.
+Rustはジェネリックコードを各インスタンスの型を指定するコードにコンパイルするので、ジェネリックの使用にはランタイムコストはかかりません。コードが実行されると、各定義を手作業で複製した場合と同じように機能します。単相化のプロセスにより、 Rustのジェネリクスは実行時に非常に効率的になるのです。

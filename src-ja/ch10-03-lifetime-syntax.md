@@ -1,4 +1,4 @@
-## Validating References with Lifetimes
+## ライフタイムで参照を有効化する
 
 One detail we didn’t discuss in the “References and Borrowing” section in
 Chapter 4 is that every reference in Rust has a *lifetime*, which is the scope
