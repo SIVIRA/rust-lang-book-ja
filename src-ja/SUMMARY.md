@@ -36,8 +36,8 @@
 
 ## Rustの基礎知識
 
-- [パッケージ、Crates、モジュール](ch07-00-packages-crates-and-modules.md)
-    - [ライブラリと実行可能ファイルを作成するためのパッケージとCrates](ch07-01-packages-and-crates-for-making-libraries-and-executables.md)
+- [パッケージ、クレート、モジュール](ch07-00-packages-crates-and-modules.md)
+    - [ライブラリと実行可能ファイルを作成するためのパッケージとクレート](ch07-01-packages-and-crates-for-making-libraries-and-executables.md)
     - [スコープとプライバシーを制御するモジュールシステム](ch07-02-modules-and-use-to-control-scope-and-privacy.md)
 
 - [共通コレクション](ch08-00-common-collections.md)
