@@ -8,7 +8,7 @@
 // Hello, world.
 ```
 
-Rustでは、コメントは2つのスラッシュで始まり行の終わりまで続きます。単一行を越えるコメントについては、次のように各行に `//`を入れる必要があります。
+Rustでは、コメントは2つのスラッシュで始まり行の終わりまで続きます。単一行を越えるコメントについては、次のように各行に`//`を入れる必要があります。
 
 ```rust
 // So we’re doing something complicated here, long enough that we need

@@ -56,11 +56,11 @@ fn main() {
 }
 ```
 
-<span class="caption">リスト 7-2: モジュール内のモジュールs</span>
+<span class="caption">リスト 7-2: モジュール内のモジュール</span>
 
 この例では、リスト7-1と同じ方法で`sound`モジュールを定義しました。次に、`sound`モジュール内に`instrument`と`voice`という2つのモジュールを定義しました。`instrument`モジュールには別のモジュール`woodwind`が定義されており、そのモジュールには`clarinet`という名前の関数が含まれています。
 
-*src/main.rs*と*src/lib.rs*は*crate root*と呼ばれている「ライブラリと実行可能ファイルを作るためのパッケージとクレート」セクションで述べました。これらの2つのファイルのいずれかの内容は、クレートのモジュールツリーのルートに`crate`という名前のモジュールを形成するので、crate rootと呼ばれます。リスト7-2には、リスト7-3のようなモジュールツリーがあります。
+*src/main.rs*と*src/lib.rs*は*クレートルート*と呼ばれている「ライブラリと実行可能ファイルを作るためのパッケージとクレート」セクションで述べました。これらの2つのファイルのいずれかの内容は、クレートのモジュールツリーのルートに`crate`という名前のモジュールを形成するので、クレートルートと呼ばれます。リスト7-2には、リスト7-3のようなモジュールツリーがあります。
 
 ```text
 crate
@@ -74,7 +74,7 @@ crate
 
 このツリーは、モジュールのいくつかが互いに内部でどのように入れ子になっているかを示しています（`instrument`の中に`woodwind`ネストなど）、そしていくつかのモジュールがどのように兄弟同士であるか（`instrument`と`voice`は`sound`で定義されています。モジュールツリー全体は`crate`という暗黙のモジュールの下にあります。
 
-このツリーはコンピュータ上にあるファイルシステムのディレクトリツリーを思い出させるかもしれません。ファイルシステムのディレクトリと同様に、あなたが望む組織を作成するモジュールの中にコードを配置します。もう1つの類似点は、ファイルシステムまたはモジュールツリー内の項目を参照するには、*path*を使用することです。
+このツリーはコンピュータ上にあるファイルシステムのディレクトリツリーを思い出させるかもしれません。ファイルシステムのディレクトリと同様に、望む組織を作成するモジュールの中にコードを配置します。もう1つの類似点は、ファイルシステムまたはモジュールツリー内の項目を参照するには、*path*を使用することです。
 
 ### モジュールツリー内のアイテムを参照するためのパス
 
@@ -82,7 +82,7 @@ crate
 
 *パス*には次の2つの形式があります。
 
-* *絶対パス*はcrate名かリテラル`crate`を使ってクcrate rootから始まります。
+* *絶対パス*はクレート名かリテラル`crate`を使ってクレートルートから始まります。
 * *相対パス*は、現在のモジュールから始まり、`self`、`super`、または現在のモジュールの識別子を使用します。
 
 絶対パスと相対パスの後には、二重コロン（`::`）で区切られた1つ以上の識別子が続きます。
@@ -111,7 +111,7 @@ fn main() {
 
 <span class="caption">リスト 7-4: 絶対パスと相対パスを使用して`main`関数から単純化されたモジュールツリーで`clarinet`関数を呼び出す</span>
 
-`main`関数からクラリネット関数を呼び出す最初の方法は、絶対パスを使います。`clarinet`は`main`と同じクレート内で定義されているので、`crate`キーワードを使用して絶対パスを開始します。 次に`clarinet`関数に進むまで、それぞれのモジュールをインクルードします。  これは`/sound/instrument/clarinet`というパスを指定してコンピュータ上のその場所でプログラムを実行するのと同様です。crate rootから始めるために`crate`という名前を使うのは、`/`を使ってシェルのファイルシステムルートから始めるのと同じです。
+`main`関数からクラリネット関数を呼び出す最初の方法は、絶対パスを使います。`clarinet`は`main`と同じクレート内で定義されているので、`crate`キーワードを使用して絶対パスを開始します。 次に`clarinet`関数に進むまで、それぞれのモジュールをインクルードします。  これは`/sound/instrument/clarinet`というパスを指定してコンピュータ上のその場所でプログラムを実行するのと同様です。クレートルートから始めるために`crate`という名前を使うのは、`/`を使ってシェルのファイルシステムルートから始めるのと同じです。
 
 `main`関数からクラリネット関数を呼び出す2番目の方法は相対パスを使います。パスは`sound`という名前で始まります。モジュールは`main`関数と同じレベルのモジュールツリーで定義されています。これは、コンピュータのその場所でプログラムを実行するためのパス `sound/instrument/clarinet`を指定するのと同様です。名前で始まる場合は、パスが相対パスであることを意味します。
 
@@ -224,9 +224,9 @@ fn main() {
 
 これでコンパイルできます。絶対パスと相対パスの両方を見てみましょう。なぜ`pub`キーワードを追加すると`main`でこれらのパスを使うのかを再確認します。
 
-絶対パスの場合、crate rootである`crate`で始まります。そこから、`sound`を持っており、crate rootに定義されているモジュールです。 `sound`モジュールはpublicではありませんが、`main`関数は`sound`が定義されている同じモジュールで定義されているので、`main`から `sound`を参照することができます。次は`instrument`です。これは`pub`でマークされたモジュールです。`instrument`の親モジュールにアクセスできるので、`instrument`にアクセスすることができます。最後に`clarinet`は`pub`とマークされた関数であり、親モジュールにアクセスできるので、この関数呼び出しは機能します。
+絶対パスの場合、クレートルートである`crate`で始まります。そこから、`sound`を持っており、クレートルートに定義されているモジュールです。 `sound`モジュールはpublicではありませんが、`main`関数は`sound`が定義されている同じモジュールで定義されているので、`main`から `sound`を参照することができます。次は`instrument`です。これは`pub`でマークされたモジュールです。`instrument`の親モジュールにアクセスできるので、`instrument`にアクセスすることができます。最後に`clarinet`は`pub`とマークされた関数であり、親モジュールにアクセスできるので、この関数呼び出しは機能します。
 
-相対パスの場合、ロジックは最初のステップを除いて絶対パスと同じです。crate rootから始めるのではなく、パスは`sound`から始まります。`sound`モジュールは`main`と同じモジュール内に定義されているので、`main`が定義されているモジュールからの相対パスが動作します。そして`instrument`と`clarinet`が`pub`でマークされているので、残りのパスが動作し、この関数呼び出しも有効です。
+相対パスの場合、ロジックは最初のステップを除いて絶対パスと同じです。クレートルートから始めるのではなく、パスは`sound`から始まります。`sound`モジュールは`main`と同じモジュール内に定義されているので、`main`が定義されているモジュールからの相対パスが動作します。そして`instrument`と`clarinet`が`pub`でマークされているので、残りのパスが動作し、この関数呼び出しも有効です。
 
 ### `super 'による相対パスの開始
 
@@ -523,7 +523,7 @@ fn function2() -> IoResult<()> {
 
 <span class="caption">Listing 7-20: 型が`as`キーワードで有効範囲に入ったときに型の名前を変更する</span>
 
-2番目の`use`ステートメントでは、`std::io: Result`型の新しい名前`IoResult`を選択しました。これは、`std::fmt`の`Result`と競合しません またスコープに持ち込まれる。これはまた慣用的であると考えられている。コードリスト7-19とリスト7-20のコードの選択はあなた次第です。
+2番目の`use`ステートメントでは、`std::io: Result`型の新しい名前`IoResult`を選択しました。これは、`std::fmt`の`Result`と競合しません またスコープに持ち込まれる。これはまた慣用的であると考えられている。コードリスト7-19とリスト7-20のコードの選択は自分次第です。
 
 ### `pub use`で名前を再エクスポートする
 
@@ -585,9 +585,9 @@ fn main() {
 }
 ```
 
-コミュニティのメンバーが*https://crates.io*で公開しているパッケージがたくさんあり、そのいずれかをあなたのパッケージに引っ張るのは、あなたのパッケージの*Cargo.toml*にリストして項目を定義するために、それらを`use`であなたのパッケージのスコープに入れます。
+コミュニティのメンバーが*https://crates.io*で公開しているパッケージがたくさんあり、そのいずれかをパッケージに引っ張るのは、パッケージの*Cargo.toml*にリストして項目を定義するために、それらを`use`でパッケージのスコープに入れます。
 
-標準ライブラリ（`std`）もあなたのパッケージの外部にあるcrateです。標準ライブラリにはRust言語が付属しているので、*Cargo.toml*を `std`をインクルードするように変更する必要はありませんが、`use`で参照して標準ライブラリが定義した項目をパッケージのスコープに持ち込み、`HashMap`のように書くこともできます。
+標準ライブラリ（`std`）もパッケージの外部にあるクレートです。標準ライブラリにはRust言語が付属しているので、*Cargo.toml*を `std`をインクルードするように変更する必要はありませんが、`use`で参照して標準ライブラリが定義した項目をパッケージのスコープに持ち込み、`HashMap`のように書くこともできます。
 
 ```rust
 use std::collections::HashMap;
@@ -595,14 +595,11 @@ use std::collections::HashMap;
 
 これは標準ライブラリクレートの名前である`std`で始まる絶対パスです。
 
-### Nested Paths for Cleaning Up Large `use` Lists
+### 大規模な`use`リストを整理するためのネストされたパス
 
-When you use many items defined by the same package or in the same module,
-listing each item on its own line can take up a lot of vertical space in your
-files. For example, these two `use` statements we had in Listing 2-4 in the
-Guessing Game both bring items from `std` into scope:
+同じパッケージまたは同じモジュールで定義された多数の項目を使用する場合、各項目を独自の行にリストすると、ファイル内に多くの縦方向のスペースが必要になります。たとえば、リスト2-4の数あてゲームで使用したこれら2つの`use`ステートメントは、`std`の項目をスコープに持ち込みます。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 use std::cmp::Ordering;
@@ -610,107 +607,81 @@ use std::io;
 // ---snip---
 ```
 
-We can use nested paths to bring the same items into scope in one line instead
-of two, by specifying the common part of the path, then two colons, then curly
-brackets around a list of the parts of the paths that differ, as shown in
-Listing 7-22.
+リスト7-22のようにネストしたパスを使用して、パスの共通部分を指定し、次に2つのコロンを指定し、異なるパスの部分のリストを中括弧で囲むことで、同じ項目を2つではなく1つの行に1つのスコープにすることができます。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 use std::{cmp::Ordering, io};
 // ---snip---
 ```
 
-<span class="caption">Listing 7-22: Specifying a nested path to bring multiple
-items with the same prefix into scope in one line instead of two</span>
+<span class="caption">リスト 7-22:ネストされたパスを指定して、同じプレフィックスを持つ複数の項目を2つではなく1行にスコープに入れる</span>
 
-In programs bringing many items into scope from the same package or module,
-using nested paths can reduce the number of separate `use` statements needed by
-a lot!
+同じパッケージやモジュールから多くの項目をスコープに入れたプログラムでは、ネストされたパスを使うと、たくさんの`use`ステートメントの数を減らすことができます。
 
-We can also deduplicate paths where one path is completely shared with part of
-another path. For example, Listing 7-23 shows two `use` statements: one that
-brings `std::io` into scope, and one that brings `std::io::Write` into scope:
+また、あるパスが完全に共有されているパスを別のパスの一部と重複排除することもできます。たとえば、リスト7-23は2つの`use`文を示しています。一つは`std::io`をスコープに持ち、もう一つは `std::io::Write`をスコープに持ちます。
 
-<span class="filename">Filename: src/lib.rs</span>
+<span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
 use std::io;
 use std::io::Write;
 ```
 
-<span class="caption">Listing 7-23: Bringing two paths into scope in two `use`
-statements where one is a sub-path of the other</span>
+<span class="caption">リスト 7-23: 2つのパスを2つの`use`ステートメントのスコープに入れます。1つはもう一方のサブパスです</span>
 
-The common part between these two paths is `std::io`, and that’s the complete
-first path. To deduplicate these two paths into one `use` statement, we can use
-`self` in the nested path as shown in Listing 7-24.
+これら2つのパスの共通部分は`std::io`であり、これが完全な最初のパスです。これらの2つのパスを1つの`use`ステートメントに重複排除するには、リスト7-24に示すように、ネストされたパスに`self`を使用できます。
 
-<span class="filename">Filename: src/lib.rs</span>
+<span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
 use std::io::{self, Write};
 ```
 
-<span class="caption">Listing 7-24: Deduplicating the paths from Listing 7-23
-into one `use` statement</span>
+<span class="caption">リスト 7-24: リスト7-23のパスを1つの `use`文に重複除外します</span>
 
-This brings both `std::io` and `std::io::Write` into scope.
+これは `std::io`と` std::io::Write`の両方をスコープに持ち込みます。
 
-### Bringing All Public Definitions into Scope with the Glob Operator
+### すべてのPublic定義をGlob演算子でスコープに変換する
 
-If you’d like to bring *all* public items defined in a path into scope, you can
-use specify that path followed by `*`, the glob operator:
+パスに定義された*すべて*のパブリックアイテムをスコープに持たせたい場合は、そのパスの後にglob演算子`*`を指定することができます。
 
 ```rust
 use std::collections::*;
 ```
 
-This `use` statements brings all public items defined in `std::collections`
-into the current scope.
+この`use`ステートメントは、`std::collections`で定義されたすべてのパブリックアイテムを現在のスコープに持ち込みます。
 
-Be careful with using the glob operator! It makes it harder to tell what names
-are in scope and where a name your program uses was defined.
+glob演算子の使用には注意してください。どの名前がスコープにあり、どの名前がプログラムで使用されているかを知るのが難しくなります。
 
-The glob operator is often used when testing to bring everything under test
-into the `tests` module; we’ll talk about that in the “How to Write Tests”
-section of Chapter 11. The glob operator is also sometimes used as part of the
-prelude pattern; see [the standard library
-documentation](../../std/prelude/index.html#other-preludes) for more
-information on that pattern.
+glob演算子は、テスト中の全てを`tests`モジュールに持っていくためにテストするときによく使われます。第11章の「テストの書き方」の節でそれについて話します。glob演算子は、初期化処理の一部として使用されることもあります。そのパターンの詳細については、[標準ライブラリのドキュメント](../../ std / prelude / index.html＃other-preludes)を参照してください。
 
-### Separating Modules into Different Files
+### モジュールを別々のファイルに分ける
 
-All of the examples in this chapter so far defined multiple modules in one
-file. When modules get large, you may want to move their definitions to a
-separate file to make the code easier to navigate.
+ここまでの例では、1つのファイルに複数のモジュールを定義していました。モジュールが大きくなると、その定義を別のファイルに移動して、コードをナビゲートしやすくなります。
 
-For example, if we started from the code in Listing 7-8, we can move the
-`sound` module to its own file *src/sound.rs* by changing the crate root file
-(in this case, *src/main.rs*) to contain the code shown in Listing 7-25.
+例えば、リスト7-8のコードから始めれば、クレートルートファイル(この場合は*src/main.rc*)を変更して、リストに示すコードを含むように、`sound`モジュールを独自のファイル*src/sound.rs*に移動できます
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust,ignore
 mod sound;
 
 fn main() {
-    // Absolute path
+    // 絶対パス
     crate::sound::instrument::clarinet();
 
-    // Relative path
+    // 相対パス
     sound::instrument::clarinet();
 }
 ```
 
-<span class="caption">Listing 7-25: Declaring the `sound` module whose body
-will be in *src/sound.rs*</span>
+<span class="caption">リスト 7-25: 本体が*src/sound.rs*にある`sound`モジュールを宣言します。</span>
 
-And *src/sound.rs* gets the definitions from the body of the `sound` module,
-shown in Listing 7-26.
+*src/sound.rs*は、リスト7-26に示す`sound`モジュールの本体から定義を取得します。
 
-<span class="filename">Filename: src/sound.rs</span>
+<span class="filename">ファイル名: src/sound.rs</span>
 
 ```rust
 pub mod instrument {
@@ -720,26 +691,21 @@ pub mod instrument {
 }
 ```
 
-<span class="caption">Listing 7-26: Definitions inside the `sound` module in
-*src/sound.rs*</span>
+<span class="caption">リスト 7-26: *src/sound.rs*の`sound`モジュールの中の定義</span>
 
-Using a semicolon after `mod sound` instead of a block tells Rust to load the
-contents of the module from another file with the same name as the module.
+ブロックの代わりに`mod sound`の後にセミコロンを使うと、モジュールの内容をモジュールと同じ名前の別のファイルからロードするようにRustに指示します。
 
-To continue with our example and extract the `instrument` module to its own
-file as well, we change *src/sound.rs* to contain only the declaration of the
-`instrument` module:
+この例を続行し、`instrument`モジュールをそれ自身のファイルに抽出するために、`instrument`モジュールの宣言だけを含むように*src/sound.rs*を変更します。
 
-<span class="filename">Filename: src/sound.rs</span>
+<span class="filename">ファイル名: src/sound.rs</span>
 
 ```rust
 pub mod instrument;
 ```
 
-Then we create a *src/sound* directory and a file *src/sound/instrument.rs* to
-contain the definitions made in the `instrument` module:
+次に、`instrument`モジュールで定義された定義を格納する*src/sound*ディレクトリとファイル*src/sound/instrument.rs*を作成します。
 
-<span class="filename">Filename: src/sound/instrument.rs</span>
+<span class="filename">ファイル名: src/sound/instrument.rs</span>
 
 ```rust
 pub fn clarinet() {
@@ -747,18 +713,10 @@ pub fn clarinet() {
 }
 ```
 
-The module tree remains the same and the function calls in `main` continue to
-work without any modification, even though the definitions live in different
-files. This lets you move modules to new files as they grow in size.
+モジュールツリーは同じままであり、定義が異なるファイルに存在していても、`main`の関数呼び出しは何の変更もなしに機能し続けます。これにより、モジュールのサイズが大きくなるにつれてモジュールを新しいファイルに移動できます。
 
-## Summary
+## まとめ
 
-Rust provides ways to organize your packages into crates, your crates into
-modules, and to refer to items defined in one module from another by specifying
-absolute or relative paths. These paths can be brought into a scope with a
-`use` statement so that you can use a shorter path for multiple uses of the
-item in that scope. Modules define code that’s private by default, but you can
-choose to make definitions public by adding the `pub` keyword.
+Rustは、パッケージをクレートに編成し、モジュールをクレートにモジュール化し、絶対パスまたは相対パスを指定することによって、あるモジュールで定義されたアイテムを別のモジュールから参照する方法を提供します。これらのパスは`use`ステートメントでスコープに入れられ、そのスコープ内のアイテムの複数の使用に短いパスを使用できます。モジュールはデフォルトで非公開のコードを定義しますが、`pub`キーワードを追加することで定義を公開することもできます。
 
-Next, we’ll look at some collection data structures in the standard library
-that you can use in your nice, neat code.
+次に、標準ライブラリのコレクションデータ構造を見ていきます。これは、きちんとしたきれいなコードで使用できます。

@@ -1,44 +1,22 @@
-# Generic Types, Traits, and Lifetimes
+# ジェネリック型、トレイト、ライフタイム
 
-Every programming language has tools for effectively handling the duplication
-of concepts. In Rust, one such tool is *generics*. Generics are abstract
-stand-ins for concrete types or other properties. When we’re writing code, we
-can express the behavior of generics or how they relate to other generics
-without knowing what will be in their place when compiling and running the code.
+すべてのプログラミング言語には、概念の重複を効果的に処理するツールがあります。Rustにおいて、そのようなツールの1つが*ジェネリックス*です。ジェネリックスは、具体的な型やその他のプロパティの抽象的な代役です。コードを書くときは、ジェネリックスの振る舞いや、コードをコンパイルして実行するときに何が起きるのかを知ることなく、ジェネリックスの動作や他のジェネリックとの関係を表現できます。
 
-Similar to the way a function takes parameters with unknown values to run the
-same code on multiple concrete values, functions can take parameters of some
-generic type instead of a concrete type, like `i32` or `String`. In fact, we’ve
-already used generics in Chapter 6 with `Option<T>`, Chapter 8 with `Vec<T>`
-and `HashMap<K, V>`, and Chapter 9 with `Result<T, E>`. In this chapter, you’ll
-explore how to define your own types, functions, and methods with generics!
+関数が未知の値を持つ引数を複数の具体的な値で同じコードを実行する方法と同様に、関数は`i32`や`String`のような具体的な型の代わりにいくつかの汎用型の引数を取ることができます。実際に第6章で`Option<T>`、第8章で`Vec <T>`、`HashMap<K, V>`、第9章で`Result<T, E>`を既に使用しました。この章では、ジェネリックスで独自の型、関数、およびメソッドを定義する方法について説明します。
 
-First, we’ll review how to extract a function to reduce code duplication. Next,
-we’ll use the same technique to make a generic function from two functions that
-differ only in the types of their parameters. We’ll also explain how to use
-generic types in struct and enum definitions.
+まず、コードの重複を減らす関数を抽出する方法を見ていきます。次に、同じテクニックを使用して、引数の型だけが異なる2つの関数から汎用的な関数を作成します。構造体と列挙型の定義でジェネリック型を使用する方法についても説明します。
 
-Then you’ll learn how to use *traits* to define behavior in a generic way. You
-can combine traits with generic types to constrain a generic type to only
-those types that have a particular behavior, as opposed to just any type.
+次に、*トレイト*を使用して動作を汎用的な方法で定義する方法を学びます。型をジェネリック型と組み合わせることで、ジェネリック型を特定の振る舞いを持つ型だけに制限することができます。
 
-Finally, we’ll discuss *lifetimes*, a variety of generics that give the
-compiler information about how references relate to each other. Lifetimes allow
-us to borrow values in many situations while still enabling the compiler to
-check that the references are valid.
+最後に、*ライフタイム*について説明します。ライフタイムとは、コンパイラに参照がお互いにどう関係しているかの情報を与える1種のジェネリックスです。ライフタイムでは、多くの状況で値を借用することができ、コンパイラーは参照が有効であることを確認することを可能にします。
 
-## Removing Duplication by Extracting a Function
+## 関数を抽出することで重複を取り除く
 
-Before diving into generics syntax, let’s first look at how to remove
-duplication that doesn’t involve generic types by extracting a function. Then
-we’ll apply this technique to extract a generic function! In the same way that
-you recognize duplicated code to extract into a function, you’ll start to
-recognize duplicated code that can use generics.
+ジェネリックスの構文に入る前に、まず関数を抽出してジェネリック型を含まない重複を削除する方法を見てみましょう。次に、このテクニックを適用して汎用的な関数を抽出します。関数に重複したコードを抽出するのと同じ方法で、ジェネリックスを使用できる重複したコードを認識し始めます。
 
-Consider a short program that finds the largest number in a list, as shown in
-Listing 10-1.
+リスト10-1に示すように、リスト内で最大の数を見つける短いプログラムを考えてみましょう。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -57,23 +35,13 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 10-1: Code to find the largest number in a list
-of numbers</span>
+<span class="caption">リスト 10-1: 数字のリストから最大値を求めるコード</span>
 
-This code stores a list of integers in the variable `number_list` and places
-the first number in the list in a variable named `largest`. Then it iterates
-through all the numbers in the list, and if the current number is greater than
-the number stored in `largest`, it replaces the number in that variable.
-However, if the current number is less than the largest number seen so far, the
-variable doesn’t change, and the code moves on to the next number in the list.
-After considering all the numbers in the list, `largest` should hold the
-largest number, which in this case is 100.
+このコードは整数のリストを変数`number_list`に格納し、最初の数値を`most`という名前の変数にリストに格納します。次に、リスト内のすべての数値を繰り返し処理し、現在の数値が`largest`に格納されている数値よりも大きい場合は、その変数の数値を置き換えます。ただし、現在の数値がこれまでに見た最大数値よりも小さい場合、変数は変更されず、コードはリストの次の数値に移動します。リスト内のすべての数字を考慮した後、`largest`は最大の数字を保持します。この場合は100です。
 
-To find the largest number in two different lists of numbers, we can duplicate
-the code in Listing 10-1 and use the same logic at two different places in the
-program, as shown in Listing 10-2.
+2つの異なる数値リストで最大の数値を見つけるには、リスト10-1のコードを複製し、プログラムの2つの異なる場所で同じロジックを使用することができます（リスト10-2を参照）。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 fn main() {
@@ -103,23 +71,15 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 10-2: Code to find the largest number in *two*
-lists of numbers</span>
+<span class="caption">リスト 10-2: 2つの数値のリストから最大値を探すコード</span>
 
-Although this code works, duplicating code is tedious and error prone. We also
-have to update the code in multiple places when we want to change it.
+このコードは機能しますが、コードを複製するのは面倒でエラーが発生しやすいです。コードを変更したいときは、複数の場所でコードを更新する必要があります。
 
-To eliminate this duplication, we can create an abstraction by defining a
-function that operates on any list of integers given to it in a parameter. This
-solution makes our code clearer and lets us express the concept of finding the
-largest number in a list abstractly.
+この重複を排除するために、与えられた整数リストに作用する関数を引数で定義して抽象化を作成することができます。この解決法は、コードをより明確にし、最も大きな数字を抽象的にリストするという概念を表現することができます。
 
-In Listing 10-3, we extracted the code that finds the largest number into a
-function named `largest`. Unlike the code in Listing 10-1, which can find the
-largest number in only one particular list, this program can find the largest
-number in two different lists.
+コードリスト10-3では、`largest`という名前の関数に最大の番号を見つけるコードを抽出しました。リスト10-1のコードとは異なり、このプログラムは特定の1つのリストで最大の番号を見つけることができますが、このプログラムは2つの異なるリストで最大の番号を見つけることができます。
 
-<span class="filename">Filename: src/main.rs</span>
+<span class="filename">ファイル名: src/main.rs</span>
 
 ```rust
 fn largest(list: &[i32]) -> i32 {
@@ -149,27 +109,16 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 10-3: Abstracted code to find the largest number
-in two lists</span>
+<span class="caption">リスト 10-3: 2つのリストから最大値を探す抽象化されたコード</span>
 
-The `largest` function has a parameter called `list`, which represents any
-concrete slice of `i32` values that we might pass into the function. As a
-result, when we call the function, the code runs on the specific values that we
-pass in.
+`largest`関数には`list`という引数があります。この引数は関数に渡すことができる`i32`値の具体的なスライスを表します。 その結果、関数を呼び出すと、渡された特定の値でコードが実行されます。
 
-In sum, here are the steps we took to change the code from Listing 10-2 to
-Listing 10-3:
+まとめると、リスト10-2のコードをリスト10-3に変更するために取った手順は次のとおりです。
 
-1. Identify duplicate code.
-2. Extract the duplicate code into the body of the function and specify the
-   inputs and return values of that code in the function signature.
-3. Update the two instances of duplicated code to call the function instead.
+1. 重複したコードを特定する
+2. 関数の本体に重複したコードを抽出し、その関数のシグニチャにそのコードの入力と戻り値を指定します
+3. 代わりに関数を呼び出すように、重複したコードの2つのインスタンスを更新します。
 
-Next, we’ll use these same steps with generics to reduce code duplication in
-different ways. In the same way that the function body can operate on an
-abstract `list` instead of specific values, generics allow code to operate on
-abstract types.
+次に、これらの同じ手順をジェネリックで使用して、コードの重複をさまざまな方法で減らします。関数本体が特定の値の代わりに抽象的な`list`で動作するのと同じように、ジェネリックスは抽象型でコードを操作できるようにします。
 
-For example, say we had two functions: one that finds the largest item in a
-slice of `i32` values and one that finds the largest item in a slice of `char`
-values. How would we eliminate that duplication? Let’s find out!
+例えば、`i32`値のスライスの中で最大のものを見つける関数と`char`値のスライスの中で最大のものを見つけるものの2つの関数があります。その重複をどのように排除しますか？確認してみましょう。
