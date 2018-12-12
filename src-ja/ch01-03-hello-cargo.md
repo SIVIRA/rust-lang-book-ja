@@ -139,6 +139,7 @@ $ cd someproject
 $ cargo build
 ```
 Cargoの詳細については、[ドキュメント][its documentation]を参照してください。
+
 [its documentation]: https://doc.rust-lang.org/cargo/
 
 ## まとめ
