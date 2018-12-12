@@ -1,38 +1,19 @@
-# An I/O Project: Building a Command Line Program
+# 入出力プロジェクト: コマンドラインプログラムを構築する
 
-This chapter is a recap of the many skills you’ve learned so far and an
-exploration of a few more standard library features. We’ll build a command line
-tool that interacts with file and command line input/output to practice some of
-the Rust concepts you now have under your belt.
+この章では、これまでに学んだ多くのスキルと、いくつかの標準的なライブラリ機能の概要を取り上げます。ファイルやコマンドラインの入出力と対話するコマンドラインツールを構築して、現在持っているRustの概念のいくつかを練習します。
 
-Rust’s speed, safety, single binary output, and cross-platform support make it
-an ideal language for creating command line tools, so for our project, we’ll
-make our own version of the classic command line tool `grep` (**g**lobally
-search a **r**egular **e**xpression and **p**rint). In the simplest use case,
-`grep` searches a specified file for a specified string. To do so, `grep` takes
-as its arguments a filename and a string. Then it reads the file, finds lines
-in that file that contain the string argument, and prints those lines.
+Rustのスピード、安全性、シングルバイナリ出力、クロスプラットフォームサポートは、コマンドラインツールを作成するのに理想的な言語なので、このプロジェクトでは古典的なコマンドラインツール`grep`(**g**lobally search a **r**egular **e**xpression and **p**rint)を独自のバージョンで作成します。最も単純な使用例では、`grep`は指定されたファイルを指定された文字列で検索します。そうするために、`grep`は引数としてファイル名と文字列をとります。次に、ファイルを読み込み、そのファイル内で文字列引数を含む行を見つけ出し、それらの行を出力します。
 
-Along the way, we’ll show how to make our command line tool use features of the
-terminal that many command line tools use. We’ll read the value of an
-environment variable to allow the user to configure the behavior of our tool.
-We’ll also print to the standard error console stream (`stderr`) instead of
-standard output (`stdout`), so, for example, the user can redirect successful
-output to a file while still seeing error messages onscreen.
+その間、多くのコマンドラインツールが使用するターミナルの機能をコマンドラインツールで使用する方法を示します。環境変数の値を読んで、ユーザーがツールの動作を設定できるようにします。標準出力(`stdout`)の代わりに標準エラーコンソールストリーム(`stderr`)にも出力するので、例えば、ユーザは正常な出力をファイルにリダイレクトし、画面上にエラーメッセージが表示されることがあります。
 
-One Rust community member, Andrew Gallant, has already created a fully
-featured, very fast version of `grep`, called `ripgrep`. By comparison, our
-version of `grep` will be fairly simple, but this chapter will give you some of
-the background knowledge you need to understand a real-world project such as
-`ripgrep`.
+あるRustのコミュニティーメンバーであるAndrew Gallantは、既に完全機能を備えた非常に高速な`grep`のバージョンを作成しました。これは`ripgrep`です。これと比較すると、grepのバージョンはかなりシンプルですが、この章では`ripgrep`のような実際のプロジェクトを理解するのに必要な知識をいくつか紹介します。
 
-Our `grep` project will combine a number of concepts you’ve learned so far:
+`grep`プロジェクトはこれまでに学んだ多くのコンセプトを組み合わせます。
 
-* Organizing code (using what you learned about modules in Chapter 7)
-* Using vectors and strings (collections, Chapter 8)
-* Handling errors (Chapter 9)
-* Using traits and lifetimes where appropriate (Chapter 10)
-* Writing tests (Chapter 11)
+* コードを体系化する(モジュール、第7章で学んだことを使用)
+* ベクタ型と文字列を使用する(コレクション、第8章)
+* エラーを処理する(第9章)
+* 適切な箇所でトレイトとライフタイムを使用する(第10章)
+* テストを記述する(第11章)
 
-We’ll also briefly introduce closures, iterators, and trait objects, which
-Chapters 13 and 17 will cover in detail.
+また、クロージャ、イテレータ、およびトレイトオブジェクトについても簡単に紹介します（第13章および第17章で詳しく説明します）。
