@@ -1,34 +1,11 @@
-# Writing Automated Tests
+# 自動テストを書く
 
-In his 1972 essay “The Humble Programmer,” Edsger W. Dijkstra said that
-“Program testing can be a very effective way to show the presence of bugs, but
-it is hopelessly inadequate for showing their absence.” That doesn’t mean we
-shouldn’t try to test as much as we can!
+1972年のエッセイ「謙虚なプログラマ」でエドガー・W・ダイクストラは以下のように述べています。「プログラムのテストは、バグの存在を示すには非常に効率的な手法であるが、バグの不在を示すには望み薄く不適切である」と。これは、できるだけテストを試みるべきではないということではありません。
 
-Correctness in our programs is the extent to which our code does what we intend
-it to do. Rust is designed with a high degree of concern about the correctness
-of programs, but correctness is complex and not easy to prove. Rust’s type
-system shoulders a huge part of this burden, but the type system cannot catch
-every kind of incorrectness. As such, Rust includes support for writing
-automated software tests within the language.
+プログラムの正しさは、コードが意図していることをどの程度行っているかです。Rustはプログラムの正当性に重きを置いて設計されていますが、正当性は複雑で、単純に証明することはありません。Rustの型システムはこの負担の大きな部分を負っていますが、型システムはあらゆる種類の誤りをキャッチできません。そのため、Rustには言語内での自動ソフトウェアテストの作成がサポートされています。
 
-As an example, say we write a function called `add_two` that adds 2 to whatever
-number is passed to it. This function’s signature accepts an integer as a
-parameter and returns an integer as a result. When we implement and compile
-that function, Rust does all the type checking and borrow checking that you’ve
-learned so far to ensure that, for instance, we aren’t passing a `String` value
-or an invalid reference to this function. But Rust *can’t* check that this
-function will do precisely what we intend, which is return the parameter plus 2
-rather than, say, the parameter plus 10 or the parameter minus 50! That’s where
-tests come in.
+例として、`add_two`という関数を書いて、渡される数値に2を加えたとします。この関数のシグニチャは、パラメータとして整数を受け取り、結果として整数を返します。この関数を実装してコンパイルするとき、Rustはこれまでに学んだすべての型チェックと借用チェックを行い、たとえば、`String`の値や無効な参照をこの関数に渡していないかなどを確かめます。ところが、コンパイラはプログラマがまさしく意図したことを関数が実行しているかどうかは確かめられません。つまり、引数に10を足したり、50を引いたりするのではなく、引数に2を足していることです。このような時にテストは必要になります。
 
-We can write tests that assert, for example, that when we pass `3` to the
-`add_two` function, the returned value is `5`. We can run these tests whenever
-we make changes to our code to make sure any existing correct behavior has not
-changed.
+たとえば、`add_two`関数に`3`を渡すと返される値は`5`であるというテストを書くことができます。ードを変更するたびにこれらのテストを実行することで、既存の正しい動作が変更されていないことを確認できます。
 
-Testing is a complex skill: although we can’t cover every detail about how to
-write good tests in one chapter, we’ll discuss the mechanics of Rust’s testing
-facilities. We’ll talk about the annotations and macros available to you when
-writing your tests, the default behavior and options provided for running your
-tests, and how to organize tests into unit tests and integration tests.
+テストは複雑なスキルです。よいテストの書き方をあらゆる方面から解説することは1章だけではできませんが、Rustのテスト機能のメカニズムについて議論します。テストの作成時に使用できるアノテーションやマクロ、テストの実行に必要なデフォルトの動作とオプション、単体テストと統合テストへのテストの構成方法について説明します。
