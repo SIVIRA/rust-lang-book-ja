@@ -1,41 +1,20 @@
-## Test Organization
+## テストの体系化
 
-As mentioned at the start of the chapter, testing is a complex discipline, and
-different people use different terminology and organization. The Rust community
-thinks about tests in terms of two main categories: *unit tests* and
-*integration tests*. Unit tests are small and more focused, testing one module
-in isolation at a time, and can test private interfaces. Integration tests are
-entirely external to your library and use your code in the same way any other
-external code would, using only the public interface and potentially exercising
-multiple modules per test.
+この章の冒頭で述べたように、テストは複雑な規律であり、二兎により用語や体系化が異なります。Rustコミュニティでは、テストについて、*単体テスト*と*結合テスト*の2つのカテゴリに分かれて考えています。単体テストは、小さくて集中的で、一度に1つのモジュールを単独でテストし、プライベートインターフェイスをテストできます。統合テストは完全にあなたのライブラリの外部にあり、パブリックインターフェイスのみを使用し、テストごとに複数のモジュールを実行する可能性がある他の外部コードと同じ方法でコードを使用します。
 
-Writing both kinds of tests is important to ensure that the pieces of your
-library are doing what you expect them to separately and together.
+どちらのテストを書くのも、ライブラリの一部が個別かつ共同でしてほしいことをしていることを確認するのに重要なのです。
 
-### Unit Tests
+### 単体テスト
 
-The purpose of unit tests is to test each unit of code in isolation from the
-rest of the code to quickly pinpoint where code is and isn’t working as
-expected. You’ll put unit tests in the *src* directory in each file with the
-code that they’re testing. The convention is to create a module named `tests`
-in each file to contain the test functions and to annotate the module with
-`cfg(test)`.
+単体テストの目的は、コードの各単位を他のコードと孤立してテストし、コードがどこにあるかを素早く特定し、期待どおりに動作しないようにすることです。それぞれのファイルの* src *ディレクトリにある単体テストをテストしているコードに置きます。慣例は、各ファイルに`tests`という名前のモジュールを作成し、テスト関数を含み、`cfg(test)`でモジュールに注釈を付けることです。
 
-#### The Tests Module and `#[cfg(test)]`
+#### テストモジュールと`#[cfg(test)]`
 
-The `#[cfg(test)]` annotation on the tests module tells Rust to compile and run
-the test code only when you run `cargo test`, not when you run `cargo build`.
-This saves compile time when you only want to build the library and saves space
-in the resulting compiled artifact because the tests are not included. You’ll
-see that because integration tests go in a different directory, they don’t need
-the `#[cfg(test)]` annotation. However, because unit tests go in the same files
-as the code, you’ll use `#[cfg(test)]` to specify that they shouldn’t be
-included in the compiled result.
+テストモジュールの `#[cfg(test)]`アノテーションは`cargo build`を実行したときではなく`cargo test`を実行したときにのみテストコードをコンパイルして実行するようRustに指示します。これにより、ライブラリが構築され、結果としてコンパイルされた成果物にスペースが節約されるだけで、テストが含まれないため、コンパイル時間が節約されます。統合テストは別のディレクトリにあるので、`#[cfg(test)]`アノテーションは必要ありません。しかし、単体テストはコードと同じファイルに入っているので、`#[cfg(test)]`を使ってそれらをコンパイル結果に含めないように指定します。
 
-Recall that when we generated the new `adder` project in the first section of
-this chapter, Cargo generated this code for us:
+この章の最初の節で新しい`adder`プロジェクトを生成した時に、Cargoがこのコードも生成してくれたことを思い出してください:
 
-<span class="filename">Filename: src/lib.rs</span>
+<span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
 #[cfg(test)]
@@ -47,24 +26,13 @@ mod tests {
 }
 ```
 
-This code is the automatically generated test module. The attribute `cfg`
-stands for *configuration* and tells Rust that the following item should only
-be included given a certain configuration option. In this case, the
-configuration option is `test`, which is provided by Rust for compiling and
-running tests. By using the `cfg` attribute, Cargo compiles our test code only
-if we actively run the tests with `cargo test`. This includes any helper
-functions that might be within this module, in addition to the functions
-annotated with `#[test]`.
+このコードは自動的に生成されたテストモジュールです。属性`cfg`は*configuration*の略であり、以下の項目は特定の設定オプションを指定した場合にのみ含めるべきであることをRustに伝えます。この場合、構成オプションはtestをコンパイルして実行するためにRustによって提供される`test`です。`cfg`属性を使うことで、`cargo test`で積極的にテストを実行する場合にのみ、Cargoはテストコードをコンパイルします。これには、`#[test]`で注釈を付けられた関数に加えて、このモジュール内にあるヘルパー関数が含まれます。
 
-#### Testing Private Functions
+#### 非公開関数をテストする
 
-There’s debate within the testing community about whether or not private
-functions should be tested directly, and other languages make it difficult or
-impossible to test private functions. Regardless of which testing ideology you
-adhere to, Rust’s privacy rules do allow you to test private functions.
-Consider the code in Listing 11-12 with the private function `internal_adder`:
+プライベート機能を直接テストする必要があるかどうかについては、テストコミュニティ内で議論されており、他の言語ではプライベート機能をテストすることが困難または不可能になっています。どのテストイデオロギーを遵守しているかに関係なく、Rustのプライバシールールではプライベート機能をテストできます。リスト11-12のプライベート関数`internal_adder`を含むコードを考えてください。
 
-<span class="filename">Filename: src/lib.rs</span>
+<span class="filename">ファイル名: src/lib.rs</span>
 
 ```rust
 # fn main() {}
@@ -88,36 +56,21 @@ mod tests {
 }
 ```
 
-<span class="caption">Listing 11-12: Testing a private function</span>
+<span class="caption">リスト 11-12: プライベート関数のテスト</span>
 
-Note that the `internal_adder` function is not marked as `pub`, but because
-tests are just Rust code and the `tests` module is just another module, you can
-bring `internal_adder` into a test’s scope and call it. If you don’t think
-private functions should be tested, there’s nothing in Rust that will compel
-you to do so.
+`internal_adder`関数は`pub`としてマークされていませんが、テストは単にRustコードであり、`tests`モジュールはちょうど別のモジュールなので、テストのスコープに`internal_adder`を持って呼び出すことができます。プライベート関数がテストされるべきだと思っていないなら、そうするように強制するRustには何もありません。
 
-### Integration Tests
+### 結合テスト
 
-In Rust, integration tests are entirely external to your library. They use your
-library in the same way any other code would, which means they can only call
-functions that are part of your library’s public API. Their purpose is to test
-whether many parts of your library work together correctly. Units of code that
-work correctly on their own could have problems when integrated, so test
-coverage of the integrated code is important as well. To create integration
-tests, you first need a *tests* directory.
+Rustでは、統合テストは完全にライブラリの外部にあります。他のコードと同じ方法でライブラリを使用します。つまり、ライブラリの公開APIの一部である関数のみを呼び出すことができます。その目的は、ライブラリの多くの部分が正しく連携しているかどうかをテストすることです。独自に正しく動作するコード単位では、統合されたときに問題が発生する可能性があるため、統合コードのテストカバレッジも重要です。統合テストを作成するには、まず*tests*ディレクトリが必要です。
 
-#### The *tests* Directory
+#### *tests*ディレクトリ
 
-We create a *tests* directory at the top level of our project directory, next
-to *src*. Cargo knows to look for integration test files in this directory. We
-can then make as many test files as we want to in this directory, and Cargo
-will compile each of the files as an individual crate.
+*src*の横のプロジェクトディレクトリの最上位に*tests*ディレクトリを作成します。Cargoはこのディレクトリに統合テストファイルを探すことを知っています。次に、このディレクトリにいくつでもテストファイルを作成することができ、Cargoはそれぞれのファイルを個々のクレートとしてコンパイルします。
 
-Let’s create an integration test. With the code in Listing 11-12 still in the
-*src/lib.rs* file, make a *tests* directory, create a new file named
-*tests/integration_test.rs*, and enter the code in Listing 11-13:
+統合テストを作成しましょう。リスト11-12のコードを*src/lib.rs*ファイルに残して*tests*ディレクトリを作成し、*tests/integration_test.rs*という名前の新しいファイルを作成し、リスト11-13のコードを入力します。
 
-<span class="filename">Filename: tests/integration_test.rs</span>
+<span class="filename">ファイル名: tests/integration_test.rs</span>
 
 ```rust,ignore
 use adder;
@@ -128,16 +81,11 @@ fn it_adds_two() {
 }
 ```
 
-<span class="caption">Listing 11-13: An integration test of a function in the
-`adder` crate</span>
+<span class="caption">リスト 11-13: `adder`クレートの関数の結合テスト</span>
 
-We’ve added `use adder` at the top of the code, which we didn’t need in the
-unit tests. The reason is that each test in the `tests` directory is a separate
-crate, so we need to bring our library into each test crate’s scope.
+コードの先頭に`use adder`を追加しました。単体テストでは不要でした。なぜなら、`tests`ディレクトリの各テストは別々のクレートなので、私たちのライブラリを各テストクレートのスコープに持っていく必要があるからです。
 
-We don’t need to annotate any code in *tests/integration_test.rs* with
-`#[cfg(test)]`. Cargo treats the `tests` directory specially and compiles files
-in this directory only when we run `cargo test`. Run `cargo test` now:
+*tests/integration_test.rs*のコードに`#[cfg(test)]`を使って注釈を付ける必要はありません。Cargoは`tests`ディレクトリを特別に扱い、`cargo test`を実行するときにのみこのディレクトリのファイルをコンパイルします。今すぐ`cargo test`を実行してください。
 
 ```text
 $ cargo test
@@ -164,27 +112,13 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-The three sections of output include the unit tests, the integration test, and
-the doc tests. The first section for the unit tests is the same as we’ve been
-seeing: one line for each unit test (one named `internal` that we added in
-Listing 11-12) and then a summary line for the unit tests.
+出力の3つのセクションには、ユニットテスト、統合テスト、およびドキュメントテストが含まれます。ユニットテストの最初のセクションは、これまでのユニットテストの1行（リスト11-12で追加した`internal`という名前）とユニットテストのサマリー行です。
 
-The integration tests section starts with the line `Running
-target/debug/deps/integration_test-ce99bcc2479f4607` (the hash at the end of
-your output will be different). Next, there is a line for each test function in
-that integration test and a summary line for the results of the integration
-test just before the `Doc-tests adder` section starts.
+統合テストのセクションは `Running target/debug/deps/integration_test-ce99bcc2479f4607`という行から始まります（出力の最後のハッシュは異なります）。次に、その統合テストでは各テスト関数の行があり、`Doc-tests adder`セクションが始まる直前に統合テストの結果の要約行があります。
 
-Similarly to how adding more unit test functions adds more result lines to the
-unit tests section, adding more test functions to the integration test file
-adds more result lines to this integration test file’s section. Each
-integration test file has its own section, so if we add more files in the
-*tests* directory, there will be more integration test sections.
+より多くの単体テスト機能を追加することでユニットテストセクションに結果ラインが追加されるのと同様に、より多くのテスト機能を統合テストファイルに追加することで、この統合テストファイルのセクションに多くの結果ラインが追加されます。 各統合テストファイルには独自のセクションがあるので、*tests*ディレクトリにさらにファイルを追加すると、より多くの統合テストセクションが作成されます。
 
-We can still run a particular integration test function by specifying the test
-function’s name as an argument to `cargo test`. To run all the tests in a
-particular integration test file, use the `--test` argument of `cargo test`
-followed by the name of the file:
+テスト関数の名前を`cargo test`の引数として指定することで、特定の統合テスト関数を実行することができます。特定の統合テストファイルですべてのテストを実行するには、`cargo test`の`--test`引数の後ろにファイル名を続けてください。
 
 ```text
 $ cargo test --test integration_test
@@ -197,30 +131,17 @@ test it_adds_two ... ok
 test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-This command runs only the tests in the *tests/integration_test.rs* file.
+このコマンドは、*tests/integration_test.rs*ファイル内のテストのみを実行します。
 
-#### Submodules in Integration Tests
+#### 結合テスト内のサブモジュール
 
-As you add more integration tests, you might want to make more than one file in
-the *tests* directory to help organize them; for example, you can group the
-test functions by the functionality they’re testing. As mentioned earlier, each
-file in the *tests* directory is compiled as its own separate crate.
+より多くの統合テストを追加すると、*tests*ディレクトリに複数のファイルを作成して整理するのに役立つ場合があります。 たとえば、テスト機能をテストしている機能でグループ化できます。先に述べたように、*tests*ディレクトリ内の各ファイルは、別個のクレートとしてコンパイルされます。
 
-Treating each integration test file as its own crate is useful to create
-separate scopes that are more like the way end users will be using your crate.
-However, this means files in the *tests* directory don’t share the same
-behavior as files in *src* do, as you learned in Chapter 7 regarding how to
-separate code into modules and files.
+各結合テストファイルをそれ自身のクレートとして扱うと、エンドユーザが読者のクレートを使用するかのような個別のスコープを生成するのに役立ちます。ですが、これは*tests*ディレクトリのファイルが、コードをモジュールとファイルに分ける方法に関して第7章で学んだように、*src*のファイルとは同じ振る舞いを共有しないことを意味します。
 
-The different behavior of files in the *tests* directory is most noticeable
-when you have a set of helper functions that would be useful in multiple
-integration test files and you try to follow the steps in the “Separating
-Modules into Different Files” section of Chapter 7 to extract them into a
-common module. For example, if we create *tests/common.rs* and place a function
-named `setup` in it, we can add some code to `setup` that we want to call from
-multiple test functions in multiple test files:
+*tests*ディレクトリ内のファイルのさまざまな動作は、複数の統合テストファイルで役立つヘルパー関数ができ、第7章の「モジュールを別のファイルに移動する」節の手順に従って共通モジュールに抽出しようとした時に最も気付きやすくなります。例えば、*tests/common.rs*を作成し、そこに`setup`という名前の関数を配置したら、 複数のテストファイルの複数のテスト関数から呼び出したい`setup`に何らかのコードを追加することができます。
 
-<span class="filename">Filename: tests/common.rs</span>
+<span class="filename">ファイル名: tests/common.rs</span>
 
 ```rust
 pub fn setup() {
@@ -228,9 +149,7 @@ pub fn setup() {
 }
 ```
 
-When we run the tests again, we’ll see a new section in the test output for the
-*common.rs* file, even though this file doesn’t contain any test functions nor
-did we call the `setup` function from anywhere:
+テストを再実行すると、*common.rs*ファイルのテスト出力に新しいセクションが表示されます。ただし、このファイルにはテスト関数が含まれておらず、どこからでも`setup`関数を呼び出すことはありませんでした。
 
 ```text
 running 1 test
@@ -258,24 +177,13 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-Having `common` appear in the test results with `running 0 tests` displayed for
-it is not what we wanted. We just wanted to share some code with the other
-integration test files.
+テスト結果に`common 0`が表示されている状態で`running 0 tests`が表示されているのは、望んでいる結果ではありません。 他の統合テストファイルといくつかのコードを共有したかっただけです。
 
-To avoid having `common` appear in the test output, instead of creating
-*tests/common.rs*, we’ll create *tests/common/mod.rs*. This is an alternate
-naming convention that Rust also understands. Naming the file this way tells
-Rust not to treat the `common` module as an integration test file. When we move
-the `setup` function code into *tests/common/mod.rs* and delete the
-*tests/common.rs* file, the section in the test output will no longer appear.
-Files in subdirectories of the *tests* directory don’t get compiled as separate
-crates or have sections in the test output.
+*tests/common.rs*を作成するのではなく、テスト出力に`common`が現れるのを避けるため、*tests/common/mod.rs*を作成します。これは、Rustも理解している別の命名規則です。この方法でファイルを命名すると、Rustは`common`モジュールを統合テストファイルとして扱わないように指示します。`setup`関数コードを*tests/common/mod.rs*に移動して*tests/common.rs*ファイルを削除すると、テスト出力のセクションは表示されなくなります。*tests*ディレクトリのサブディレクトリにあるファイルは、別々のファイルとしてコンパイルされたり、テスト出力にセクションがありません。
 
-After we’ve created *tests/common/mod.rs*, we can use it from any of the
-integration test files as a module. Here’s an example of calling the `setup`
-function from the `it_adds_two` test in *tests/integration_test.rs*:
+*tests/common/mod.rs*を作成したら、統合テストファイルのいずれかからモジュールとして使用できます。*tests/integration_test.rs*の`it_adds_two`テストから`setup`関数を呼び出す例を示します。
 
-<span class="filename">Filename: tests/integration_test.rs</span>
+<span class="filename">ファイル名: tests/integration_test.rs</span>
 
 ```rust,ignore
 use adder;
@@ -289,36 +197,16 @@ fn it_adds_two() {
 }
 ```
 
-Note that the `mod common;` declaration is the same as the module declaration
-we demonstrated in Listing 7-25. Then in the test function, we can call the
-`common::setup()` function.
+`mod common;`宣言はリスト7-25で示したモジュール宣言と同じです。次に、テスト関数で`common::setup()`関数を呼び出すことができます。
 
-#### Integration Tests for Binary Crates
+#### バイナリクレート用の結合テスト
 
-If our project is a binary crate that only contains a *src/main.rs* file and
-doesn’t have a *src/lib.rs* file, we can’t create integration tests in the
-*tests* directory and bring functions defined in the *src/main.rs* file into
-scope with a `use` statement. Only library crates expose functions that other
-crates can use; binary crates are meant to be run on their own.
+プロジェクトが*src/main.rs*ファイルのみを含み、*src/lib.rs*ファイルを持たないバイナリクレートである場合、*tests*ディレクトリに統合テストを作成して関数を呼び出すことはできません *src/main.rs*ファイルで`use`ステートメントでスコープに定義されています。ライブラリークレートのみが、他のクレートが使用できる機能を公開します。バイナリクレートは、単独で実行されることを意図しています。
 
-This is one of the reasons Rust projects that provide a binary have a
-straightforward *src/main.rs* file that calls logic that lives in the
-*src/lib.rs* file. Using that structure, integration tests *can* test the
-library crate with `use` to make the important functionality available.
-If the important functionality works, the small amount of code in the
-*src/main.rs* file will work as well, and that small amount of code doesn’t
-need to be tested.
+これは、バイナリを提供するRustプロジェクトが*src/lib.rs*ファイルに存在するロジックを呼び出す簡単な*src/main.rs*ファイルを持っている理由の1つです。その構造を使用して、統合テストは、重要な機能を利用できるようにするために、ライブラリクレートを`use`でテストできます。重要な機能が動作する場合は、*src/main.rs*ファイル内の少量のコードも同様に動作し、少量のコードをテストする必要はありません。
 
-## Summary
+## まとめ
 
-Rust’s testing features provide a way to specify how code should function to
-ensure it continues to work as you expect, even as you make changes. Unit tests
-exercise different parts of a library separately and can test private
-implementation details. Integration tests check that many parts of the library
-work together correctly, and they use the library’s public API to test the code
-in the same way external code will use it. Even though Rust’s type system and
-ownership rules help prevent some kinds of bugs, tests are still important to
-reduce logic bugs having to do with how your code is expected to behave.
+Rustのテスト機能は、たとえ変更を加えたとしても、コードがどのように機能して期待通りに機能するかを指定する方法を提供します。単体テストはライブラリの別々の部分を個別に実行し、プライベートな実装の詳細をテストできます。統合テストでは、ライブラリの多くの部分が正しく連携していることを確認し、ライブラリのパブリックAPIを使用して、外部コードが使用するのと同じ方法でコードをテストします。Rustのタイプのシステムと所有権のルールはいくつかの種類のバグを防ぐのに役立ちますが、テストがロジックバグを減らすためには、コードがどのように動作することが予想されるかに関係しています。
 
-Let’s combine the knowledge you learned in this chapter and in previous
-chapters to work on a project!
+この章で学んだ知識とこれまでの章で学んだ知識を組み合わせてプロジェクトを進めましょう。
