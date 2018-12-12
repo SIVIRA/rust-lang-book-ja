@@ -1,25 +1,10 @@
-## Installing Binaries from Crates.io with `cargo install`
+## `cargo install`でCrates.ioからバイナリをインストールする
 
-The `cargo install` command allows you to install and use binary crates
-locally. This isn’t intended to replace system packages; it’s meant to be a
-convenient way for Rust developers to install tools that others have shared on
-[crates.io](https://crates.io)<!-- ignore -->. Note that you can only install
-packages that have binary targets. A *binary target* is the runnable program
-that is created if the crate has a *src/main.rs* file or another file specified
-as a binary, as opposed to a library target that isn’t runnable on its own but
-is suitable for including within other programs. Usually, crates have
-information in the *README* file about whether a crate is a library, has a
-binary target, or both.
+`cargo install`コマンドを使うとバイナリクレートをローカルにインストールして使うことができます。これはシステムパッケージを置き換えるものではありません。Rustの開発者が他の人が[crates.io](https://crates.io)<!--ignore-->で共有しているツールをインストールするのに便利な方法です。 バイナリターゲットを持つパッケージのみインストールできることに注意してください。*バイナリターゲット*とは、 クレートが*src/main.rs*ファイルやバイナリとして指定された他のファイルを持つ場合に生成される実行可能なプログラムのことであり、単独では実行不可能なものの、他のプログラムに含むのには適しているライブラリターゲットとは一線を画します。通常、クレートには、*README*ファイルに、クレートがライブラリかバイナリターゲットか、両方をもつかという情報があります。
 
-All binaries installed with `cargo install` are stored in the installation
-root’s *bin* folder. If you installed Rust using *rustup.rs* and don’t have any
-custom configurations, this directory will be *$HOME/.cargo/bin*. Ensure that
-directory is in your `$PATH` to be able to run programs you’ve installed with
-`cargo install`.
+`cargo install`でインストールされたすべてのバイナリは、インストールルートの*bin*フォルダに保存されます。*rustup.rs*を使用してRustをインストールした場合、カスタム構成がない場合、このディレクトリは*$HOME/.cargo/bin*になります。`$PATH`ディレクトリに`cargo install`でインストールしたプログラムを実行できることを確認してください。
 
-For example, in Chapter 12 we mentioned that there’s a Rust implementation of
-the `grep` tool called `ripgrep` for searching files. If we want to install
-`ripgrep`, we can run the following:
+たとえば、第12章では、ファイルを検索するための`ripgrep`というgrepツールのRust実装があると述べました。`ripgrep`をインストールしたい場合は、以下を実行できます。
 
 ```text
 $ cargo install ripgrep
@@ -31,7 +16,4 @@ Updating registry `https://github.com/rust-lang/crates.io-index`
   Installing ~/.cargo/bin/rg
 ```
 
-The last line of the output shows the location and the name of the installed
-binary, which in the case of `ripgrep` is `rg`. As long as the installation
-directory is in your `$PATH`, as mentioned previously, you can then run `rg
---help` and start using a faster, rustier tool for searching files!
+出力の最後の行には、インストールされているバイナリの場所と名前が表示されます。これは`ripgrep`の場合は`rg`です。インストールディレクトリが`$PATH`にある限り、`rg --help`を実行して、より速いRustらしいファイル検索ツールを使うことができます。

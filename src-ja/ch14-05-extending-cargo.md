@@ -1,17 +1,7 @@
-## Extending Cargo with Custom Commands
+## 独自のコマンドでCargoを拡張する
 
-Cargo is designed so you can extend it with new subcommands without having to
-modify Cargo. If a binary in your `$PATH` is named `cargo-something`, you can
-run it as if it was a Cargo subcommand by running `cargo something`. Custom
-commands like this are also listed when you run `cargo --list`. Being able to
-use `cargo install` to install extensions and then run them just like the
-built-in Cargo tools is a super convenient benefit of Cargo’s design!
+Cargoは、Cargoを変更することなく新しいサブコマンドで拡張できるように設計されています。`$PATH`のバイナリが`cargo-something`という名前の場合、`cargo something`を実行して、それがCargoサブコマンドであるかのように実行することができます。`cargo --list`を実行すると、このようなカスタムコマンドも表示されます。拡張機能をインストールするために`cargo install`を使用でき、組み込みのCargoツールと同じように実行できることは、Cargoの設計の非常に便利な利点です。
 
-## Summary
+## まとめ
 
-Sharing code with Cargo and [crates.io](https://crates.io)<!-- ignore --> is
-part of what makes the Rust ecosystem useful for many different tasks. Rust’s
-standard library is small and stable, but crates are easy to share, use, and
-improve on a timeline different from that of the language. Don’t be shy about
-sharing code that’s useful to you on [crates.io](https://crates.io)<!-- ignore
--->; it’s likely that it will be useful to someone else as well!
+Cargoと[crates.io](https://crates.io)<!-- ignore -->でコードを共有することは、Rustエコシステムをさまざまなタスクに役立つものにする要素の1つです。Rustの標準ライブラリは小さく安定していますが、言語とは異なるタイムラインで簡単に共有、使用、改善することができます。[crates.io](https://crates.io)<!-- ignore -->で便利なコードを共有することを恥ずかしくないでください。それは他の人にとっても有用である可能性が高いです。
