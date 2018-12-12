@@ -55,12 +55,12 @@
     - [トレイト: 共通の振る舞いを定義する](ch10-02-traits.md)
     - [ライフタイムで参照を有効化する](ch10-03-lifetime-syntax.md)
 
-- [Testing](ch11-00-testing.md)
-    - [Writing tests](ch11-01-writing-tests.md)
-    - [Running tests](ch11-02-running-tests.md)
-    - [Test Organization](ch11-03-test-organization.md)
+- [テスト](ch11-00-testing.md)
+    - [テストを書く](ch11-01-writing-tests.md)
+    - [テストを走らせる](ch11-02-running-tests.md)
+    - [テストの体系化](ch11-03-test-organization.md)
 
-- [An I/O Project: Building a Command Line Program](ch12-00-an-io-project.md)
+- [入出力プロジェクト: コマンドラインプログラムを構築する](ch12-00-an-io-project.md)
     - [Accepting Command Line Arguments](ch12-01-accepting-command-line-arguments.md)
     - [Reading a File](ch12-02-reading-a-file.md)
     - [Refactoring to Improve Modularity and Error Handling](ch12-03-improving-error-handling-and-modularity.md)
