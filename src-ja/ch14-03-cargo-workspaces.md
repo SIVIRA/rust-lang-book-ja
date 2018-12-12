@@ -1,36 +1,19 @@
-## Cargo Workspaces
+## Cargoのワークスペース
 
-In Chapter 12, we built a package that included a binary crate and a library
-crate. As your project develops, you might find that the library crate
-continues to get bigger and you want to split up your package further into
-multiple library crates. In this situation, Cargo offers a feature called
-*workspaces* that can help manage multiple related packages that are developed
-in tandem.
+第12章では、バイナリクレートとライブラリクレートを含むパッケージを作成しました。プロジェクトが進展するにつれて、ライブラリクレートは引き続き大きくなり、パッケージを複数のライブラリクレートにさらに分割したいと思うかもしれません。このような状況のためにCargoには、*ワークスペース*という機能があり、複数の関連パッケージを一元管理して管理することができます。
 
-### Creating a Workspace
+### ワークスペースを生成する
 
-A *workspace* is a set of packages that share the same *Cargo.lock* and output
-directory. Let’s make a project using a workspace—we’ll use trivial code so we
-can concentrate on the structure of the workspace. There are multiple ways to
-structure a workspace; we’re going to show one common way. We’ll have a
-workspace containing a binary and two libraries. The binary, which will provide
-the main functionality, will depend on the two libraries. One library will
-provide an `add_one` function, and a second library an `add_two` function.
-These three crates will be part of the same workspace. We’ll start by creating
-a new directory for the workspace:
+*ワークスペース*は、同じ*Cargo.lock*と出力ディレクトリを共有する一連のパッケージです。ワークスペースを使ってプロジェクトを作ってみましょう。ワークスペースの構造に集中できるように、簡単なコードを使用します。ワークスペースを構成するには複数の方法があります。1つの共通の方法を示します。バイナリと2つのライブラリを含むワークスペースがあります。主な機能を提供するバイナリは、2つのライブラリに依存します。一つのライブラリは`add_one`関数を提供し、二つ目のライブラリは`add_two`関数を提供します。これらの3つのクレートは、同じワークスペースの一部になります。作業領域の新しいディレクトリを作成します。
 
 ```text
 $ mkdir add
 $ cd add
 ```
 
-Next, in the *add* directory, we create the *Cargo.toml* file that will
-configure the entire workspace. This file won’t have a `[package]` section or
-the metadata we’ve seen in other *Cargo.toml* files. Instead, it will start
-with a `[workspace]` section that will allow us to add members to the workspace
-by specifying the path to our binary crate; in this case, that path is *adder*:
+次に、*add*ディレクトリにワークスペース全体を構成する*Cargo.toml*ファイルを作成します。このファイルには、他の*Cargo.toml*ファイルで見た`[package]`セクションやメタデータはありません。代わりに、`[workspace]`セクションから始まり、バイナリクレートへのパスを指定することでワークスペースにメンバを追加することができます。この場合、そのパスは*adder*です：
 
-<span class="filename">Filename: Cargo.toml</span>
+<span class="filename">ファイル名: Cargo.toml</span>
 
 ```toml
 [workspace]
@@ -40,16 +23,14 @@ members = [
 ]
 ```
 
-Next, we’ll create the `adder` binary crate by running `cargo new` within the
-*add* directory:
+次に、*add*ディレクトリ内で`cargo new`を実行して`adder`バイナリクレートを作成します。
 
 ```text
 $ cargo new adder
      Created binary (application) `adder` project
 ```
 
-At this point, we can build the workspace by running `cargo build`. The files
-in your *add* directory should look like this:
+この時点で、`cargo build`を実行して作業領域を構築することができます。*add*ディレクトリのファイルは次のようになります。
 
 ```text
 ├── Cargo.lock
@@ -61,24 +42,13 @@ in your *add* directory should look like this:
 └── target
 ```
 
-The workspace has one *target* directory at the top level for the compiled
-artifacts to be placed into; the `adder` crate doesn’t have its own *target*
-directory. Even if we were to run `cargo build` from inside the *adder*
-directory, the compiled artifacts would still end up in *add/target* rather
-than *add/adder/target*. Cargo structures the *target* directory in a workspace
-like this because the crates in a workspace are meant to depend on each other.
-If each crate had its own *target* directory, each crate would have to
-recompile each of the other crates in the workspace to have the artifacts in
-its own *target* directory. By sharing one *target* directory, the crates can
-avoid unnecessary rebuilding.
+ワークスペースには、コンパイルされた成果物が配置される最上位に1つの*target*ディレクトリがあります。`adder`クレートには独自の*target*ディレクトリがありません。*adder*ディレクトリの内側から`cargo build'を実行しても、コンパイルされた成果物は*add/adder/target*ではなく*add/target*になります。Cargoは、このようなワークスペースの*target*ディレクトリを構造化します。なぜなら、ワークスペース内のクレートは互いに依存するためです。各クレートに独自の*target*ディレクトリがある場合、各クレートはワークスペース内の他の各クレートを再コンパイルして、自身の*target*ディレクトリにアーティファクトを持たなければなりません。1つの*target*ディレクトリを共有することで、不必要な再構築を避けることができます。
 
-### Creating the Second Crate in the Workspace
+### ワークスペース内に2番目のクレートを作成する
 
-Next, let’s create another member crate in the workspace and call it `add-one`.
-Change the top-level *Cargo.toml* to specify the *add-one* path in the
-`members` list:
+次に、ワークスペースに`add-one`という名前の別のメンバークレートを作成します。*Cargo.toml*を変更して、`members`リストに*add-one*を指定します
 
-<span class="filename">Filename: Cargo.toml</span>
+<span class="filename">ファイル名: Cargo.toml</span>
 
 ```toml
 [workspace]
@@ -89,14 +59,14 @@ members = [
 ]
 ```
 
-Then generate a new library crate named `add-one`:
+次に、`add-one`という名前の新しいライブラリクレートを生成します。
 
 ```text
 $ cargo new add-one --lib
      Created library `add-one` project
 ```
 
-Your *add* directory should now have these directories and files:
+*add*ディレクトリにこれらのディレクトリとファイルがあるはずです。
 
 ```text
 ├── Cargo.lock
@@ -112,9 +82,9 @@ Your *add* directory should now have these directories and files:
 └── target
 ```
 
-In the *add-one/src/lib.rs* file, let’s add an `add_one` function:
+*add-one/src/lib.rs*ファイルに、`add_one`関数を追加しましょう。
 
-<span class="filename">Filename: add-one/src/lib.rs</span>
+<span class="filename">ファイル名: add-one/src/lib.rs</span>
 
 ```rust
 pub fn add_one(x: i32) -> i32 {
@@ -122,11 +92,9 @@ pub fn add_one(x: i32) -> i32 {
 }
 ```
 
-Now that we have a library crate in the workspace, we can have the binary crate
-`adder` depend on the library crate `add-one`. First, we’ll need to add a path
-dependency on `add-one` to *adder/Cargo.toml*.
+ワークスペースにライブラリクレートがあるので、バイナリクレート`adder`をライブラリクレート`add-one`に依存させることができます。まず、*addder/Cargo.toml*に`add-one`にパス依存を追加する必要があります。
 
-<span class="filename">Filename: adder/Cargo.toml</span>
+<span class="filename">ファイル名: adder/Cargo.toml</span>
 
 ```toml
 [dependencies]
@@ -134,15 +102,11 @@ dependency on `add-one` to *adder/Cargo.toml*.
 add-one = { path = "../add-one" }
 ```
 
-Cargo doesn’t assume that crates in a workspace will depend on each other, so
-we need to be explicit about the dependency relationships between the crates.
+Cargoでは、ワークスペース内のクレートが互いに依存するとは想定されていないため、クレート間の依存関係について明示する必要があります。
 
-Next, let’s use the `add_one` function from the `add-one` crate in the `adder`
-crate. Open the *adder/src/main.rs* file and add an `use` line at the top to
-bring the new `add-one` library crate into scope. Then change the `main`
-function to call the `add_one` function, as in Listing 14-7:
+次に、`adder`クレート内の`add-one`クレートから`add_one`関数を使用しましょう。*adder/src/main.rs*ファイルを開き、上に`use`行を追加して、新しい`add-one`ライブラリクレートをスコープに入れてください。リスト14-7のように、`main`関数を変更して`add_one`関数を呼び出します。
 
-<span class="filename">Filename: adder/src/main.rs</span>
+<span class="filename">ファイル名: adder/src/main.rs</span>
 
 ```rust,ignore
 use add_one;
@@ -153,11 +117,9 @@ fn main() {
 }
 ```
 
-<span class="caption">Listing 14-7: Using the `add-one` library crate from the
-`adder` crate</span>
+<span class="caption">リスト 14-7:`add-one`ライブラリクレートを`adder`クレートから使用する</span>
 
-Let’s build the workspace by running `cargo build` in the top-level *add*
-directory!
+最上位の*add*ディレクトリで`cargo build`を実行してワークスペースを構築しましょう。
 
 ```text
 $ cargo build
@@ -166,9 +128,7 @@ $ cargo build
     Finished dev [unoptimized + debuginfo] target(s) in 0.68 secs
 ```
 
-To run the binary crate from the *add* directory, we need to specify which
-package in the workspace we want to use by using the `-p` argument and the
-package name with `cargo run`:
+*add*ディレクトリからバイナリクレートを実行するには、`-p`引数を使用し、パッケージ名を`cargo run`で指定する必要があります。
 
 ```text
 $ cargo run -p adder
@@ -177,22 +137,13 @@ $ cargo run -p adder
 Hello, world! 10 plus one is 11!
 ```
 
-This runs the code in *adder/src/main.rs*, which depends on the `add-one` crate.
+これは*addder/src/main.rs*のコードを実行します。これは`add-one`クレートに依存します。
 
-#### Depending on an External Crate in a Workspace
+#### ワークスペースの外部クレートに依存する
 
-Notice that the workspace has only one *Cargo.lock* file at the top level of
-the workspace rather than having a *Cargo.lock* in each crate’s directory. This
-ensures that all crates are using the same version of all dependencies. If we
-add the `rand` crate to the *adder/Cargo.toml* and *add-one/Cargo.toml*
-files, Cargo will resolve both of those to one version of `rand` and record
-that in the one *Cargo.lock*. Making all crates in the workspace use the same
-dependencies means the crates in the workspace will always be compatible with
-each other. Let’s add the `rand` crate to the `[dependencies]` section in the
-*add-one/Cargo.toml* file to be able to use the `rand` crate in the `add-one`
-crate:
+ワークスペースには、各クレートのディレクトリに*Cargo.lock*があるのではなく、ワークスペースの最上位に*Cargo.lock*ファイルが1つしかありません。これにより、すべてのクレートがすべての依存関係の同じバージョンを使用していることが保証されます。 *adder/Cargo.toml*と*add-one/Cargo.toml*ファイルに`rand`クレートを追加すると、Cargoはそれらの両方を`rand`の一つのバージョンに解決し、それを一つの*Cargo.lock*に記録します。同じ依存関係を使用するワークスペース内のすべてのクレートを作成すると、ワークスペース内のクレートが常に互いに互換性があることを意味します。*add-one/Cargo.toml*ファイルの`[dependencies]`セクションに`rand`クレートを追加して、`add-one`クレートで`rand`クレートを使用できるようにしましょう。
 
-<span class="filename">Filename: add-one/Cargo.toml</span>
+<span class="filename">ファイル名: add-one/Cargo.toml</span>
 
 ```toml
 [dependencies]
@@ -200,9 +151,7 @@ crate:
 rand = "0.3.14"
 ```
 
-We can now add `use rand;` to the *add-one/src/lib.rs* file, and building the
-whole workspace by running `cargo build` in the *add* directory will bring in
-and compile the `rand` crate:
+これで、*add-one/src/lib.rs*ファイルに`extern crate rand;`を追加でき、`add`ディレクトリで`cargo build`を実行することでワークスペース全体をビルドすると、randクレートを持ってきてコンパイルします。
 
 ```text
 $ cargo build
@@ -215,12 +164,7 @@ $ cargo build
     Finished dev [unoptimized + debuginfo] target(s) in 10.18 secs
 ```
 
-The top-level *Cargo.lock* now contains information about the dependency of
-`add-one` on `rand`. However, even though `rand` is used somewhere in the
-workspace, we can’t use it in other crates in the workspace unless we add
-`rand` to their *Cargo.toml* files as well. For example, if we add `extern
-crate rand;` to the *adder/src/main.rs* file for the `adder` crate, we’ll get
-an error:
+*Cargo.lock*には、`add-one`の`rand`への依存性に関する情報が含まれるようになりました。しかし、`rand`がワークスペースのどこかで使用されていても、*Cargo.toml*ファイルに`rand`を追加しない限り、ワークスペースの他のクレートには使用できません。 例えば、`adder`クレートの*adder/src/main.rs*ファイルに`extern crate rand;`を追加すると、エラーが発生します。
 
 ```text
 $ cargo build
@@ -232,21 +176,13 @@ issue #27703)
 1 | use rand;
 ```
 
-To fix this, edit the *Cargo.toml* file for the `adder` crate and indicate that
-`rand` is a dependency for that crate as well. Building the `adder` crate will
-add `rand` to the list of dependencies for `adder` in *Cargo.lock*, but no
-additional copies of `rand` will be downloaded. Cargo has ensured that every
-crate in the workspace using the `rand` crate will be using the same version.
-Using the same version of `rand` across the workspace saves space because we
-won’t have multiple copies and ensures that the crates in the workspace will be
-compatible with each other.
+これを修正するには、`adder`クレート用の*Cargo.toml*ファイルを編集し、`rand`もそのクレートの依存関係であることを示します。`adder`クレートを作ると、*Cargo.lock*の`adder`の依存関係のリストに`rand`が追加されますが、`rand`の追加コピーはダウンロードされません。 Cargoは、`rand`クレートを使用する作業スペースのすべてのクレートが同じバージョンを使用することを保証しています。同じバージョンの`rand`をワークスペース全体で使用すると、複数のコピーを持たず、ワークスペース内のクレートが互いに互換性があるため、スペースが節約されます。
 
-#### Adding a Test to a Workspace
+#### ワークスペースにテストを追加する
 
-For another enhancement, let’s add a test of the `add_one::add_one` function
-within the `add_one` crate:
+もう一つの機能強化のために、`add_one::add_one`関数のテストを`add_one`クレートの中に追加しましょう。
 
-<span class="filename">Filename: add-one/src/lib.rs</span>
+<span class="filename">ファイル名: add-one/src/lib.rs</span>
 
 ```rust
 pub fn add_one(x: i32) -> i32 {
@@ -264,7 +200,7 @@ mod tests {
 }
 ```
 
-Now run `cargo test` in the top-level *add* directory:
+トップレベルの*add*ディレクトリで`cargo test`を実行してください。
 
 ```text
 $ cargo test
@@ -291,15 +227,9 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-The first section of the output shows that the `it_works` test in the `add-one`
-crate passed. The next section shows that zero tests were found in the `adder`
-crate, and then the last section shows zero documentation tests were found in
-the `add-one` crate. Running `cargo test` in a workspace structured like this
-one will run the tests for all the crates in the workspace.
+出力の最初のセクションは、`add-one`の`it_works`テストが成功したことを示しています。次のセクションでは、`adder`クレートにゼロテストが見つかり、最後のセクションで`add-one`クレートでのドキュメンテーションテストがゼロであることが示されています。このように構造化されたワークスペースで`cargo test`を実行すると、ワークスペース内のすべてのクレートのテストが実行されます。
 
-We can also run tests for one particular crate in a workspace from the
-top-level directory by using the `-p` flag and specifying the name of the crate
-we want to test:
+また、`-p`フラグを使用してテストするクレートの名前を指定することで、トップレベルディレクトリからワークスペース内のある特定のクレートのテストを実行することもできます。
 
 ```text
 $ cargo test -p add-one
@@ -318,19 +248,10 @@ running 0 tests
 test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
 ```
 
-This output shows `cargo test` only ran the tests for the `add-one` crate and
-didn’t run the `adder` crate tests.
+この出力は`cargo test`が`add-one`クレートのテストを実行し、`adder`クレートテストを実行しなかったことを示しています。
 
-If you publish the crates in the workspace to *https://crates.io/*, each crate
-in the workspace will need to be published separately. The `cargo publish`
-command does not have an `--all` flag or a `-p` flag, so you must change to
-each crate’s directory and run `cargo publish` on each crate in the workspace
-to publish the crates.
+ワークスペース内のクレートを*https://crates.io/*に公開する場合、ワークスペース内の各クレートは個別に公開する必要があります。`cargo publish`コマンドは`--all`フラグや`-p`フラグを持たないので、各クレートのディレクトリに移動し、ワークスペースの各クレートに`cargo publish`を実行してクレートを公開する必要があります。
 
-For additional practice, add an `add-two` crate to this workspace in a similar
-way as the `add-one` crate!
+さらに練習するには、 `add-one`クレートと同様の方法で`add-two`クレートをこのワークスペースに追加してください。
 
-As your project grows, consider using a workspace: it’s easier to understand
-smaller, individual components than one big blob of code. Furthermore, keeping
-the crates in a workspace can make coordination between them easier if they are
-often changed at the same time.
+プロジェクトが成長するにつれて、ワークスペースの使用を検討してください。一つの大きなコードよりも小さく、個々のコンポーネントを理解する方が簡単です。さらに、ワークスペース内にクレートを保持すると、頻繁に変更されると、それらの間の調整をより簡単に行うことができます。
