@@ -74,7 +74,7 @@ fn main() {
 }
 ```
 
-<span class="caption">リスト 9-4: `match`式を使用して返却される可能性のあるResult列挙子を処理する</span>
+<span class="caption">リスト 9-4: `match`式を使用して返却される可能性のあるResultのバリアントを処理する</span>
 
 `Option`列挙型のように、`Result`列挙型とそのバリアントは、初期化処理でインポートされているので、`match`arm内で`Ok`と`Err`バリアントの前に`Result::`を指定する必要がないことに注目してください。
 

@@ -10,7 +10,7 @@
     - [Hello, World!](ch01-02-hello-world.md)
     - [Hello, Cargo!](ch01-03-hello-cargo.md)
 
-- [数あてゲーム](ch02-00-guessing-game-tutorial.md)
+- [数当てゲームをプログラムする](ch02-00-guessing-game-tutorial.md)
 
 - [プログラミングの共通概念](ch03-00-common-programming-concepts.md)
     - [変数と変更可能性](ch03-01-variables-and-mutability.md)
