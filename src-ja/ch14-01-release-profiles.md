@@ -1,16 +1,10 @@
-## Customizing Builds with Release Profiles
+## リリースプロファイルでビルドをカスタマイズする
 
-In Rust, *release profiles* are predefined and customizable profiles with
-different configurations that allow a programmer to have more control over
-various options for compiling code. Each profile is configured independently of
-the others.
+Rustにおいて*リリースプロファイル*とは、プログラマーがコードをコンパイルするためのさまざまなオプションをより詳細に制御できるように、構成が異なる事前定義されたカスタマイズ可能なプロファイルです。各プロファイルは他のプロファイルとは独立して構成されています。
 
-Cargo has two main profiles: the `dev` profile Cargo uses when you run `cargo
-build` and the `release` profile Cargo uses when you run `cargo build
---release`. The `dev` profile is defined with good defaults for development,
-and the `release` profile has good defaults for release builds.
+Cargoには2つの主要なプロファイルがあります。`cargo build`を実行する際にCargoが使用する`dev`プロファイルと`cargo build --release`を実行する際に使用する`release`プロファイルです。`dev`プロファイルは開発のための適切なデフォルトで定義され、`release`プロファイルはリリースビルドに適切なデフォルトを持っています。
 
-These profile names might be familiar from the output of your builds:
+これらのプロファイル名は、ビルドの出力で馴染みのあるものかもしれません。
 
 ```text
 $ cargo build
@@ -19,16 +13,11 @@ $ cargo build --release
     Finished release [optimized] target(s) in 0.0 secs
 ```
 
-The `dev` and `release` shown in this build output indicate that the compiler
-is using different profiles.
+このビルド出力に表示される`dev`と`release`は、コンパイラが異なるプロファイルを使用していることを示しています。
 
-Cargo has default settings for each of the profiles that apply when there
-aren’t any `[profile.*]` sections in the project’s *Cargo.toml* file. By adding
-`[profile.*]` sections for any profile you want to customize, you can override
-any subset of the default settings. For example, here are the default values
-for the `opt-level` setting for the `dev` and `release` profiles:
+Cargoには、プロジェクトの*Cargo.toml*ファイルに`[profile.*]`セクションがない場合に適用される各プロファイルのデフォルト設定があります。カスタマイズしたいプロファイルに対して`[profile.*]`セクションを追加することで、デフォルト設定のサブセットを上書きすることができます。例えば、`dev`と`release`プロファイルの`opt-level`設定のデフォルト値は次のとおりです。
 
-<span class="filename">Filename: Cargo.toml</span>
+<span class="filename">ファイル名: Cargo.toml</span>
 
 ```toml
 [profile.dev]
@@ -38,32 +27,17 @@ opt-level = 0
 opt-level = 3
 ```
 
-The `opt-level` setting controls the number of optimizations Rust will apply to
-your code, with a range of 0 to 3. Applying more optimizations extends
-compiling time, so if you’re in development and compiling your code often,
-you’ll want faster compiling even if the resulting code runs slower. That is
-the reason the default `opt-level` for `dev` is `0`. When you’re ready to
-release your code, it’s best to spend more time compiling. You’ll only compile
-in release mode once, but you’ll run the compiled program many times, so
-release mode trades longer compile time for code that runs faster. That is why
-the default `opt-level` for the `release` profile is `3`.
+`opt-level`設定は、Rustがコードに適用する最適化の回数を0〜3の範囲で制御します。さらに最適化を適用するとコンパイル時間が延びるので、コードを頻繁に開発してコンパイルする場合は、結果として得られるコードが遅く実行されても、コンパイルがより速くなります。これが`dev`のデフォルト`opt-level`が`0`である理由です。コードをリリースする準備ができたら、コンパイルにもっと時間を費やすのが最善です。一度だけリリースモードでコンパイルしますが、コンパイルされたプログラムは何度も実行されるため、リリースモードでは実行速度が遅いコードのコンパイル時間が長くなります。そのため、 `release`プロファイルのデフォルトの`opt-level`は `3`です。
 
-You can override any default setting by adding a different value for it in
-*Cargo.toml*. For example, if we want to use optimization level 1 in the
-development profile, we can add these two lines to our project’s *Cargo.toml*
-file:
+*Cargo.toml*に別の値を追加することで、デフォルト設定を上書きすることができます。たとえば、開発プロファイルで最適化レベル1を使用する場合は、プロジェクトの*Cargo.toml*ファイルに次の2行を追加できます。
 
-<span class="filename">Filename: Cargo.toml</span>
+<span class="filename">ファイル名: Cargo.toml</span>
 
 ```toml
 [profile.dev]
 opt-level = 1
 ```
 
-This code overrides the default setting of `0`. Now when we run `cargo build`,
-Cargo will use the defaults for the `dev` profile plus our customization to
-`opt-level`. Because we set `opt-level` to `1`, Cargo will apply more
-optimizations than the default, but not as many as in a release build.
+このコードはデフォルト設定の`0`を無効にします。今度は`cargo build`を実行すると、Cargoは`dev`プロファイルのデフォルトと`opt-level`へのカスタマイズを使用します。`opt-level`を`1`に設定しているので、Cargoはデフォルトよりも多くの最適化を適用しますが、リリースビルドよりも多くは適用しません。
 
-For the full list of configuration options and defaults for each profile, see
-[Cargo’s documentation](https://doc.rust-lang.org/cargo/).
+各プロファイルの設定オプションとデフォルトの一覧については、[Cargoのドキュメント](https://doc.rust-lang.org/cargo/)を参照してください。

@@ -68,7 +68,7 @@
     - [Working with Environment Variables](ch12-05-working-with-environment-variables.md)
     - [Writing Error Messages to Standard Error Instead of Standard Output](ch12-06-writing-to-stderr-instead-of-stdout.md)
 
-## Thinking in Rust
+## Rustについて考える
 
 - [Functional Language Features: Iterators and Closures](ch13-00-functional-features.md)
     - [Closures: Anonymous Functions that Can Capture Their Environment](ch13-01-closures.md)
@@ -76,9 +76,9 @@
     - [Improving Our I/O Project](ch13-03-improving-our-io-project.md)
     - [Comparing Performance: Loops vs. Iterators](ch13-04-performance.md)
 
-- [More about Cargo and Crates.io](ch14-00-more-about-cargo.md)
-    - [Customizing Builds with Release Profiles](ch14-01-release-profiles.md)
-    - [Publishing a Crate to Crates.io](ch14-02-publishing-to-crates-io.md)
+- [CargoとCrates.ioについてより詳しく](ch14-00-more-about-cargo.md)
+    - [リリースプロファイルでビルドをカスタマイズする](ch14-01-release-profiles.md)
+    - [Crates.ioにクレートを公開する](ch14-02-publishing-to-crates-io.md)
     - [Cargo Workspaces](ch14-03-cargo-workspaces.md)
     - [Installing Binaries from Crates.io with `cargo install`](ch14-04-installing-binaries.md)
     - [Extending Cargo with Custom Commands](ch14-05-extending-cargo.md)

@@ -1,15 +1,11 @@
-# More About Cargo and Crates.io
+# CargoとCrates.ioについてより詳しく
 
-So far we’ve used only the most basic features of Cargo to build, run, and test
-our code, but it can do a lot more. In this chapter, we’ll discuss some of its
-other, more advanced features to show you how to do the following:
+これまでは、Cargoの最も基本的な機能だけを使ってコードを構築、実行、テストしましたが、それ以上のことができます。この章では、次のような他の高度な機能について説明します。
 
-* Customize your build through release profiles
-* Publish libraries on [crates.io](https://crates.io)<!-- ignore -->
-* Organize large projects with workspaces
-* Install binaries from [crates.io](https://crates.io)<!-- ignore -->
-* Extend Cargo using custom commands
+* リリースプロファイルを使用してビルドをカスタマイズする
+* [crates.io](https://crates.io)<!-- ignore -->にライブラリを公開する
+* ワークスペースで大きなプロジェクトを整理する
+* [crates.io](https://crates.io)<!-- ignore -->のバイナリをインストールする
+* カスタムコマンドを使用してCargoを拡張する
 
-Cargo can do even more than what we cover in this chapter, so for a full
-explanation of all its features, see [its
-documentation](https://doc.rust-lang.org/cargo/).
+Cargoは、この章で扱っている以上に機能するので、その機能の詳細については、[この文書](https://doc.rust-lang.org/cargo/)を参照してください。
