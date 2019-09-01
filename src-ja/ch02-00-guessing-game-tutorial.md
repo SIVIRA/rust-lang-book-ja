@@ -181,7 +181,7 @@ io::stdin().read_line(&mut guess).expect("Failed to read line");
 [ioresult]: ../../std/io/type.Result.html
 [result]: ../../std/result/enum.Result.html
 
-`Result`型は、*列挙型*[enums]<!-- ignore -->です。列挙型は固定値のセットを持つことができる型であり、その値は列挙型の*variants*と呼ばれます。第6章では列挙型について詳しく説明します。
+`Result`型は、*列挙型*[enums]<!-- ignore -->です。列挙型は固定値のセットを持つことができる型であり、その値は列挙型の*バリアント*と呼ばれます。第6章では列挙型について詳しく説明します。
 
 [enums]: ch06-00-enums.html
 
