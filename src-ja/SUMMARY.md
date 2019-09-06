@@ -41,9 +41,9 @@
     - [スコープとプライバシーを制御するモジュールシステム](ch07-02-modules-and-use-to-control-scope-and-privacy.md)
 
 - [共通コレクション](ch08-00-common-collections.md)
-    - [ベクタで一連の値を保持する](ch08-01-vectors.md)
+    - [vectorで一連の値を保持する](ch08-01-vectors.md)
     - [UTF-8でエンコードされた文字列を格納する](ch08-02-strings.md)
-    - [関連付けられた値を持つキーをハッシュマップに格納する](ch08-03-hash-maps.md)
+    - [関連付けられた値を持つキーをhash mapに格納する](ch08-03-hash-maps.md)
 
 - [エラー処理](ch09-00-error-handling.md)
     - [`panic!`で回復不能なエラー](ch09-01-unrecoverable-errors-with-panic.md)
