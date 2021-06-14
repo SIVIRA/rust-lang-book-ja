@@ -1,0 +1,388 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>関数の動作 - プログラミング言語 Rust</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="foreword.html">前書き</a></li><li class="affix"><a href="ch00-00-introduction.html">導入</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> プログラミングの共通概念</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と変更可能性</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li><a href="ch03-03-how-functions-work.html" class="active"><strong aria-hidden="true">3.3.</strong> 関数の動作</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 制御フロー</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権について</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とはなにか？</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使用したプログラム例</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumとパターンマッチング</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match制御フロー演算子</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letによる簡潔な制御フロー</a></li></ol></li><li><a href="ch07-00-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> パッケージ、クレート、モジュール</a></li><li><ol class="section"><li><a href="ch07-01-packages-and-crates-for-making-libraries-and-executables.html"><strong aria-hidden="true">7.1.</strong> ライブラリと実行可能ファイルを作成するためのパッケージとクレート</a></li><li><a href="ch07-02-modules-and-use-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> スコープとプライバシーを制御するモジュールシステム</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 共通コレクション</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vectorで一連の値を保持する</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> UTF-8でエンコードされた文字列を格納する</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 関連付けられた値を持つキーをhash mapに格納する</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト: 共通の振る舞いを定義する</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を有効化する</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> テスト</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストを書く</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストを走らせる</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト: コマンドラインプログラムを構築する</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> Points to Data on the Heap and Has a Known Size</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> The Deref Trait Allows Access to the Data Through a Reference</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> The Drop Trait Runs Code on Cleanup</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Creating Reference Cycles and Leaking Memory is Safe</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Threads</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Message Passing</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared State</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency: Sync and Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects that Allow for Values of Different Types</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns Match the Structure of Values</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns May be Used</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> All the Pattern Syntax</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> Advanced Lifetimes</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> Advanced Traits</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> Advanced Types</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> Advanced Functions &amp; Closures</a></li><li><a href="ch19-06-macros.html"><strong aria-hidden="true">19.6.</strong> Macros</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> A Single Threaded Web Server</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning our Single Threaded Server into a Multithreaded Server</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">プログラミング言語 Rust</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#a関数の動作" id="a関数の動作"><h2>関数の動作</h2></a>
+<p>関数はRustのコードに広がっています。すでに言語の中で最も重要な機能の1つ、すなわち多くのプログラムの入り口である<code>main</code>関数を見てきました。新しい関数を宣言できる<code>fn</code>キーワードも見たことがあります。</p>
+<p>Rustコードは、関数名と変数名の従来のスタイルとして<em>snake case</em>を使用します。snakeの場合、すべての文字は小文字で、単語は別々になっています。これは関数定義の例を含むプログラムです。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    println!(&quot;Hello, world!&quot;);
+
+    another_function();
+}
+
+fn another_function() {
+    println!(&quot;Another function.&quot;);
+}
+</code></pre></pre>
+<p>Rustの関数定義は<code>fn</code>で始まり、関数名の後に括弧が付きます。中括弧は、関数本体の始まりと終わりをコンパイラに伝えます。</p>
+<p>定義した関数は、その名前の後ろに括弧を付けて呼び出すことができます。<code>another_function</code>はプログラムで定義されているので、<code>main</code>関数の中から呼び出すことができます。ソースコードの<code>main</code>関数の<em>後</em>に<code>another_function</code>を定義しました。それ以前にも定義できます。Rustはどこで関数を定義するかは気にせず、どこかで定義されているだけです。</p>
+<p>関数をさらに探索するために<em>functions</em>という名前の新しいバイナリプロジェクトを開始しましょう。<code>another_function</code>の例を<em>src/main.rs</em>に置き、それを実行してください。次の出力が表示されます。</p>
+<pre><code class="language-text">$ cargo run
+   Compiling functions v0.1.0 (file:///projects/functions)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.28 secs
+     Running `target/debug/functions`
+Hello, world!
+Another function.
+</code></pre>
+<p>これらの行は、<code>main</code>関数に現れる順に実行されます。まず、<code>Hello, world!メッセージが表示され、次に</code>another_function`が呼び出され、そのメッセージが表示されます。</p>
+<a class="header" href="#a関数の引数" id="a関数の引数"><h3>関数の引数</h3></a>
+<p>関数はシグニチャの一部である特殊変数である<em>引数</em>を持つように定義することもできます。引数とは、関数シグニチャの一部になる特別な変数のことです。関数に引数があると、引数の位置に実際の値を与えることができます。技術的にはこの実際の値は<em>実引数</em>と呼ばれますが、普段の会話では、仮引数(&quot;parameter&quot;)と実引数(&quot;argument&quot;)を関数定義の変数と関数呼び出し時に渡す実際の値、両方の意味に区別なく使います。</p>
+<p>次の例は<code>another_function</code>を引数を使うように書き直しました。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    another_function(5);
+}
+
+fn another_function(x: i32) {
+    println!(&quot;The value of x is: {}&quot;, x);
+}
+</code></pre></pre>
+<p>このプログラムを実行してみてください。 次の出力が得られるはずです。</p>
+<pre><code class="language-text">$ cargo run
+   Compiling functions v0.1.0 (file:///projects/functions)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.21 secs
+     Running `target/debug/functions`
+The value of x is: 5
+</code></pre>
+<p><code>another_function</code>の宣言には、<code>x</code>という名前の引数が1つあります。<code>x</code>の型は<code>i32</code>として指定されます。<code>5</code>が<code>another_function</code>に渡されたとき、<code>println!</code>マクロは中括弧のペアが書式文字列にあったところに<code>5</code>を置きます。</p>
+<p>関数のシグニチャでは、各引数の型を宣言する必要があります。これは、Rustの設計における意図的な決定です。関数の定義に型の注釈が必要なことは、コンパイラがコードのどこかでそれらを使用する必要がほとんどないことを意味します。</p>
+<p>関数に複数の引数を指定する場合は、引数宣言を次のようにカンマで区切ります。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    another_function(5, 6);
+}
+
+fn another_function(x: i32, y: i32) {
+    println!(&quot;The value of x is: {}&quot;, x);
+    println!(&quot;The value of y is: {}&quot;, y);
+}
+</code></pre></pre>
+<p>この例では、2つの引数を持つ関数を作成します。どちらも<code>i32</code>型です。この関数は、両方の引数に値を出力します。関数の引数はすべて同じ型である必要はないことに注意してください。</p>
+<p>このコードを実行してみましょう。<em>functions</em>プロジェクトの<em>src/main.rs</em>ファイルにあるプログラムを上記の例に置き換えて、<code>cargo run</code>を使って実行してください。</p>
+<pre><code class="language-text">$ cargo run
+   Compiling functions v0.1.0 (file:///projects/functions)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31 secs
+     Running `target/debug/functions`
+The value of x is: 5
+The value of y is: 6
+</code></pre>
+<p><code>x</code>の値として<code>5</code>, <code>y</code>の値として<code>6</code>が渡されたので、二つの文字列はこれらの値で出力されます。</p>
+<a class="header" href="#a関数本体" id="a関数本体"><h3>関数本体</h3></a>
+<p>関数本体はオプションで式で終わる一連のステートメントで構成されます。これまでは、式を終了することなく関数のみを扱ってきましたが、式の一部として式を見てきました。Rustは式ベースの言語なのでこれは重要な違いです。他の言語でも同じ区別がないので、どのステートメントや式がどのようなものか、その違いが関数の本体にどのように影響するかを見てみましょう。</p>
+<a class="header" href="#aステートメントと式" id="aステートメントと式"><h3>ステートメントと式</h3></a>
+<p>実際にはすでにステートメントと式を使用しています。<em>ステートメント</em>は何らかのアクションを実行し、値を返さない命令です。<em>式</em>は結果の値に評価されます。いくつかの例を見てみましょう。</p>
+<p>変数を作成し<code>let</code>キーワードを使って変数に値を代入するのはステートメントです。リスト3-1では、<code>let y = 6;</code>はステートメントです。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let y = 6;
+}
+</code></pre></pre>
+<p><span class="caption">リスト 3-1: 1つのステートメントを含む<code>main</code>関数宣言</span></p>
+<p>関数定義もステートメントです。前の例全体が単独のステートメントです。</p>
+<p>ステートメントは値を返しません。したがって、次のコードが試みるように、<code>let</code>文を別の変数に代入することはできません。エラーが表示されます。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">fn main() {
+    let x = (let y = 6);
+}
+</code></pre>
+<p>このプログラムを実行すると、次のようなエラーが表示されます。</p>
+<pre><code class="language-text">$ cargo run
+   Compiling functions v0.1.0 (file:///projects/functions)
+error: expected expression, found statement (`let`)
+ --&gt; src/main.rs:2:14
+  |
+2 |     let x = (let y = 6);
+  |              ^^^
+  |
+  = note: variable declaration using `let` is a statement
+</code></pre>
+<p><code>let y = 6</code>ステートメントは値を返さないので、<code>x</code>がバインドするものはありません。これは、代入が代入の値を返すCやRubyなど、他の言語で行われる処理とは異なります。これらの言語では、<code>x = y = 6</code>と書いて、<code>x</code>と<code>y</code>の両方に<code>6</code>という値をつけることができます。これはRustの場合できません。</p>
+<p>式は何かに評価され、Rustで書く残りのコードのほとんどを占めます。値<code>11</code>に評価される式である<code>5 + 6</code>のような単純な数学演算を考えてみましょう。式は文の一部です。リスト3-1では<code>let y = 6;</code>という文の<code>6</code>は値<code>6</code>に評価される式です。関数の呼び出しは式です。マクロの呼び出しは式です。新しいスコープ<code>{}</code>を作成するために使用するブロックは、次のような式です。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let x = 5;
+
+    let y = {
+        let x = 3;
+        x + 1
+    };
+
+    println!(&quot;The value of y is: {}&quot;, y);
+}
+</code></pre></pre>
+<p>この式は、</p>
+<pre><code class="language-rust ignore">{
+    let x = 3;
+    x + 1
+}
+</code></pre>
+<p>ブロックであり、この場合は<code>4</code>と評価されます。その値は<code>let</code>ステートメントの一部として<code>y</code>に束縛されます。最後にセミコロンを付けない<code>x + 1</code>行に注意してください。これはこれまで見たほとんどの行とは異なります。式には終了セミコロンは含まれません。式の最後にセミコロンを追加すると、ステートメントに変換され、ステートメントに値が返されません。次に関数の戻り値と式を調べるときは、このことを覚えておいてください。</p>
+<a class="header" href="#a戻り値を持つ関数" id="a戻り値を持つ関数"><h3>戻り値を持つ関数</h3></a>
+<p>関数はそれらを呼び出すコードに値を返すことができます。戻り値の名前は付けませんが、矢印(<code>-&gt;</code>)の後に型を宣言します。Rustでは関数の戻り値は、関数本体のブロック内の最終式の値と同義です。<code>return</code>キーワードを使用して値を指定することで、関数から早期に返ることができますが、ほとんどの関数は最後の式を暗黙的に返します。次に、値を返す関数の例を示します。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn five() -&gt; i32 {
+    5
+}
+
+fn main() {
+    let x = five();
+
+    println!(&quot;The value of x is: {}&quot;, x);
+}
+</code></pre></pre>
+<p><code>five</code>関数には関数呼び出しもマクロも<code>let</code>文もありません。それは単に<code>5</code>だけです。これは、Rustの完全に有効な機能です。関数の戻り値の型も<code>-&gt; i32</code>と指定されていることに注意してください。このコードを実行してみてください。出力は次のようになります。</p>
+<pre><code class="language-text">$ cargo run
+   Compiling functions v0.1.0 (file:///projects/functions)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.30 secs
+     Running `target/debug/functions`
+The value of x is: 5
+</code></pre>
+<p><code>5</code>の<code>5</code>は関数の戻り値です。戻り値の型は<code>i32</code>です。これをより詳細に調べてみましょう。最初に、<code>let x = five();</code>という行は関数の戻り値を使って変数を初期化していることを示しています。関数<code>five</code>は<code>5</code>を返すので、その行は次のようになります。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let x = 5;
+#}</code></pre></pre>
+<p>第2に<code>five</code>関数は引数を持たず戻り値の型を定義しますが、関数の本体はセミコロンを持たない単独の<code>5</code>です。</p>
+<p>別の例を見てみましょう。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">fn main() {
+    let x = plus_one(5);
+
+    println!(&quot;The value of x is: {}&quot;, x);
+}
+
+fn plus_one(x: i32) -&gt; i32 {
+    x + 1
+}
+</code></pre></pre>
+<p>このコードを実行すると<code>The value of x is is：6</code>が出力されます。しかし、<code>x + 1</code>を含む行の最後にセミコロンを置いて式から文に変更すると、エラーが発生します。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">fn main() {
+    let x = plus_one(5);
+
+    println!(&quot;The value of x is: {}&quot;, x);
+}
+
+fn plus_one(x: i32) -&gt; i32 {
+    x + 1;
+}
+</code></pre>
+<p>このコードをコンパイルすると、次のようなエラーが発生します。</p>
+<pre><code class="language-text">error[E0308]: mismatched types
+ --&gt; src/main.rs:7:28
+  |
+7 |   fn plus_one(x: i32) -&gt; i32 {
+  |  ____________________________^
+8 | |     x + 1;
+  | |          - help: consider removing this semicolon
+9 | | }
+  | |_^ expected i32, found ()
+  |
+  = note: expected type `i32`
+             found type `()`
+</code></pre>
+<p>main関数のエラーメッセージ&quot;mismatched types,&quot;では、このコードの中核的な問題が明らかになります。関数<code>plus_one</code>の定義では<code>i32</code>が返されますが、ステートメントは評価されません。この値は空のタプル<code>()</code>で表されます。したがって、何も返されず、関数定義と矛盾し、エラーが発生します。この出力では、Rustはこの問題を解決するためのメッセージを提供します。セミコロンを削除することで、このエラーは修正できます。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch03-02-data-types.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch03-04-comments.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="ch03-02-data-types.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="ch03-04-comments.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

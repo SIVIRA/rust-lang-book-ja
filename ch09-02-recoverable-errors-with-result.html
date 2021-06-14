@@ -1,0 +1,455 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Resultで回復可能なエラー - プログラミング言語 Rust</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="foreword.html">前書き</a></li><li class="affix"><a href="ch00-00-introduction.html">導入</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> プログラミングの共通概念</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と変更可能性</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数の動作</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 制御フロー</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権について</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とはなにか？</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使用したプログラム例</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumとパターンマッチング</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match制御フロー演算子</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letによる簡潔な制御フロー</a></li></ol></li><li><a href="ch07-00-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> パッケージ、クレート、モジュール</a></li><li><ol class="section"><li><a href="ch07-01-packages-and-crates-for-making-libraries-and-executables.html"><strong aria-hidden="true">7.1.</strong> ライブラリと実行可能ファイルを作成するためのパッケージとクレート</a></li><li><a href="ch07-02-modules-and-use-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> スコープとプライバシーを制御するモジュールシステム</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 共通コレクション</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vectorで一連の値を保持する</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> UTF-8でエンコードされた文字列を格納する</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 関連付けられた値を持つキーをhash mapに格納する</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li><a href="ch09-02-recoverable-errors-with-result.html" class="active"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト: 共通の振る舞いを定義する</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を有効化する</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> テスト</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストを書く</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストを走らせる</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト: コマンドラインプログラムを構築する</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> Points to Data on the Heap and Has a Known Size</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> The Deref Trait Allows Access to the Data Through a Reference</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> The Drop Trait Runs Code on Cleanup</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Creating Reference Cycles and Leaking Memory is Safe</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Threads</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Message Passing</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared State</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency: Sync and Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects that Allow for Values of Different Types</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns Match the Structure of Values</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns May be Used</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> All the Pattern Syntax</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> Advanced Lifetimes</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> Advanced Traits</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> Advanced Types</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> Advanced Functions &amp; Closures</a></li><li><a href="ch19-06-macros.html"><strong aria-hidden="true">19.6.</strong> Macros</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> A Single Threaded Web Server</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning our Single Threaded Server into a Multithreaded Server</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">プログラミング言語 Rust</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#resultで回復可能なエラー" id="resultで回復可能なエラー"><h2>Resultで回復可能なエラー</h2></a>
+<p>多くのエラーは、プログラムを完全にストップさせるほど深刻ではありません。時には関数が失敗すると容易に解釈し、対応できるからです。例えば、ファイルを開こうとしてファイルが存在しないために処理が失敗した場合、プロセスを殺すのではなくファイルを作成することができます。</p>
+<p>第2章の「<code>Result</code>型による潜在的な障害の処理」で<code>Result</code>列挙型が以下のように、OkとErrの2値からなるよう定義されていることを思い出してください。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+enum Result&lt;T, E&gt; {
+    Ok(T),
+    Err(E),
+}
+#}</code></pre></pre>
+<p><code>T</code>と<code>E</code>はジェネリック型の引数です。ジェネリックについては第10章で詳しく説明します。今知る必要があるのは、<code>T</code>が成功した時に<code>Ok</code>バリアントに含まれて返される値の型を表すことと、<code>E</code>は失敗した時に<code>Err</code>バリアントに含まれて返されるエラーの型を表すことです。<code>Result</code>はこのようなジェネリックな型引数を含むので、 標準ライブラリ上に定義されている<code>Result</code>型や関数などを、成功した時とエラーの値が異なるような様々な場面で使用できるのです。</p>
+<p>関数が失敗する可能性があるために<code>Result</code>値を返す関数を呼び出しましょう。リスト9-3では、ファイルを開こうとしています。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">use std::fs::File;
+
+fn main() {
+    let f = File::open(&quot;hello.txt&quot;);
+}
+</code></pre></pre>
+<p><span class="caption">リスト 9-3: ファイルを開く</span></p>
+<p><code>File::open</code>が<code>Result</code>を返すことをどうやって知ることができるでしょうか？ <a href="https://doc.rust-lang.org/std/">標準ライブラリAPIドキュメント</a><!--ignore-->を見るか、コンパイラに尋ねることでできます。関数の戻り値ではない型注釈を与えてコンパイルしようとすると、コンパイラはその型が一致しないことを知らせます。エラーメッセージは<code>f</code>の型が何であるかを教えてくれます。<code>File::open</code>の戻り値の型は<code>u32</code>型ではないので、<code>let f</code>文をこれに変更しましょう。</p>
+<pre><code class="language-rust ignore">let f: u32 = File::open(&quot;hello.txt&quot;);
+</code></pre>
+<p>コンパイルしようとすると、以下のように出力されます。</p>
+<pre><code class="language-text">error[E0308]: mismatched types
+ --&gt; src/main.rs:4:18
+  |
+4 |     let f: u32 = File::open(&quot;hello.txt&quot;);
+  |                  ^^^^^^^^^^^^^^^^^^^^^^^ expected u32, found enum
+`std::result::Result`
+  |
+  = note: expected type `u32`
+             found type `std::result::Result&lt;std::fs::File, std::io::Error&gt;`
+</code></pre>
+<p>これは <code>File::open</code>関数の戻り値の型が<code>Result&lt;T, E&gt;</code>であることを示しています。ジェネリック引数<code>T</code>は成功値の型<code>std::fs::File</code>で埋められています。これはファイルハンドルです。エラー値に使用される<code>E</code>の型は<code>std::io::Error</code>です。</p>
+<p>この戻り値の型は<code>File::open</code>の呼び出しが成功し、読み書きできるファイルハンドルを返すことを意味します。また関数呼び出しは失敗する可能性もあります。たとえば、ファイルが存在しないか、ファイルにアクセスする権限がないなどです。<code>File::open</code>関数には、成功したか失敗したかを知らせる方法と、同時にファイルハンドルまたはエラー情報を与える方法が必要です。この情報は正確に<code>Result</code>列挙型が伝えるものです。</p>
+<p><code>File::open</code>が成功した場合、変数<code>f</code>の値はファイルハンドルを含む<code>Ok</code>のインスタンスになります。失敗した場合、<code>f</code>の値は発生したエラーの種類に関するより多くの情報を含む<code>Err</code>のインスタンスになります。</p>
+<p>リスト9-3のコードに<code>File::open</code>が返す値に応じて異なるアクションを取るための処理を追加する必要があります。リスト9-4は、基本的なツールを使用して<code>Result</code>を処理する方法の1つ、第6章で説明した<code>match</code>式を示しています。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust should_panic">use std::fs::File;
+
+fn main() {
+    let f = File::open(&quot;hello.txt&quot;);
+
+    let f = match f {
+        Ok(file) =&gt; file,
+        Err(error) =&gt; {
+            panic!(&quot;There was a problem opening the file: {:?}&quot;, error)
+        },
+    };
+}
+</code></pre></pre>
+<p><span class="caption">リスト 9-4: <code>match</code>式を使用して返却される可能性のあるResultのバリアントを処理する</span></p>
+<p><code>Option</code>列挙型のように、<code>Result</code>列挙型とそのバリアントは、初期化処理でインポートされているので、<code>match</code>arm内で<code>Ok</code>と<code>Err</code>バリアントの前に<code>Result::</code>を指定する必要がないことに注目してください。</p>
+<p>ここでは、結果が<code>Ok</code>であるとき、内部の<code>file</code>値を<code>Ok</code>バリアントから戻し、そのファイルハンドル値を変数<code>f</code>に代入することをRustに伝えます。<code>match</code>の後で、ファイルハンドルを読み書きのために使うことができます。</p>
+<p><code>match</code>のもう一方のarmは<code>File::open</code>から<code>Err</code>値を取得する場合を扱います。この例では、<code>panic!</code>マクロを呼び出すことにしました。現在のディレクトリに<em>hello.txt</em>という名前のファイルがなく、このコードを実行すると、<code>panic!</code>マクロから次の出力が表示されます。</p>
+<pre><code class="language-text">thread 'main' panicked at 'There was a problem opening the file: Error { repr:
+Os { code: 2, message: &quot;No such file or directory&quot; } }', src/main.rs:9:12
+</code></pre>
+<p>いつものように、この出力は何が間違っているかを正確に教えてくれます。</p>
+<a class="header" href="#a色々なエラーにマッチする" id="a色々なエラーにマッチする"><h3>色々なエラーにマッチする</h3></a>
+<p>リスト9-4のコードは<code>File::open</code>が失敗した理由にかかわらず<code>panic!</code>になります。ファイルが存在しないために<code>File::open</code>が失敗した場合、ファイルを作成して新しいファイルにハンドルを戻したいと考えています。ファイルを開く権限がないなどの理由で<code>File::open</code>が他の理由で失敗した場合、リスト9-4と同じ方法でコードに<code>panic!</code>を残しておきます。リスト9-5を見てください。これは、<code>match</code>に別のarmを追加します。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<!-- ignore this test because otherwise it creates hello.txt which causes other
+tests to fail lol -->
+<pre><code class="language-rust ignore">use std::fs::File;
+use std::io::ErrorKind;
+
+fn main() {
+    let f = File::open(&quot;hello.txt&quot;);
+
+    let f = match f {
+        Ok(file) =&gt; file,
+        Err(error) =&gt; match error.kind() {
+            ErrorKind::NotFound =&gt; match File::create(&quot;hello.txt&quot;) {
+                Ok(fc) =&gt; fc,
+                Err(e) =&gt; panic!(&quot;Tried to create file but there was a problem: {:?}&quot;, e),
+            },
+            other_error =&gt; panic!(&quot;There was a problem opening the file: {:?}&quot;, other_error),
+        },
+    };
+}
+</code></pre>
+<p><span class="caption">リスト 9-5: 色々な種類のエラーを異なる方法で扱う</span></p>
+<p><code>File::open</code>が<code>Err</code>バリアントの中で返す値の型は<code>io::Error</code>です。これは標準ライブラリによって提供される構造体です。この構造体には<code>io::ErrorKind</code>値を得るために呼び出すことができる<code>kind</code>メソッドがあります。列挙型<code>io::ErrorKind</code>は、標準ライブラリによって提供され、<code>io</code>操作の結果として生じるかもしれないさまざまな種類のエラーを表すバリアントを持っています。使用するバリアントは<code>ErrorKind::NotFound</code>です。これは開こうとしているファイルがまだ存在しないことを示します。そのため、<code>f</code>に<code>match</code>しますが、error.kind()に内部の<code>match</code>もあります。</p>
+<p>マッチガードでチェックしたい条件は、<code>error.kind()</code>によって返された値が<code>ErrorKind</code>列挙型の<code>NotFound</code>バリアントかどうかです。そうであれば、<code>File::create</code>でファイルを作成しようとします。しかし、<code>File::create</code>も失敗する可能性があるので、内部の<code>match</code>式も追加する必要があります。ファイルを開くことができない場合は、別のエラーメッセージが表示されます。外側の<code>match</code>の最後のarmは同じままなので、プログラムには欠落しているファイルエラー以外のエラーが発生します。</p>
+<p>それはたくさんの<code>match</code>です。<code>match</code>は非常に強力ですが、非常にプリミティブです。第13章では、クロージャについて学びます。<code>Result&lt;T、E&gt;</code>型はクロージャを受け入れる多くのメソッドを持ち、<code>match</code>式として実装されています。より熟練のRust開発者がこれを書くかもしれません。</p>
+<pre><code class="language-rust ignore">use std::fs::File;
+use std::io::ErrorKind;
+
+fn main() {
+    let f = File::open(&quot;hello.txt&quot;).map_err(|error| {
+        if error.kind() == ErrorKind::NotFound {
+            File::create(&quot;hello.txt&quot;).unwrap_or_else(|error| {
+                panic!(&quot;Tried to create file but there was a problem: {:?}&quot;, error);
+            })
+        } else {
+            panic!(&quot;There was a problem opening the file: {:?}&quot;, error);
+        }
+    });
+}
+</code></pre>
+<p>第13章を読んだ後、この例に戻って、標準ライブラリのドキュメントで<code>map_err</code>と<code>unwrap_or_else</code>メソッドが何をするのか調べてみましょう。エラーを処理するときに、巨大なネストされた<code>match</code>式をクリーンアップすることができるこれらのメソッドの多くがあります。</p>
+<a class="header" href="#aエラー時にパニックするショートカット-unwrapとexpect" id="aエラー時にパニックするショートカット-unwrapとexpect"><h3>エラー時にパニックするショートカット: unwrapとexpect</h3></a>
+<p><code>match</code>を使うとうまくいきますが、少し冗長になり、必ずしも意図をうまく伝えるとは限りません。<code>Result&lt;T、E&gt;</code>型は、さまざまなタスクを実行するために多くのヘルパーメソッドが定義されています。<code>unwrap</code>と呼ばれるメソッドの1つは、リスト9-4で書いた<code>match</code>式のように実装されたショートカットメソッドです。<code>Result</code>値が<code>Ok</code>バリアントである場合、<code>unwrap</code>は<code>Ok</code>の値を返します。<code>Result</code>が<code>Err</code>バリアントの場合、<code>unwrap</code>は<code>panic!</code>マクロを呼び出します。実際の<code>unwrap</code>の例を以下に示します。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust should_panic">use std::fs::File;
+
+fn main() {
+    let f = File::open(&quot;hello.txt&quot;).unwrap();
+}
+</code></pre></pre>
+<p><em>hello.txt</em>ファイルなしでこのコードを実行すると、<code>unwrap</code>メソッドが行う<code>panic!</code>呼び出しからのエラーメッセージが表示されます。</p>
+<pre><code class="language-text">thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: Error {
+repr: Os { code: 2, message: &quot;No such file or directory&quot; } }',
+src/libcore/result.rs:906:4
+</code></pre>
+<p><code>unwrap</code>に似ているもう一つの<code>expect</code>メソッドは、<code>panic!</code>エラーメッセージを選択することもできます。<code>unwrap</code>の代わりに<code>expect</code>を使い、良いエラーメッセージを提供することで意図を伝え、パニックの原因を簡単に追跡することができます。 <code>expect</code>の構文は次のようになります。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust should_panic">use std::fs::File;
+
+fn main() {
+    let f = File::open(&quot;hello.txt&quot;).expect(&quot;Failed to open hello.txt&quot;);
+}
+</code></pre></pre>
+<p><code>unwrap</code>と同じ方法で<code>expect</code>を使うことで、ファイルハンドルを返すか<code>panic!</code>マクロを呼び出します。<code>panic!</code>の呼び出しで<code>expect</code>によって使用されるエラーメッセージは<code>unwrap</code>が使うデフォルトの<code>panic!</code>メッセージではなく<code>expect</code>に渡す引数になります。以下はその様子です。</p>
+<pre><code class="language-text">thread 'main' panicked at 'Failed to open hello.txt: Error { repr: Os { code:
+2, message: &quot;No such file or directory&quot; } }', src/libcore/result.rs:906:4
+</code></pre>
+<p>このエラーメッセージは、指定したテキスト<code>Failed to open hello.txt</code>で始まるので、このエラーメッセージがどこから来たのかを簡単に見つけることができます。複数の場所で<code>unwrap</code>を使用すると、<code>unwrap</code>が同じメッセージを表示するすべての<code>unwrap</code>を呼び出すため、<code>unwrap</code>がパニックを起こしていることを正確に把握するのに時間がかかることがあります。</p>
+<a class="header" href="#aエラーを委譲する" id="aエラーを委譲する"><h3>エラーを委譲する</h3></a>
+<p>失敗する可能性のある何かを呼び出す実装をした関数を書く際、関数内でエラーを処理する代わりに、呼び出し元がどうするかを決められるようにエラーを返すことができます。これはエラーの<em>委譲</em>として認知され、呼び出し元に自分のコードの文脈で利用可能なものよりも、エラーの処理法を規定する情報やロジックがより多くある箇所を制御してもらいます。</p>
+<p>たとえば、コードリスト9-6は、ファイルからユーザー名を読み取る関数を示しています。ファイルが存在しないか読み取れない場合、この関数は、この関数を呼び出したコードにこれらのエラーを返します。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::io;
+use std::io::Read;
+use std::fs::File;
+
+fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
+    let f = File::open(&quot;hello.txt&quot;);
+
+    let mut f = match f {
+        Ok(file) =&gt; file,
+        Err(e) =&gt; return Err(e),
+    };
+
+    let mut s = String::new();
+
+    match f.read_to_string(&amp;mut s) {
+        Ok(_) =&gt; Ok(s),
+        Err(e) =&gt; Err(e),
+    }
+}
+#}</code></pre></pre>
+<p><span class="caption">リスト 9-6: <code>match</code>でエラーを呼び出し元のコードに返す関数</span></p>
+<p>この関数ははるかに短い方法で記述することができますが、エラー処理を探索するために手動で多くの作業を行うことから始めます。最後に、簡単な方法を示します。最初に関数の戻り値の型を見てみましょう。<code>Result&lt;String, io::Error&gt;</code>です。これは、ジェネリック引数<code>T</code>が具体型<code>String</code>で埋められ、ジェネリック型<code>E</code>が具体的型<code>io::Error</code>の場合に、関数が<code>Result&lt;T, E&gt;</code>型の値を返すことを意味します。この関数が問題なく成功した場合、この関数を呼び出すコードは、<code>String</code>(この関数がファイルから読み取ったユーザー名)を保持する<code>Ok</code>値を受け取ります。この関数が何らかの問題に遭遇した場合、この関数を呼び出すコードは、問題の内容に関する詳細情報を含む <code>io::Error</code>のインスタンスを保持する<code>Err</code>値を受け取ります。関数の戻り値の型に<code>io::Error</code>を選んだのは、この関数本体で呼び出している失敗する可能性のある処理が両方(<code>File::open</code>関数と<code>read_to_string</code>メソッド)とも偶然この型をエラー値として返すからです。</p>
+<p>関数の本体は<code>File::open</code>関数を呼び出すことから始まります。リスト9-4の<code>match</code>に似た<code>match</code>で返された<code>Result</code>値を扱い、<code>Err</code>の場合に<code>panic!</code>を呼び出すのではなく、この関数から早くリターンして、この関数のエラー値として<code>File::open</code>からのエラー値を呼び出しコードに返します。<code>File::open</code>が成功すると、ファイルハンドルを変数<code>f</code>に格納して処理を続行します。</p>
+<p>次に、変数<code>s</code>に新しい<code>String</code>を作成し、<code>f</code>のファイルハンドルの<code>read_to_string</code>メソッドを呼び出して、ファイルの内容を<code>s</code>に読み込みます。<code>read_to_string</code>メソッドは、<code>File::open</code>が成功したとしても、失敗する可能性があるため、<code>Result</code>を返します。<code>result</code>を処理するために別の<code>match</code>が必要です。もし<code>read_to_string</code>が成功すれば関数は成功し、<code>s</code>の<code>Ok</code>でラップされたファイルからユーザ名を返します。<code>read_to_string</code>が失敗した場合、<code>File::open</code>の戻り値を処理した<code>match</code>にエラー値を返したのと同じ方法でエラー値を返します。しかし、関数の最後の式であるため、<code>return</code>を明示的に言う必要はありません。</p>
+<p>このコードを呼び出すコードは、ユーザ名を含む<code>Ok</code>値か、<code>io::Error</code>を含む<code>Err</code>値を得て扱います。呼び出し元のコードがそれらの値をどうするかはわかりません。呼び出しコードが<code>Err</code>値を得たら、 例えば、<code>panic!</code>を呼び出してプログラムをクラッシュさせたり、デフォルトのユーザ名を使ったり、ファイル以外の場所からユーザ名を検索したりできるでしょう。呼び出し元のコードが実際に何をしようとするかについて、十分な情報がないので、成功や失敗情報を全て委譲して適切に扱えるようにするのです。</p>
+<p>Rustにおいて、この種のエラー委譲は非常に一般的なので、Rustにはこれをしやすくする<code>?</code>演算子が用意されています。</p>
+<a class="header" href="#aエラー委譲のショートカット-演算子" id="aエラー委譲のショートカット-演算子"><h4>エラー委譲のショートカット: ?演算子</h4></a>
+<p>リスト9-7は、リスト9-6と同じ機能を持つ<code>read_username_from_file</code>の実装を示していますが、この実装では<code>?</code>演算子を使います。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::io;
+use std::io::Read;
+use std::fs::File;
+
+fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
+    let mut f = File::open(&quot;hello.txt&quot;)?;
+    let mut s = String::new();
+    f.read_to_string(&amp;mut s)?;
+    Ok(s)
+}
+#}</code></pre></pre>
+<p><span class="caption">リスト 9-7: <code>?</code>を使って呼び出し元のコードにエラーを返す関数</span></p>
+<p><code>Result</code>値の後に置かれた<code>?</code>は、リスト9-6の<code>Result</code>値を扱うために定義した<code>match</code>式とほぼ同じように動作します。<code>Result</code>の値が<code>Ok</code>ならば、<code>Ok</code>の値がこの式から返され、プログラムは続行されます。値が<code>Err</code>の場合、<code>return</code>キーワードを使用したかのように関数全体から<code>Err</code>が返され、エラー値は呼び出し元のコードに委譲されます。</p>
+<p>リスト9-6の<code>match</code>式と<code>?</code>演算子には違いは、<code>?</code>で取られたエラー値は、あるタイプから別のタイプへのエラーを変換するために使用される標準ライブラリの<code>From</code>特性で定義された<code>from</code>関数を通って行きます。<code>?</code>が<code>from</code>関数を呼び出すと、受け取ったエラーの型は、現在の関数の戻り値の型で定義されているエラーの型に変換されます。これは、関数が多くの異なる理由で失敗する可能性がある場合でも、関数が失敗する可能性のあるすべての方法を表す1つのエラータイプを返す場合に便利です。各エラータイプが<code>from</code>関数を実装して、返されたエラータイプに変換する方法を定義する限り、<code>?</code>は変換を自動的に処理します。</p>
+<p>リスト9-7の文脈では、<code>File::open</code>呼び出しの最後の<code>?</code>は、<code>Ok</code>の値を変数<code>f</code>に返します。エラーが発生した場合、<code>?</code>は関数全体からすぐにリターンし、<code>Err</code>値を呼び出しコードに与えます。<code>read_to_string</code>呼び出しの最後の<code>?</code>も同じことが言えます。</p>
+<p><code>?</code>演算子は多くの定型文を削除し、この関数の実装を簡単にします。リスト9-8のように、<code>?</code>の直後にメソッド呼び出しを連鎖させることで、このコードをさらに短縮することもできます。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::io;
+use std::io::Read;
+use std::fs::File;
+
+fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
+    let mut s = String::new();
+
+    File::open(&quot;hello.txt&quot;)?.read_to_string(&amp;mut s)?;
+
+    Ok(s)
+}
+#}</code></pre></pre>
+<p><span class="caption">リスト 9-8: <code>?</code>演算子の後のメソッド呼び出しを連結する</span></p>
+<p>新しい<code>String</code>の作成を<code>s</code>の中で関数の始めに移しました。その部分は変更されていません。変数<code>f</code>を作成するのではなく、<code>File::open(&quot;hello.txt&quot;)?</code>の結果に<code>read_to_string</code>の呼び出しを直接連結しました。<code>read_to_string</code>呼び出しの最後に<code>?</code>があります。エラーを返すのではなく、<code>File::open</code>と<code>read_to_string</code>の両方が成功したときに<code>s</code>のユーザ名を含む<code>Ok</code>値を返します。この機能はリスト9-6とリスト9-7と同じです。ただ単に異なるバージョンのよりプログラマフレンドリーな書き方なのです。</p>
+<p>この関数を書くさまざまな方法について言えば、これをもっと短くする方法があります。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::io;
+use std::fs;
+
+fn read_username_from_file() -&gt; Result&lt;String, io::Error&gt; {
+    fs::read_to_string(&quot;hello.txt&quot;)
+}
+#}</code></pre></pre>
+<p><span class="caption">リスト 9-9: <code>fs::read_to_string</code>を使う</span></p>
+<p>ファイルを文字列に読み込むのはかなり一般的な操作なので、Rustは<code>fs::read_to_string</code>という便利な関数を提供します。これはファイルを開き、新しい<code>String</code>を作成し、ファイルの内容を読み込み、内容を<code>String</code>に入れて返します。もちろん、これはこのエラー処理の全てを見せる機会を与えるものではないので、最初の方法としては難しいものでした。</p>
+<a class="header" href="#a演算子はresultを返す関数でしか使用できない" id="a演算子はresultを返す関数でしか使用できない"><h4><code>?</code>演算子は、<code>Result</code>を返す関数でしか使用できない</h4></a>
+<p><code>?</code>演算子は、リスト9-6で定義した<code>match</code>式と同じように動作するように定義されているので、<code>Result</code>の戻り値型を持つ関数でのみ使用できます。<code>result</code>の戻り値の型を必要とする<code>match</code>の部分は<code>return Err(e)</code>なので、関数の戻り値の型はこの<code>return</code>と互換性がある<code>Result</code>でなければなりません。</p>
+<p><code>main</code>関数で<code>?</code>演算子を使用したらどうなるか見てみましょう。main関数は戻り値が<code>()</code>でした。</p>
+<pre><code class="language-rust ignore">use std::fs::File;
+
+fn main() {
+    let f = File::open(&quot;hello.txt&quot;)?;
+}
+</code></pre>
+<p>このコードをコンパイルすると、以下のようなエラーメッセージが得られます。</p>
+<pre><code class="language-text">error[E0277]: the `?` operator can only be used in a function that returns `Result` or `Option` (or another type that implements `std::ops::Try`)
+ --&gt; src/main.rs:4:13
+  |
+4 |     let f = File::open(&quot;hello.txt&quot;)?;
+  |             ^^^^^^^^^^^^^^^^^^^^^^^^ cannot use the `?` operator in a function that returns `()`
+  |
+  = help: the trait `std::ops::Try` is not implemented for `()`
+  = note: required by `std::ops::Try::from_error`
+</code></pre>
+<p>このエラーは、<code>?</code>演算子は<code>Result</code>を返す関数でしか使用が許可されないと指摘しています。<code>Result</code>を返さない関数では、<code>Result</code>を返す別の関数を呼び出した時、<code>?</code>演算子を使用してエラーを呼び出し元に委譲する可能性を生み出す代わりに、<code>match</code>か<code>Result</code>のメソッドのどれかを使う必要があるでしょう。</p>
+<p>しかし、 <code>main</code>関数は<code>Result&lt;T,E&gt;</code>を返すことができます。</p>
+<pre><code class="language-rust ignore">use std::error::Error;
+use std::fs::File;
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; {
+    let f = File::open(&quot;hello.txt&quot;)?;
+
+    Ok(())
+
+</code></pre>
+<p><code>Box&lt;dyn Error&gt;</code>は&quot;trait object&quot;と呼ばれます。これについては第17章で説明します。今のところ、<code>Box&lt;dyn Error&gt;</code>は&quot;あらゆる種類のエラー&quot;を意味します。</p>
+<p>ここまでで<code>panic!</code>呼び出しや<code>Result</code>を返す詳細について議論し終えたので、 どんな場合にどちらを使うのが適切か決める方法についての話に戻りましょう。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch09-01-unrecoverable-errors-with-panic.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch09-03-to-panic-or-not-to-panic.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="ch09-01-unrecoverable-errors-with-panic.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="ch09-03-to-panic-or-not-to-panic.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

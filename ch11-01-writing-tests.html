@@ -1,0 +1,684 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>テストを書く - プログラミング言語 Rust</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="foreword.html">前書き</a></li><li class="affix"><a href="ch00-00-introduction.html">導入</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> プログラミングの共通概念</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と変更可能性</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数の動作</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 制御フロー</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権について</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とはなにか？</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使用したプログラム例</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumとパターンマッチング</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match制御フロー演算子</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letによる簡潔な制御フロー</a></li></ol></li><li><a href="ch07-00-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> パッケージ、クレート、モジュール</a></li><li><ol class="section"><li><a href="ch07-01-packages-and-crates-for-making-libraries-and-executables.html"><strong aria-hidden="true">7.1.</strong> ライブラリと実行可能ファイルを作成するためのパッケージとクレート</a></li><li><a href="ch07-02-modules-and-use-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> スコープとプライバシーを制御するモジュールシステム</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 共通コレクション</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vectorで一連の値を保持する</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> UTF-8でエンコードされた文字列を格納する</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 関連付けられた値を持つキーをhash mapに格納する</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト: 共通の振る舞いを定義する</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を有効化する</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> テスト</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html" class="active"><strong aria-hidden="true">11.1.</strong> テストを書く</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストを走らせる</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト: コマンドラインプログラムを構築する</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> Points to Data on the Heap and Has a Known Size</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> The Deref Trait Allows Access to the Data Through a Reference</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> The Drop Trait Runs Code on Cleanup</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Creating Reference Cycles and Leaking Memory is Safe</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Threads</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Message Passing</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared State</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency: Sync and Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects that Allow for Values of Different Types</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns Match the Structure of Values</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns May be Used</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> All the Pattern Syntax</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> Advanced Lifetimes</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> Advanced Traits</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> Advanced Types</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> Advanced Functions &amp; Closures</a></li><li><a href="ch19-06-macros.html"><strong aria-hidden="true">19.6.</strong> Macros</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> A Single Threaded Web Server</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning our Single Threaded Server into a Multithreaded Server</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">プログラミング言語 Rust</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#aテストの記述法" id="aテストの記述法"><h2>テストの記述法</h2></a>
+<p>テストは、非テストコードが期待どおりに機能していることを検証するRust関数です。テスト関数の本体は、通常次の3つのアクションを実行します。</p>
+<ol>
+<li>必要なデータや状態をセットアップする</li>
+<li>テスト対象のコードを実行する</li>
+<li>結果が想定通りかアサーションする</li>
+</ol>
+<p>Rustが特にこれらの動作を行うテストを書くために用意している機能を見ていきましょう。これには、<code>test</code>属性、いくつかのマクロ、<code>should_panic</code>属性が含まれます。</p>
+<a class="header" href="#aテスト関数の解剖" id="aテスト関数の解剖"><h3>テスト関数の解剖</h3></a>
+<p>最も簡単な方法では、Rustでのテストは<code>test</code>属性で注釈された関数です。属性はRustコードに関するメタデータです。1つの例は、第5章で構造体で使用した<code>derive</code>属性です。関数をテスト関数に変更するには、<code>fn</code>の前の行に<code>＃[test]</code>を追加します。<code>cargo test</code>コマンドでテストを実行すると、Rustは<code>test</code>属性でアノテーションされた関数を実行し、各テスト関数が成功するか失敗するかを報告するテスト用バイナリを作成します。</p>
+<p>Cargoで新しいライブラリプロジェクトを作成すると、テスト機能付きのテストモジュールが自動的に生成されます。このモジュールはテストの作成を開始するのに役立ちますので、新しいプロジェクトを開始するたびにテスト関数の構造と構文を正確に調べる必要はありません。必要なだけ多くのテスト機能とテストモジュールを追加することができます。</p>
+<p>実際にコードをテストすることなく、私たちのために生成されたテンプレートテストを試すことで、テストの仕組みのいくつかの側面を探求します。次に、私たちが書いたコードを呼び出し、その動作が正しいことを主張する実際のテストを書きます。</p>
+<p><code>adder</code>という新しいライブラリプロジェクトを作成しましょう。</p>
+<pre><code class="language-text">$ cargo new adder --lib
+     Created library `adder` project
+$ cd adder
+</code></pre>
+<p><code>adder</code>ライブラリの<em>src/lib.rs</em>ファイルの内容はリスト11-1のようになります。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"># fn main() {}
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() {
+        assert_eq!(2 + 2, 4);
+    }
+}
+</code></pre></pre>
+<p><span class="caption">リスト 11-1: <code>cargo new</code>で自動生成されたテストモジュールと関数</span></p>
+<p>今のところ、上の2行を無視して、関数にどのように作用するかを見てみましょう。<code>fn</code>行の前の<code>#[test]</code>注釈に注意してください。この属性はこれがテスト関数であることを示しているので、テストランナーはこの関数をテストとして扱うことを知っています。また、<code>tests</code>モジュールに非テスト関数を組み込んで、共通のシナリオを設定したり、一般的な操作を行うこともできます。したがって、<code>#[test]</code>属性を使ってどの関数がテストであるかを示す必要があります。</p>
+<p>関数本体は <code>assert_eq!</code>マクロを使用して、2 + 2が4に等しいことを宣言します。このアサーションは、典型的なテストの形式の例として役立ちます。このテストが合格することを確認するために実行してみましょう。</p>
+<p><code>cargo test</code>コマンドは、リスト11-2に示すように、プロジェクト内のすべてのテストを実行します。</p>
+<pre><code class="language-text">$ cargo test
+   Compiling adder v0.1.0 (file:///projects/adder)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.22 secs
+     Running target/debug/deps/adder-ce99bcc2479f4607
+
+running 1 test
+test tests::it_works ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+
+   Doc-tests adder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p><span class="caption">リスト 11-2: 自動生成されたテストを走らせた出力</span></p>
+<p>Cargoはコンパイルされ、テストが実行されました。<code>Compiling</code>、<code>Finished</code>、<code>Running</code>行の後に<code>running 1 test</code>という行があります。次の行には、生成されたテスト関数の名前、<code>it_works</code>とそのテストを実行した結果<code>ok</code>が表示されます。次に、テストの実行の概要が表示されます。<code>test result：ok.</code>というテキストは、すべてのテストが成功したことを意味します。 <code>0 failed</code>は合格または不合格のテストの数を合計します。</p>
+<p>無視されたテストはありませんので、サマリーには<code>0 ignored</code>と表示されます。また、実行されているテストをフィルタリングしていないため、サマリーの最後に<code>0 filtered out</code>と表示されます。テストの無視と除外については、次のセクション「テストの実行され方を制御する」で説明します。</p>
+<p><code>0 measured</code>という統計は、性能を測定するベンチマーク試験のためのものである。ベンチマークテストは、この記事の執筆時点でNightlyのRustだけで利用可能です。詳細は<a href="../unstable-book/library-features/test.html">ベンチマークテストのドキュメンテーション</a>を参照してください。</p>
+<p><code>Doc-tests adder</code>で始まるテスト出力の次の部分は、ドキュメンテーションテストの結果です。まだドキュメントテストはありませんが、RustはAPIドキュメントに記載されているコード例をコンパイルできます。この機能は、ドキュメントとコードを同期させるのに役立ちます。第14章の「テストとしてのドキュメンテーションコメント」セクションでドキュメンテーション・テストを書く方法について説明します。今は<code>Doc-tests</code>の出力を無視します。</p>
+<p>テストの名前を変更してテスト出力をどのように変更するかを見てみましょう。<code>it_works</code>関数を<code>exploration</code>のような別の名前に変更してください。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"># fn main() {}
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn exploration() {
+        assert_eq!(2 + 2, 4);
+    }
+}
+</code></pre></pre>
+<p>その後、再度<code>cargo test</code>を実行します。出力に<code>it_works</code>の代わりに<code>exploration</code>が表示されます。</p>
+<pre><code class="language-text">running 1 test
+test tests::exploration ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>別のテストを追加しましょう。今回は失敗したテストを行います。テスト機能で何かがパニックすると、テストは失敗します。各テストは新しいスレッドで実行され、メインスレッドがテストスレッドが終了したことがわかると、テストは失敗とマークされます。第9章でパニックを引き起こす最も簡単な方法について話しました。これは<code>panic!</code>マクロを呼び出すことです。<em>src/lib.rs</em>ファイルがリスト11-3のようになるよう、新しいテストanotherを入力してください。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust panics"># fn main() {}
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn exploration() {
+        assert_eq!(2 + 2, 4);
+    }
+
+    #[test]
+    fn another() {
+        panic!(&quot;Make this test fail&quot;);
+    }
+}
+</code></pre></pre>
+<p><span class="caption">リスト 11-3: <code>panic!</code>マクロを呼び出したために失敗する2番目のテストを追加する</span></p>
+<p><code>cargo test</code>を使ってテストを再実行してください。出力はリスト11-4のようになります。これは、<code>exploration</code>テストが成功し、<code>another</code>が失敗したことを示しています。</p>
+<pre><code class="language-text">running 2 tests
+test tests::exploration ... ok
+test tests::another ... FAILED
+
+failures:
+
+---- tests::another stdout ----
+    thread 'tests::another' panicked at 'Make this test fail', src/lib.rs:10:8
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+
+failures:
+    tests::another
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+
+error: test failed
+</code></pre>
+<p><span class="caption">リスト 11-4: 1つのテストが通り、失敗するときのテスト結果</span></p>
+<p><code>ok</code>の代わりに、<code>test tests::another</code>行は<code>FAILED</code>を表示します。2つの新しいセクションが個々の結果とサマリーの間に表示されます。最初のセクションには、それぞれのテストの失敗の詳細な理由が表示されます。この場合、<code>another</code>は<em>src/lib.rs</em>ファイルの10行目で<code>Make this test fail</code>というパニックになりました。次のセクションでは、失敗したすべてのテストの名前だけを示します。これは、たくさんのテストがあり、多くの詳細な失敗したテスト出力がある場合に便利です。失敗したテストの名前を使用して、そのテストだけを実行してより簡単にデバッグすることができます。テストを実行する方法の詳細については、「テストの実行され方を制御する」のセクションで説明します。</p>
+<p>サマリー行が最後に表示されます。全体的に、テスト結果はFAILEDです。1回のテストパスと1回のテストが失敗しました。</p>
+<p>さまざまなシナリオでテスト結果がどのように見えるかを見てきたので、テストで有用な<code>panic!</code>以外のマクロを見てみましょう。</p>
+<a class="header" href="#assertマクロで結果を確認する" id="assertマクロで結果を確認する"><h3><code>assert!</code>マクロで結果を確認する</h3></a>
+<p>標準ライブラリによって提供される<code>assert!</code>マクロは、テスト中のある条件が<code>true</code>と評価されるようにしたいときに便利です。<code>assert!</code>マクロには、ブール値に評価される引数を与えます。値が<code>true</code>の場合、<code>assert!</code>は何もせず、テストに合格します。 値が <code>false</code>の場合、<code>assert！</code>マクロは<code>panic！</code>マクロを呼び出し、テストを失敗させます。 <code>assert！</code>マクロを使うと、私たちのコードが意図した通りに機能していることを確認するのに役立ちます。</p>
+<p>第5章のリスト5-15では、リスト11-5で繰り返される<code>Rectangle</code>構造体と<code>can_hold</code>メソッドを使用しました。このコードを<em>src/lib.rs</em>ファイルに置き、<code>assert!</code>マクロを使っていくつかのテストを書きましょう。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"># fn main() {}
+#[derive(Debug)]
+pub struct Rectangle {
+    length: u32,
+    width: u32,
+}
+
+impl Rectangle {
+    pub fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+        self.length &gt; other.length &amp;&amp; self.width &gt; other.width
+    }
+}
+</code></pre></pre>
+<p><span class="caption">リスト 11-5: 第5章から<code>Rectangle</code>構造体とその<code>can_hold</code>メソッドを使用する</span></p>
+<p><code>can_hold</code>メソッドは論理値を返すので、<code>assert!</code>マクロの完璧なユースケースになるわけです。リスト11-6で、長さが8、幅が7の<code>Rectangle</code>インスタンスを生成し、これが長さ5、幅1の別の<code>Rectangle</code>インスタンスを保持できるとアサーションすることでcan_holdを用いるテストを書きます。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"># fn main() {}
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn larger_can_hold_smaller() {
+        let larger = Rectangle { length: 8, width: 7 };
+        let smaller = Rectangle { length: 5, width: 1 };
+
+        assert!(larger.can_hold(&amp;smaller));
+    }
+}
+</code></pre></pre>
+<p><span class="caption">リスト 11-6:より大きな四角形がより小さな四角形を確かに保持できるかを確認するcan_hold用のテスト</span></p>
+<p><code>tests</code>モジュールの中に新しい行を追加しました。<code>use super::*;</code>です。<code>tests</code>モジュールは、第7章の「プライバシー規則」で説明した通常の公開ルールに従う普通のモジュールです。<code>tests</code>モジュールは内部モジュールなので、外部モジュールのテスト対象コードを内部モジュールのスコープに持っていく必要があります。ここではglobを使用しているので、外部モジュールで定義するものはすべてこの<code>tests</code>モジュールで使用できます。</p>
+<p>テストに<code>large_can_hold_smaller</code>という名前をつけて、必要な二つの<code>Rectangle</code>インスタンスを作成しました。それから<code>assert!</code>マクロを呼び出し、<code>greater.can_hold(&amp;smaller)</code>を呼び出した結果を渡しました。この式は<code>true</code>を返すと想定されているので、テストは成功するはずです。確認してみましょう。</p>
+<pre><code class="language-text">running 1 test
+test tests::larger_can_hold_smaller ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>このテストは合格します。別のテストを追加してみましょう。今回は、小さい四角形は、より大きな四角形を保持できないことをアサーションします。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"># fn main() {}
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn larger_can_hold_smaller() {
+        // --snip--
+    }
+
+    #[test]
+    fn smaller_cannot_hold_larger() {
+        let larger = Rectangle { length: 8, width: 7 };
+        let smaller = Rectangle { length: 5, width: 1 };
+
+        assert!(!smaller.can_hold(&amp;larger));
+    }
+}
+</code></pre></pre>
+<p>この場合の<code>can_hold</code>関数の正しい結果は<code>false</code>なので、<code>assert!</code>マクロに渡す前に否定する必要があります。その結果、<code>can_hold</code>が<code>false</code>を返した場合、テストは成功します。</p>
+<pre><code class="language-text">running 2 tests
+test tests::smaller_cannot_hold_larger ... ok
+test tests::larger_can_hold_smaller ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>2つのテストが合格しました。次に、コードにバグを導入したときに、テスト結果に何が起こるかを見てみましょう。大文字と小文字を長さを比較する際に小文字の記号に置き換えて、<code>can_hold</code>メソッドの実装を変更しましょう。</p>
+<pre><pre class="playpen"><code class="language-rust not_desired_behavior"># fn main() {}
+# #[derive(Debug)]
+# pub struct Rectangle {
+#     length: u32,
+#     width: u32,
+# }
+// --snip--
+
+impl Rectangle {
+    pub fn can_hold(&amp;self, other: &amp;Rectangle) -&gt; bool {
+        self.length &lt; other.length &amp;&amp; self.width &gt; other.width
+    }
+}
+</code></pre></pre>
+<p>テストを実行すると、以下が生成されます。</p>
+<pre><code class="language-text">running 2 tests
+test tests::smaller_cannot_hold_larger ... ok
+test tests::larger_can_hold_smaller ... FAILED
+
+failures:
+
+---- tests::larger_can_hold_smaller stdout ----
+    thread 'tests::larger_can_hold_smaller' panicked at 'assertion failed:
+    larger.can_hold(&amp;smaller)', src/lib.rs:22:8
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+
+failures:
+    tests::larger_can_hold_smaller
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>このテストではバグが見つかりました。<code>greater.length</code>が8で<code>smaller.length</code>が5であるため、<code>can_hold</code>の長さの比較は<code>false</code>を返します。8は5以上だからです。</p>
+<a class="header" href="#assert_eqとassert_neマクロで等値性をテストする" id="assert_eqとassert_neマクロで等値性をテストする"><h3><code>assert_eq!</code>と<code>assert_ne!</code>マクロで等値性をテストする</h3></a>
+<p>機能をテストする一般的な方法は、テスト中のコードの結果と、コードが一致することを期待する値とを比較することです。これを行うには、<code>assert!</code>マクロを使い、<code>==</code>演算子を使って式を渡します。しかし、これは、標準ライブラリが<code>assert_eq!</code>と<code>assert_ne!</code>マクロのペアを提供し、このテストをより便利に行うような共通のテストです。これらのマクロは、それぞれ等式または不等式の2つの引数を比較します。アサーションに失敗した場合は、2つの値も出力されます。なぜなら、<em>なぜ</em>テストが失敗したかを簡単に見ることができるからです。逆に<code>assert!</code>マクロは、<code>==</code>式の値がfalse値になったことしか示唆せず、<code>false</code>値に導いた値は出力しません。</p>
+<p>リスト11-7では、<code>add_two</code>という名前の関数を作成し、その引数に<code>2</code>を加えて結果を返します。次に、この関数を<code>assert_eq!</code>マクロを使ってテストします。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"># fn main() {}
+pub fn add_two(a: i32) -&gt; i32 {
+    a + 2
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_adds_two() {
+        assert_eq!(4, add_two(2));
+    }
+}
+</code></pre></pre>
+<p><span class="caption">リスト 11-7: <code>assert_eq!</code>マクロで<code>add_two</code>関数をテストする</span></p>
+<p>テストが通ることを確認しましょう。</p>
+<pre><code class="language-text">running 1 test
+test tests::it_adds_two ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p><code>assert_eq!</code>マクロに与えた最初の引数<code>4</code>は、<code>add_two(2)</code>を呼び出した結果と同じです。このテストの行は<code>test tests::it_adds_two ... ok</code>であり、<code>ok</code>テキストはテストが成功したことを示します。</p>
+<p><code>assert_eq!</code>を使ったテストが失敗したときの様子を見てみましょう。<code>add_two</code>関数の実装を変更して、代わりに<code>3</code>を追加してください。</p>
+<pre><pre class="playpen"><code class="language-rust not_desired_behavior"># fn main() {}
+pub fn add_two(a: i32) -&gt; i32 {
+    a + 3
+}
+</code></pre></pre>
+<p>テストをもう一度実行します。</p>
+<pre><code class="language-text">running 1 test
+test tests::it_adds_two ... FAILED
+
+failures:
+
+---- tests::it_adds_two stdout ----
+        thread 'tests::it_adds_two' panicked at 'assertion failed: `(left == right)`
+  left: `4`,
+ right: `5`', src/lib.rs:11:8
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+
+failures:
+    tests::it_adds_two
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>テストではバグが見つかりました。<code>it_adds_two</code>のテストは失敗し、<code>assertion failed: '(left == right)'</code>というメッセージを表示し、<code>left</code>は<code>4</code>で、<code>right</code>は<code>5</code>だったと示しています。このメッセージは有用で、デバッグを開始する助けになります。 <code>assert_eq!</code>の<code>left</code>引数は<code>4</code>だったが、<code>add_two(2)</code>がある<code>right</code>引数は<code>5</code>だったことを意味しています。</p>
+<p>いくつかの言語やテストフレームワークでは、2つの値が同じであることを宣言する関数のパラメータを<code>expected</code>と<code>actual</code>と呼び、引数を指定する順序が重要であることに注意してください。しかし、Rustでは、それらは<code>left</code>と<code>right</code>と呼び、期待する値とテスト対象コードが生成する値を指定する順序は関係ありません。このテストでアサーションを<code>assert_eq!(add_two(2), 4)</code>と書くと、<code>assertion failed:'(left == right)'</code>と<code>left</code>が<code>5</code>で<code>right</code>が<code>4</code>と表示されるわけです。</p>
+<p><code>assert_ne!</code>マクロは、与えられた2つの値が等しくない場合に合格し、等しい場合に失敗します。このマクロは、価値が何になるかがわからない場合に最も役立ちますが、コードが意図したとおりに機能している場合には絶対に価値がないことを知ります。たとえば、何らかの方法で入力を変更することが保証されている関数をテストする場合、入力を変更する方法はテストを実行する曜日によって異なりますが、関数の出力が入力と等しくないことを示します。</p>
+<p>表面上で、<code>assert_eq!</code>と<code>assert_ne!</code>マクロは<code>==</code>と<code>!=</code>の演算子をそれぞれ使います。アサーションが失敗すると、これらのマクロは引数を出力します。これは、比較される値が<code>PartialEq</code>と<code>Debug</code>トレイトを実装しなければならないことを意味します。すべてのプリミティブ型とほとんどの標準ライブラリ型は、これらのトレイトを実装しています。定義する構造体と列挙体の場合、それらの型の値が等しいかどうかを宣言するために<code>PartialEq</code>を実装する必要があります。アサーションが失敗したときに値を出力するには <code>Debug</code>を実装する必要があります。第5章のリスト5-12で述べたように、どちらのトレイトも継承可能トレイトなので、これは構造体または列挙型の定義に<code>#[derive(PartialEq, Debug)]</code>アノテーションを追加するのと同じくらい簡単です。これらおよび他の継承可能トレイトの詳細については、付録C「継承可能トレイト」を参照してください。</p>
+<a class="header" href="#aカスタムの失敗メッセージを追加する" id="aカスタムの失敗メッセージを追加する"><h3>カスタムの失敗メッセージを追加する</h3></a>
+<p>また、 <code>assert!</code>、<code>assert_eq!</code>、<code>assert_ne!</code>マクロにオプションの引数として失敗メッセージとともに出力されるカスタムメッセージを追加することもできます。<code>assert!</code>に対する必須の引数の1つまたは<code>assert_eq!</code>と<code>assert_ne!</code>の2つの必須の引数の後に指定された引数は<code>format!</code>マクロに渡され (format!マクロについては第8章の「<code>+</code>演算子または、<code>format!</code>マクロで連結する」節で議論しました)、 <code>{}</code>のプレースホルダと値を含む書式文字列を渡すことができます。カスタムメッセージは、アサーションが意味するものを明文化するのに便利です。テストが失敗した場合は、コードの問題の詳細を知ることができます。</p>
+<p>たとえば、名前で人で挨拶する関数があり、関数に渡す名前が出力に現れることをテストしたいとしましょう。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"># fn main() {}
+pub fn greeting(name: &amp;str) -&gt; String {
+    format!(&quot;Hello {}!&quot;, name)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn greeting_contains_name() {
+        let result = greeting(&quot;Carol&quot;);
+        assert!(result.contains(&quot;Carol&quot;));
+    }
+}
+</code></pre></pre>
+<p>このプログラムの必要事項はまだ合意が得られておらず、挨拶の先頭の<code>Hello</code>というテキストは変わるだろうということは確かです。要件が変わった時にテストを更新しなくてもよいようにしたいと決定したので、<code>greeting</code>関数から返る値と正確な等値性を確認するのではなく、出力が入力引数のテキストを含むことをアサーションするだけにします。</p>
+<p><code>greeting</code>が<code>name</code>を含まないように変更して、このテストの失敗を見てみましょう。</p>
+<pre><pre class="playpen"><code class="language-rust not_desired_behavior"># fn main() {}
+pub fn greeting(name: &amp;str) -&gt; String {
+    String::from(&quot;Hello!&quot;)
+}
+</code></pre></pre>
+<p>このテストを実行すると、以下が出力されます。</p>
+<pre><code class="language-text">running 1 test
+test tests::greeting_contains_name ... FAILED
+
+failures:
+
+---- tests::greeting_contains_name stdout ----
+        thread 'tests::greeting_contains_name' panicked at 'assertion failed:
+result.contains(&quot;Carol&quot;)', src/lib.rs:12:8
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+
+failures:
+    tests::greeting_contains_name
+</code></pre>
+<p>この結果は、アサーションが失敗し、アサーションがどのラインにあるかを示します。この場合、より有用な失敗メッセージは、<code>greeting</code>関数から得た値を表示します。テスト関数を変更して、<code>greeting</code>関数から得た実際の値で埋められたプレースホルダを持つフォーマット文字列から作られたカスタムエラーメッセージを与えましょう。</p>
+<pre><code class="language-rust ignore">#[test]
+fn greeting_contains_name() {
+    let result = greeting(&quot;Carol&quot;);
+    assert!(
+        result.contains(&quot;Carol&quot;),
+        &quot;Greeting did not contain name, value was `{}`&quot;, result
+    );
+}
+</code></pre>
+<p>テストを実行すると、より有益なエラーメッセージが表示されます。</p>
+<pre><code class="language-text">---- tests::greeting_contains_name stdout ----
+        thread 'tests::greeting_contains_name' panicked at 'Greeting did not
+contain name, value was `Hello!`', src/lib.rs:12:8
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+</code></pre>
+<p>実際にテスト結果に表示された値がわかります。これは、発生すると予想されるものではなく、発生したことをデバッグするのに役立ちます。</p>
+<a class="header" href="#should_panicでパニックを確認する" id="should_panicでパニックを確認する"><h3><code>should_panic</code>でパニックを確認する</h3></a>
+<p>コードが正しい値を返すことを確認することに加えて、コードが予期したとおりにエラー状態を処理することを確認することも重要です。たとえば、第9章のリスト9-10で作成した<code>Guess</code>型を考えてみましょう。<code>Guess</code>を使う他のコードは<code>Guess</code>インスタンスが1から100の間の値しか含まないという保証に依存します。その範囲外の値を持つ<code>Guess</code>インスタンスを作成しようとするテストを書くことができます。</p>
+<p>これを行うには、もう一つの属性<code>should_panic</code>をテスト関数に追加します。この属性は、関数内のコードがパニックになった場合にテストに合格します。関数内のコードがパニックに陥らなければ、テストは失敗します。</p>
+<p>リスト11-8は<code>Guess::new</code>のエラー状態が次のようになるのを期待していることをチェックするテストを示しています。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"># fn main() {}
+pub struct Guess {
+    value: i32,
+}
+
+impl Guess {
+    pub fn new(value: i32) -&gt; Guess {
+        if value &lt; 1 || value &gt; 100 {
+            panic!(&quot;Guess value must be between 1 and 100, got {}.&quot;, value);
+        }
+
+        Guess {
+            value
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic]
+    fn greater_than_100() {
+        Guess::new(200);
+    }
+}
+</code></pre></pre>
+<p><span class="caption">リスト 11-8: 状況が<code>panic!</code>を引き起こすとテストする</span></p>
+<p><code>#[should_panic]</code>属性は<code>#[test]</code>属性の後で、それが適用されるテスト関数の前に置かれます。このテストに合格したときの結果を見てみましょう。</p>
+<pre><code class="language-text">running 1 test
+test tests::greater_than_100 ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>では、値が100より大きい場合、<code>new</code>関数がパニックになるという条件を取り除いて、コードにバグを導入しましょう。</p>
+<pre><pre class="playpen"><code class="language-rust not_desired_behavior"># fn main() {}
+# pub struct Guess {
+#     value: i32,
+# }
+#
+// --snip--
+
+impl Guess {
+    pub fn new(value: i32) -&gt; Guess {
+        if value &lt; 1  {
+            panic!(&quot;Guess value must be between 1 and 100, got {}.&quot;, value);
+        }
+
+        Guess {
+            value
+        }
+    }
+}
+</code></pre></pre>
+<p>リスト11-8のテストを実行すると失敗します。</p>
+<pre><code class="language-text">running 1 test
+test tests::greater_than_100 ... FAILED
+
+failures:
+
+failures:
+    tests::greater_than_100
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>この場合は非常に有用なメッセージはありませんが、テスト関数を見ると<code>#[should_panic]</code>と注釈されています。テスト機能のコードがパニックを引き起こさなかったことを意味します。</p>
+<p><code>should_panic</code>を使ったテストは、コードがある程度のパニックを引き起こしたことだけを示しているので、不正確になる可能性があります。<code>should_panic</code>テストは、起こることを期待していたのとは異なる理由でパニックになっても、合格します。 <code>should_panic</code>テストをより正確にするために、<code>should_panic</code>属性に<code>expected</code>パラメータを追加することができます。テストハーネスは、失敗メッセージに指定されたテキストが含まれていることを確認します。 たとえば、リスト11-9の<code>Guess</code>の修正されたコードを考えてみましょう。ここで<code>new</code>関数は、値が小さすぎるか大きすぎるかによってメッセージが異なります。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"># fn main() {}
+# pub struct Guess {
+#     value: i32,
+# }
+#
+// --snip--
+
+impl Guess {
+    pub fn new(value: i32) -&gt; Guess {
+        if value &lt; 1 {
+            panic!(&quot;Guess value must be greater than or equal to 1, got {}.&quot;,
+                   value);
+        } else if value &gt; 100 {
+            panic!(&quot;Guess value must be less than or equal to 100, got {}.&quot;,
+                   value);
+        }
+
+        Guess {
+            value
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    #[should_panic(expected = &quot;Guess value must be less than or equal to 100&quot;)]
+    fn greater_than_100() {
+        Guess::new(200);
+    }
+}
+</code></pre></pre>
+<p><span class="caption">リスト 11-9: 状況が特定のパニックメッセージで<code>panic!</code>を引き起こすことをテストする</span></p>
+<p><code>should_panic</code>属性の<code>expected</code>引数に置いた値が<code>Guess::new</code>関数がパニックしたメッセージの一部になっているので、 このテストは通ります。予想されるパニックメッセージ全体を指定することもでき、そうすれば今回の場合、<code>Guess value must be less than or equal to 100, got 200.</code>となります。<code>should_panic</code>の予想される引数に指定すると決めたものは、パニックメッセージの固有性や活動性、テストの正確性によります。今回の場合、パニックメッセージの一部でも、テスト関数内のコードが、<code>else if value &gt; 100</code>ケースを実行していると確認するのに事足りるのです。</p>
+<p><code>expected</code>メッセージで<code>should_panic</code>テストが失敗したときに何が起こるかを知るために、<code>if value &lt; 1</code>と<code>else if value &gt; 100</code>ブロックの本体を入れ替えて、もう一度コードにバグを導入してみましょう。</p>
+<pre><code class="language-rust ignore not_desired_behavior">if value &lt; 1 {
+    panic!(&quot;Guess value must be less than or equal to 100, got {}.&quot;, value);
+} else if value &gt; 100 {
+    panic!(&quot;Guess value must be greater than or equal to 1, got {}.&quot;, value);
+}
+</code></pre>
+<p>今回は<code>should_panic</code>テストを実行すると失敗します。</p>
+<pre><code class="language-text">running 1 test
+test tests::greater_than_100 ... FAILED
+
+failures:
+
+---- tests::greater_than_100 stdout ----
+        thread 'tests::greater_than_100' panicked at 'Guess value must be
+greater than or equal to 1, got 200.', src/lib.rs:11:12
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+note: Panic did not include expected string 'Guess value must be less than or
+equal to 100'
+
+failures:
+    tests::greater_than_100
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out
+</code></pre>
+<p>失敗メッセージは、このテストが期待通りにパニックになったことを示しますが、予想される文字列の<code>'Guess value must be less than or equal to 100'</code>を含んでいませんでした。この場合、私たちが得たパニックメッセージは、<code>Guess value must be greater than or equal to 1, got 200</code>となりました。そうしてバグの所在地を割り出し始めることができるわけです。</p>
+<a class="header" href="#aテストで-resultt-eを使う" id="aテストで-resultt-eを使う"><h3>テストで <code>Result&lt;T, E&gt;</code>を使う</h3></a>
+<p>これまでは、失敗したときにパニックするテストを書いてきました。<code>Result&lt;T, E&gt;</code>を使ったテストも書くことができます。最初の例がありますが、代わりに結果があります。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn it_works() -&gt; Result&lt;(), String&gt; {
+        if 2 + 2 == 4 {
+            Ok(())
+        } else {
+            Err(String::from(&quot;two plus two does not equal four&quot;))
+        }
+    }
+}
+#}</code></pre></pre>
+<p>ここでは、<code>it_works</code>関数を変更して結果を返します。また、<code>assert_eq!</code>ではなく、成功例の場合は<code>Ok(())</code>を、失敗の場合は<code>String</code>を内部に持つ<code>Err</code>を返します。これまでのように、このテストは失敗または成功しますが、パニックに基づくのではなく、<code>Result&lt;T, E&gt;</code>を使用してその決定を行います。このため、これらの関数の1つと<code>#[should_panic]</code>を使うことはできません。代わりに<code>Err</code>を返すべきです。</p>
+<p>テストを書くためのいくつかの方法を知ったので、テストを実行し、<code>cargo test</code>で使用できるさまざまなオプションを調べるときに何が起きているのかを見てみましょう。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch11-00-testing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch11-02-running-tests.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="ch11-00-testing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="ch11-02-running-tests.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,755 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>スコープとプライバシーを制御するモジュールシステム - プログラミング言語 Rust</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="foreword.html">前書き</a></li><li class="affix"><a href="ch00-00-introduction.html">導入</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> プログラミングの共通概念</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と変更可能性</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数の動作</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 制御フロー</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権について</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とはなにか？</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使用したプログラム例</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumとパターンマッチング</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match制御フロー演算子</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letによる簡潔な制御フロー</a></li></ol></li><li><a href="ch07-00-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> パッケージ、クレート、モジュール</a></li><li><ol class="section"><li><a href="ch07-01-packages-and-crates-for-making-libraries-and-executables.html"><strong aria-hidden="true">7.1.</strong> ライブラリと実行可能ファイルを作成するためのパッケージとクレート</a></li><li><a href="ch07-02-modules-and-use-to-control-scope-and-privacy.html" class="active"><strong aria-hidden="true">7.2.</strong> スコープとプライバシーを制御するモジュールシステム</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 共通コレクション</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vectorで一連の値を保持する</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> UTF-8でエンコードされた文字列を格納する</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 関連付けられた値を持つキーをhash mapに格納する</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト: 共通の振る舞いを定義する</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を有効化する</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> テスト</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストを書く</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストを走らせる</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト: コマンドラインプログラムを構築する</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> Points to Data on the Heap and Has a Known Size</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> The Deref Trait Allows Access to the Data Through a Reference</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> The Drop Trait Runs Code on Cleanup</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Creating Reference Cycles and Leaking Memory is Safe</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Threads</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Message Passing</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared State</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency: Sync and Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects that Allow for Values of Different Types</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns Match the Structure of Values</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns May be Used</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> All the Pattern Syntax</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> Advanced Lifetimes</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> Advanced Traits</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> Advanced Types</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> Advanced Functions &amp; Closures</a></li><li><a href="ch19-06-macros.html"><strong aria-hidden="true">19.6.</strong> Macros</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> A Single Threaded Web Server</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning our Single Threaded Server into a Multithreaded Server</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">プログラミング言語 Rust</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#aスコープとプライバシーを制御するモジュールシステム" id="aスコープとプライバシーを制御するモジュールシステム"><h2>スコープとプライバシーを制御するモジュールシステム</h2></a>
+<p>Rustには「モジュールシステム」と呼ばれる機能がありますが、モジュールにもいくつかの機能があります</p>
+<ul>
+<li>モジュール、コードを整理し、パスのプライバシーを制御する方法</li>
+<li>パス、アイテムに名前を付ける方法</li>
+<li>パスをスコープに入れるための<code>use</code>キーワード</li>
+<li><code>pub</code>はアイテムを公開するためのキーワードです</li>
+<li>アイテムを<code>as</code>キーワードでスコープに入れるときにアイテムの名前を変更する</li>
+<li>外部パッケージを使用する</li>
+<li>大きな<code>use</code>リストをクリーンアップするネストされたパス</li>
+<li>glob演算子を使用して、モジュール内のすべてをスコープに入れる</li>
+<li>モジュールを個々のファイルに分割する方法</li>
+</ul>
+<p>モジュールはコードをグループにまとめることができます。コードリスト7-1は<code>guitar</code>という名前の関数を含む<code>sound</code>モジュールを定義するコードの例です。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod sound {
+    fn guitar() {
+        // Function body code goes here
+    }
+}
+
+fn main() {
+
+}
+</code></pre></pre>
+<p><span class="caption">リスト 7-1: <code>sound</code>モジュールは<code>guitar</code>関数と<code>main</code>関数を含んでいます</span></p>
+<p>2つの関数<code>guitar</code>と<code>main</code>を定義しました。<code>mod</code>ブロック内で<code>guitar</code>関数を定義しました。このブロックは <code>sound</code>という名前のモジュールを定義します。</p>
+<p>コードをモジュールの階層に編成するにはリスト7-2に示すように他のモジュールの内部にモジュールをネストできます。</p>
+<p><span class="filename"> ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod sound {
+    mod instrument {
+        mod woodwind {
+            fn clarinet() {
+                // Function body code goes here
+            }
+        }
+    }
+
+    mod voice {
+
+    }
+}
+
+fn main() {
+
+}
+</code></pre></pre>
+<p><span class="caption">リスト 7-2: モジュール内のモジュール</span></p>
+<p>この例では、リスト7-1と同じ方法で<code>sound</code>モジュールを定義しました。次に、<code>sound</code>モジュール内に<code>instrument</code>と<code>voice</code>という2つのモジュールを定義しました。<code>instrument</code>モジュールには別のモジュール<code>woodwind</code>が定義されており、そのモジュールには<code>clarinet</code>という名前の関数が含まれています。</p>
+<p><em>src/main.rs</em>と<em>src/lib.rs</em>は<em>クレートルート</em>と呼ばれている「ライブラリと実行可能ファイルを作るためのパッケージとクレート」セクションで述べました。これらの2つのファイルのいずれかの内容は、クレートのモジュールツリーのルートに<code>crate</code>という名前のモジュールを形成するので、クレートルートと呼ばれます。リスト7-2には、リスト7-3のようなモジュールツリーがあります。</p>
+<pre><code class="language-text">crate
+ └── sound
+     └── instrument
+        └── woodwind
+     └── voice
+</code></pre>
+<p><span class="caption">リスト 7-3: リスト7-2のコードのモジュールツリー</span></p>
+<p>このツリーは、モジュールのいくつかが互いに内部でどのように入れ子になっているかを示しています（<code>instrument</code>の中に<code>woodwind</code>ネストなど）、そしていくつかのモジュールがどのように兄弟同士であるか（<code>instrument</code>と<code>voice</code>は<code>sound</code>で定義されています。モジュールツリー全体は<code>crate</code>という暗黙のモジュールの下にあります。</p>
+<p>このツリーはコンピュータ上にあるファイルシステムのディレクトリツリーを思い出させるかもしれません。ファイルシステムのディレクトリと同様に、望む組織を作成するモジュールの中にコードを配置します。もう1つの類似点は、ファイルシステムまたはモジュールツリー内の項目を参照するには<em>パス</em>を使用します。</p>
+<a class="header" href="#aモジュールツリー内のアイテムを参照するためのパス" id="aモジュールツリー内のアイテムを参照するためのパス"><h3>モジュールツリー内のアイテムを参照するためのパス</h3></a>
+<p>関数を呼び出す場合は、その<em>パス</em>を知る必要があります。「パス」は「名前」の同義語ですが、ファイルシステムのメタファを呼び起こします。さらに、関数、構造体、およびその他の項目は、同じ項目を参照する複数のパスを持つことがあるため、「名前」はあまり適切な概念ではありません。</p>
+<p><em>パス</em>には次の2つの形式があります。</p>
+<ul>
+<li><em>絶対パス</em>はクレート名かリテラル<code>crate</code>を使ってクレートルートから始まります。</li>
+<li><em>相対パス</em>は、現在のモジュールから始まり、<code>self</code>、<code>super</code>、または現在のモジュールの識別子を使用します。</li>
+</ul>
+<p>絶対パスと相対パスの後には、二重コロン（<code>::</code>）で区切られた1つ以上の識別子が続きます。</p>
+<p>コードリスト7-2の<code>main</code>関数で<code>clarinet</code>関数をどのように呼び出すのでしょうか？つまり、<code>clarinet</code>関数のパスは何ですか？リスト7-4では、いくつかのモジュールを削除してコードを少し簡略化し、<code>main</code>から<code>clarinet</code>関数を呼び出す2つの方法を示します。この例はまだコンパイルされませんが、少し説明します。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">mod sound {
+    mod instrument {
+        fn clarinet() {
+            // Function body code goes here
+        }
+    }
+}
+
+fn main() {
+    // Absolute path
+    crate::sound::instrument::clarinet();
+
+    // Relative path
+    sound::instrument::clarinet();
+}
+</code></pre>
+<p><span class="caption">リスト 7-4: 絶対パスと相対パスを使用して<code>main</code>関数から単純化されたモジュールツリーで<code>clarinet</code>関数を呼び出す</span></p>
+<p><code>main</code>関数からclarinet関数を呼び出す最初の方法は、絶対パスを使います。<code>clarinet</code>関数は<code>main</code>と同じクレート内で定義されているので、<code>crate</code>キーワードを使用して絶対パスを開始します。 次に<code>clarinet</code>関数に進むまで、それぞれのモジュールをインクルードします。  これは<code>/sound/instrument/clarinet</code>というパスを指定してコンピュータ上のその場所でプログラムを実行するのと同様です。クレートルートから始めるために<code>crate</code>という名前を使うのは、<code>/</code>を使ってシェルのファイルシステムルートから始めるのと同じです。</p>
+<p><code>main</code>関数からclarinet関数を呼び出す2番目の方法は相対パスを使います。パスは<code>sound</code>という名前で始まります。モジュールは<code>main</code>関数と同じレベルのモジュールツリーで定義されています。これは、コンピュータのその場所でプログラムを実行するためのパス <code>sound/instrument/clarinet</code>を指定するのと同様です。名前で始まる場合は、パスが相対パスであることを意味します。</p>
+<p>リスト7-4はまだコンパイルされませんが、コンパイルしてみましょう。リスト7-5にエラーを示します。</p>
+<pre><code class="language-text">$ cargo build
+   Compiling sampleproject v0.1.0 (file:///projects/sampleproject)
+error[E0603]: module `instrument` is private
+  --&gt; src/main.rs:11:19
+   |
+11 |     crate::sound::instrument::clarinet();
+   |                   ^^^^^^^^^^
+
+error[E0603]: module `instrument` is private
+  --&gt; src/main.rs:14:12
+   |
+14 |     sound::instrument::clarinet();
+   |            ^^^^^^^^^^
+</code></pre>
+<p><span class="caption">リスト 7-5: リスト7-4のコード作成によるコンパイラエラー</span></p>
+<p>エラーメッセージではモジュール<code>instrument</code>はプライベートであると言いっています。<code>instrument</code>モジュールと<code>clarinet</code>関数の正しいパスがあることがわかりますが、プライベートなので使用できません。</p>
+<a class="header" href="#aプライバシー境界としてのモジュール" id="aプライバシー境界としてのモジュール"><h3>プライバシー境界としてのモジュール</h3></a>
+<p>ここまででモジュールの構文について説明しそれらを体系的に使用することができました。Rustにはモジュールがあります。モジュールはRustの<em>プライバシー境界</em>です。関数や構造体のような項目をプライベートにしたい場合はそれをモジュールに入れます。プライバシールールは次のとおりです。</p>
+<ul>
+<li>すべての項目（関数、メソッド、構造体、列挙型、モジュール、annd定数）はデフォルトではプライベートです</li>
+<li><code>pub</code>キーワードを使って項目を公開することができます</li>
+<li>現在のモジュールの子であるモジュールで定義されたプライベートコードを使用することはできません</li>
+<li>祖先モジュールまたは現在のモジュールで定義されたコードを使用することができます</li>
+</ul>
+<p>言い換えれば、<code>pub</code>キーワードを持たない項目は、現在のモジュールからモジュールツリーを見る際にプライベートですが、<code>pub</code>キーワードのない項目は、現在のモジュールからツリーを<code>見上げる</code>ときにpublicです。また、ファイルシステムを考えてみましょう。ディレクトリへのアクセス権がない場合は、親ディレクトリからそのディレクトリを調べることはできません。ディレクトリへのアクセス権を持っている場合、そのディレクトリとその祖先ディレクトリを見ることができます。</p>
+<p>###<code>pub</code>キーワードを使ってアイテムを公開する</p>
+<p>リスト7-5のエラーは、<code>instrument</code>モジュールはプライベートであると言いました。<code>instrument</code>モジュールに<code>pub</code>キーワードを付けて、 <code>main</code>関数から使用できるようにしましょう。この変更はリスト7-6に示されていますが、まだコンパイルされませんが、別のエラーが発生します：</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">mod sound {
+    pub mod instrument {
+        fn clarinet() {
+            // Function body code goes here
+        }
+    }
+}
+
+fn main() {
+    // Absolute path
+    crate::sound::instrument::clarinet();
+
+    // Relative path
+    sound::instrument::clarinet();
+}
+</code></pre>
+<p><span class="caption">リスト 7-6: <code>instrument</code>モジュールを<code>pub</code>と宣言して<code>main</code>から使用できるようにしました</span></p>
+<p><code>mod instrument</code>の前に<code>pub</code>キーワードを追加すると、モジュールが公開されます。この変更により、<code>sound</code>にアクセスすることができれば、<code>instrument</code>にアクセスすることができます。<code>instrument</code>の内容はまだプライベートです。モジュールをパブリックにしても内容は公開されません。モジュールの<code>pub</code>キーワードは親モジュールのコードを参照します。</p>
+<p>ただし、リスト7-6のコードでは、コードリスト7-7に示すようにエラーが発生します。</p>
+<pre><code class="language-text">$ cargo build
+   Compiling sampleproject v0.1.0 (file:///projects/sampleproject)
+error[E0603]: function `clarinet` is private
+  --&gt; src/main.rs:11:31
+   |
+11 |     crate::sound::instrument::clarinet();
+   |                               ^^^^^^^^
+
+error[E0603]: function `clarinet` is private
+  --&gt; src/main.rs:14:24
+   |
+14 |     sound::instrument::clarinet();
+   |                        ^^^^^^^^
+</code></pre>
+<p><span class="caption">リスト 7-7: コードリスト7-6のコンパイラエラー</span></p>
+<p>エラーは<code>clarinet</code>関数がプライベートであるといっています。プライバシールールは、構造体、列挙型、関数、およびメソッドとモジュールに適用されます。</p>
+<p>リスト7-8に示すように、定義の前に<code>pub</code>キーワードを追加することで<code>clarinet</code>関数をpublicにしましょう。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod sound {
+    pub mod instrument {
+        pub fn clarinet() {
+            // Function body code goes here
+        }
+    }
+}
+
+fn main() {
+    // Absolute path
+    crate::sound::instrument::clarinet();
+
+    // Relative path
+    sound::instrument::clarinet();
+}
+</code></pre></pre>
+<p><span class="caption">リスト 7-8: <code>pub</code>キーワードを<code>mod instrument</code>と<code>fn clarinet</code>に追加すると<code>main</code>から関数を呼び出すことができます</span></p>
+<p>これでコンパイルできます。絶対パスと相対パスの両方を見てみましょう。なぜ<code>pub</code>キーワードを追加すると<code>main</code>でこれらのパスを使うのかを再確認します。</p>
+<p>絶対パスの場合、クレートルートである<code>crate</code>で始まります。そこから、<code>sound</code>を持っており、クレートルートに定義されているモジュールです。 <code>sound</code>モジュールはpublicではありませんが、<code>main</code>関数は<code>sound</code>が定義されている同じモジュールで定義されているので、<code>main</code>から <code>sound</code>を参照することができます。次は<code>instrument</code>です。これは<code>pub</code>でマークされたモジュールです。<code>instrument</code>の親モジュールにアクセスできるので、<code>instrument</code>にアクセスすることができます。最後に<code>clarinet</code>は<code>pub</code>とマークされた関数であり、親モジュールにアクセスできるので、この関数呼び出しは機能します。</p>
+<p>相対パスの場合、ロジックは最初のステップを除いて絶対パスと同じです。クレートルートから始めるのではなく、パスは<code>sound</code>から始まります。<code>sound</code>モジュールは<code>main</code>と同じモジュール内に定義されているので、<code>main</code>が定義されているモジュールからの相対パスが動作します。そして<code>instrument</code>と<code>clarinet</code>が<code>pub</code>でマークされているので、残りのパスが動作し、この関数呼び出しも有効です。</p>
+<a class="header" href="#superによる相対パスの開始" id="superによる相対パスの開始"><h3><code>super</code>による相対パスの開始</h3></a>
+<p><code>super</code>で始まる相対パスを構築することもできます。そうすることは<code>..</code>でファイルシステムパスを開始するようなものです。パスは現在のモジュールではなく、<em>parent</em>モジュールから始まります。これはリスト7-9の例のように<code>clarinet</code>関数が<code>breathe_in</code>のパスを<code>super</code>で始まるように指定することで<code>breathe_in</code>関数を呼び出す場合に便利です。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"># fn main() {}
+#
+mod instrument {
+    fn clarinet() {
+        super::breathe_in();
+    }
+}
+
+fn breathe_in() {
+    // Function body code goes here
+}
+</code></pre></pre>
+<p><span class="caption">リスト 7-9: 親モジュールを見るために<code>super</code>で始まる相対パスを使って関数を呼び出す</span></p>
+<p><code>clarinet</code>関数は<code>instrument</code>モジュールに入っていますので<code>super</code>を使って<code>instrument</code>の親モジュールに行きます。この場合、ルートは <code>crate</code>です。そこから<code>breathe_in</code>を探して見つけます</p>
+<p><code>crate</code>で始まる絶対パスではなく<code>super</code>で始まる相対パスを選択したい理由は<code>super</code>を使うとコードを更新して別のモジュール階層にすることが容易になるからです。アイテムとアイテムを呼び出すコードが一緒に移動されます。たとえば<code>instrument</code>モジュールと<code>breathe_in</code>関数を<code>sound</code>という名前のモジュールに入れることにした場合、リスト7-10に示すように<code>sound</code>モジュールを追加するだけです。</p>
+<p><span class="filename">Filename: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+mod sound {
+    mod instrument {
+        fn clarinet() {
+            super::breathe_in();
+        }
+    }
+
+    fn breathe_in() {
+        // Function body code goes here
+    }
+}
+#}</code></pre></pre>
+<p><span class="caption">リスト 7-10: <code>sound</code>という名前の親モジュールを追加しても、相対パス<code>super::breathe_in</code>には影響しません</span></p>
+<p><code>clarinet</code>関数からの<code>super::breathe_in</code>への呼び出しは、リスト7-9のようにパスを更新せずに引き続きリスト7-10で機能します。<code>clarinet</code>関数で<code>super::breathe_in</code>の代わりに<code>crate::breathe_in</code>を使用した場合、親の<code>sound</code>モジュールを追加するときに <code>clarinet</code>関数を更新して<code>crate::sound::breathe_in</code>の代わりにします。相対パスを使用すると、モジュールを並べ替えるときに必要な更新が少なくなる可能性があります。</p>
+<a class="header" href="#a構造体とenumでpubを使う" id="a構造体とenumでpubを使う"><h3>構造体とEnumで<code>pub</code>を使う</h3></a>
+<p>モジュールと関数で示したのと同様の方法で、構造体とenumをpublicに指定することができます。詳細はいくつかあります。</p>
+<p>struct定義の前に<code>pub</code>を使うと、構造体をpublicにします。ただし、構造体のフィールドはまだプライベートです。それぞれのフィールドを公開するかどうかは、ケースバイケースで選択することができます。リスト7-11では、パブリック<code>name</code>フィールドを持つpublic<code>plant::Vegetable</code>構造体を定義しましたが、プライベートの<code>id</code>フィールドを定義しました。</p>
+<p><span class="filename">Filename: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod plant {
+    pub struct Vegetable {
+        pub name: String,
+        id: i32,
+    }
+
+    impl Vegetable {
+        pub fn new(name: &amp;str) -&gt; Vegetable {
+            Vegetable {
+                name: String::from(name),
+                id: 1,
+            }
+        }
+    }
+}
+
+fn main() {
+    let mut v = plant::Vegetable::new(&quot;squash&quot;);
+
+    v.name = String::from(&quot;butternut squash&quot;);
+    println!(&quot;{} are delicious&quot;, v.name);
+
+    // The next line won't compile if we uncomment it:
+    // println!(&quot;The ID is {}&quot;, v.id);
+}
+</code></pre></pre>
+<p><span class="caption">リスト 7-11: いくつかのパブリックフィールドといくつかのプライベートフィールドを持つ構造体
+</span></p>
+<p><code>plant::Vegetable</code>構造体の<code>name</code>フィールドはpublicであるため、<code>main</code>ではドット表記を使って<code>name</code>フィールドに書き込んで読み込むことができます。プライベートであるため<code>main</code>の<code>id</code>フィールドは使用できません。<code>id</code>フィールドの値を表示している行のコメントを外して、どのようなエラーが発生しているのかを確認してください。また、<code>plant::Vegetable</code>はプライベートフィールドを持っているので、構造体は<code>Vegetable</code>のインスタンスを構築するパブリック関連関数を提供する必要があることに注意してください。<code>Vegetable</code>にそのような機能がなければ<code>main</code>に<code>Vegetable</code>のインスタンスを作成することはできません。なぜなら<code>main</code>のプライベート<code>id</code>フィールドの値を設定できないからです 。</p>
+<p>対照的に、パブリックな列挙型を作成すると、そのバリエーションはすべて公開されます。リスト7-12に示すように<code>enum</code>キーワードの前に<code>pub</code>をつけることが必要です。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod menu {
+    pub enum Appetizer {
+        Soup,
+        Salad,
+    }
+}
+
+fn main() {
+    let order1 = menu::Appetizer::Soup;
+    let order2 = menu::Appetizer::Salad;
+}
+</code></pre></pre>
+<p><span class="caption">リスト 7-12: enumをパブリックとして指定すると、そのすべてのバリアントが公開されます。</span></p>
+<p><code>Appetizer</code>enumを公開したので、<code>main</code>に<code>Soup</code>と<code>Salad</code>の亜種を使用することができました。</p>
+<p><code>pub</code>にはもう一つの状況があります。これは、最後のモジュールシステムの機能である<code>use</code>キーワードです。<code>use</code>を単独でカバーし<code>pub</code>と <code>use</code>をどのように組み合わせるかを見ていきましょう。</p>
+<a class="header" href="#aスコープにパスを渡すためのuseキーワード" id="aスコープにパスを渡すためのuseキーワード"><h3>スコープにパスを渡すための<code>use</code>キーワード</h3></a>
+<p>この章のリストにある関数を呼び出すために書いた多くのパスが長くて繰り返していると考えているかもしれません。たとえば、リスト7-8では、<code>clarinet</code>関数の絶対パスか相対パスかを選択したかどうかにかかわらず、<code>clarinet</code>を呼び出すたびに<code>sound</code>と<code>instrument</code>も指定しなければなりませんでした。しかし、パスを一度スコープに入れてから、そのパスのアイテムをローカルアイテムのように呼び出す方法があります。<code>use</code>キーワードです。リスト7-13では、<code>main</code>関数のスコープに<code>crate::sound::instrument</code>モジュールを持っています。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod sound {
+    pub mod instrument {
+        pub fn clarinet() {
+            // Function body code goes here
+        }
+    }
+}
+
+use crate::sound::instrument;
+
+fn main() {
+    instrument::clarinet();
+    instrument::clarinet();
+    instrument::clarinet();
+}
+</code></pre></pre>
+<p><span class="caption">リスト 7-13: モジュールを<code>use</code>と絶対パスでスコープに入れて、モジュール内の項目を呼び出すために指定しなければならないパスを短縮します</span></p>
+<p>スコープに<code>use</code>とパスを追加することは、ファイルシステムにシンボリックリンクを作成することに似ています。クレートルートに<code>use crate::sound::instrument</code>を追加することにより、<code>instrument</code>モジュールがクレートルートに定義されているかのように、<code>instrument</code>がその有効範囲内の有効な名前になりました。<code>instrument</code>モジュール内のアイテムは、より古い、完全なパスを通して到達することができます。あるいは、<code>use</code>で作成した新しい、より短いパスを通してアイテムに到達することができます。<code>use</code>でスコープに入れられたパスは、他のパスと同様にプライバシーをチェックします。</p>
+<p>アイテムを<code>use</code>と相対パスでスコープに入れたいのであれば、相対パスを使ってアイテムを直接呼び出すのとは少し違いがあります。現在のスコープ内の名前から始めるのではなく、<code>use</code>と<code>self</code>を使います。リスト7-14は、絶対パスを使用したリスト7-13と同じ動作を得るために相対パスを指定する方法を示しています。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod sound {
+    pub mod instrument {
+        pub fn clarinet() {
+            // Function body code goes here
+        }
+    }
+}
+
+use self::sound::instrument;
+
+fn main() {
+    instrument::clarinet();
+    instrument::clarinet();
+    instrument::clarinet();
+}
+</code></pre></pre>
+<p><span class="caption">リスト 7-14: <code>use</code>でモジュールをスコープに入れ、<code>self</code>で始まる相対パス</span></p>
+<p><code>use</code>の後に指定されたときに<code>self</code>で相対パスを開始することは、将来不要になるかもしれません。それは人々が取り除くことに取り組んでいる言語の不一致です。</p>
+<p><code>use</code>で絶対パスを指定すると、アイテムを呼び出すコードがモジュールツリー内の別の場所に移動しても、アイテムを定義するコードが変更されたときとは異なり、更新が容易になります。たとえば、リスト7-13のコードを実行する場合、<code>main</code>関数の動作を<code>clarinet_trio</code>という関数に抽出し、その関数を<code>performance_group</code>という名前のモジュールに移動します。これはリスト7-15に示すように、<code>use</code>を変更する必要はありません。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod sound {
+    pub mod instrument {
+        pub fn clarinet() {
+            // Function body code goes here
+        }
+    }
+}
+
+mod performance_group {
+    use crate::sound::instrument;
+
+    pub fn clarinet_trio() {
+        instrument::clarinet();
+        instrument::clarinet();
+        instrument::clarinet();
+    }
+}
+
+fn main() {
+    performance_group::clarinet_trio();
+}
+</code></pre></pre>
+<p><span class="caption">リスト 7-15: 項目を呼び出すコードを移動するときに絶対パスを更新する必要はありません</span></p>
+<p>対照的に、相対パスを指定するリスト7-14のコードに同じ変更を加えた場合、 <code>use self::sound::instrument</code>を<code>use super::sound::instrument</code>に変更する必要があります。モジュールツリーが将来どのように変更されるかわからない場合、相対パスまたは絶対パスのどちらを更新するかを選択すると推測できますが、作成者は<code>crate</code>で始まる絶対パスを指定する傾向があります。リスト7-10で見たように、モジュールツリーの周りを互いに独立して移動するのではなく、モジュールツリーの周りを移動する可能性が高くなります。</p>
+<a class="header" href="#a他のアイテムと関数の慣用的なuseパス" id="a他のアイテムと関数の慣用的なuseパス"><h3>他のアイテムと関数の慣用的な<code>use</code>パス</h3></a>
+<p>リスト7-13では、リスト7-16に示すコードではなく、<code>use crate::sound::instrument</code>を指定してから、<code>main</code>で<code>instrument::clarinet</code>と呼びだしたのはなぜでしょうか。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod sound {
+    pub mod instrument {
+        pub fn clarinet() {
+            // Function body code goes here
+        }
+    }
+}
+
+use crate::sound::instrument::clarinet;
+
+fn main() {
+    clarinet();
+    clarinet();
+    clarinet();
+}
+</code></pre></pre>
+<p><span class="caption">リスト 7-16: <code>クラリネット</code>関数を<code>use</code>で呼び出し独自のユニークなものにする</span></p>
+<p>関数の場合、関数の親モジュールを<code>use</code>で指定し、その関数を呼び出すときに親モジュールを指定するのは慣用的です。リスト7-16のように、<code>use</code>で関数へのパスを指定するのではなく、関数がローカルに定義されていないことを確認しながら、フルパスの繰り返しを最小限に抑えます。</p>
+<p>構造体、列挙型、およびその他の項目の場合、<code>use</code>で項目へのフルパスを指定することは慣用的です。例えば、リスト7-17は、標準ライブラリの<code>HashMap</code>構造体をスコープに持ち込む慣用的な方法を示しています。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">use std::collections::HashMap;
+
+fn main() {
+    let mut map = HashMap::new();
+    map.insert(1, 2);
+}
+</code></pre></pre>
+<p><span class="caption">リスト 7-17: HashMapを慣用的な方法でスコープに持ち込む</span></p>
+<p>対照的にリスト7-18のコードでは、HashMapの親モジュールをスコープに入れても慣用的ではありません。このイディオムには強い理由はありません。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">use std::collections;
+
+fn main() {
+    let mut map = collections::HashMap::new();
+    map.insert(1, 2);
+}
+</code></pre></pre>
+<p><span class="caption">リスト 7-18: 独自の方法で <code>HashMap</code>をスコープに持ち込む</span></p>
+<p>このイディオムの例外は、<code>use</code>ステートメントが同名の2つの項目をスコープに持ち込むことができない場合です。リスト7-19は、異なる親モジュールを持つ2つの<code>Result</code>型をスコープに持ち込んで参照する方法を示しています。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::fmt;
+use std::io;
+
+fn function1() -&gt; fmt::Result {
+#     Ok(())
+}
+fn function2() -&gt; io::Result&lt;()&gt; {
+#     Ok(())
+}
+#}</code></pre></pre>
+<p><span class="caption">リスト 7-19: 同じ名前の2つの型を同じスコープに組み込むには、親モジュールを使用する必要があります</span></p>
+<p>代わりに、<code>use std::fmt::Result</code>と<code>use std::io::Result</code>を指定した場合、同じスコープ内に2つの<code>Result</code>型があり、<code>Result</code>を使いました。それを試してみて、どのコンパイラエラーが発生したかを見てください。</p>
+<a class="header" href="#asキーワードで型名の名前を変更する" id="asキーワードで型名の名前を変更する"><h3><code>as</code>キーワードで型名の名前を変更する</h3></a>
+<p>同じ名前の2つの型を同じスコープに持たせる問題のもう1つの解決方法があります。型の新しいローカル名を<code>use</code>の後に<code>as</code>を追加し、新しい名前を指定することで指定できます。リスト7-20は、リスト7-19のコードを<code>as</code>を使って2つの<code>Result</code>型の名前を変更して書くもう1つの方法を示しています。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::fmt::Result;
+use std::io::Result as IoResult;
+
+fn function1() -&gt; Result {
+#     Ok(())
+}
+fn function2() -&gt; IoResult&lt;()&gt; {
+#     Ok(())
+}
+#}</code></pre></pre>
+<p><span class="caption">Listing 7-20: 型が<code>as</code>キーワードで有効範囲に入ったときに型の名前を変更する</span></p>
+<p>2番目の<code>use</code>ステートメントでは、<code>std::io: Result</code>型の新しい名前<code>IoResult</code>を選択しました。これは、<code>std::fmt</code>の<code>Result</code>と競合しません またスコープに持ち込まれる。これはまた慣用的であると考えられている。コードリスト7-19とリスト7-20のコードの選択は自分次第です。</p>
+<a class="header" href="#pub-useで名前を再エクスポートする" id="pub-useで名前を再エクスポートする"><h3><code>pub use</code>で名前を再エクスポートする</h3></a>
+<p><code>use</code>キーワードでスコープに名前を付けると、新しいスコープで使用できる名前はprivateになります。コードを呼び出すコードが、同じようにその型で定義されているかのように型を参照できるようにしたい場合は、<code>pub</code>と<code>use</code>を組み合わせることができます。このテクニックは、アイテムを範囲に入れているだけでなく、そのアイテムを他の人が自分のスコープに持ち込むことができるようにするために<em>再エクスポート</em>と呼ばれます。</p>
+<p>たとえば、リスト7-21は、リスト7-15のコードを示し、<code>performance_group</code>モジュール内の<code>use</code>が <code>pub use</code>に変更されています。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">mod sound {
+    pub mod instrument {
+        pub fn clarinet() {
+            // Function body code goes here
+        }
+    }
+}
+
+mod performance_group {
+    pub use crate::sound::instrument;
+
+    pub fn clarinet_trio() {
+        instrument::clarinet();
+        instrument::clarinet();
+        instrument::clarinet();
+    }
+}
+
+fn main() {
+    performance_group::clarinet_trio();
+    performance_group::instrument::clarinet();
+}
+</code></pre></pre>
+<p><span class="caption">リスト 7-21: <code>pub use</code>で新しいスコープから使用するコードに名前を付ける</span></p>
+<p><code>pub use</code>を使うことで、<code>main</code>関数は<code>performance_group::instrument::clarinet</code>でこの新しいパスを通して<code>clarinet</code>関数を呼び出すことができます。<code>pub use</code>を指定しなかった場合、<code>clarinet_trio</code>関数はその範囲で<code>instrument::clarinet</code>を呼び出すことができますが、<code>main</code>はこの新しいパスを利用することができません。</p>
+<a class="header" href="#a外部パッケージの使用" id="a外部パッケージの使用"><h3>外部パッケージの使用</h3></a>
+<p>第2章では、数当てゲームをプログラミングしました。このプロジェクトでは、乱数を得るために外部パッケージ<code>rand</code>を使いました。プロジェクトで<code>rand</code>を使うために、この行を<em>Cargo.toml</em>に追加しました。</p>
+<p><span class="filename">ファイル名: Cargo.toml</span></p>
+<pre><code class="language-toml">[dependencies]
+rand = &quot;0.5.5&quot;
+</code></pre>
+<p><em>Cargo.toml</em>の依存関係として<code>rand</code>を追加すると、Cargoは<code>rand</code>パッケージとその依存関係を<em>https://crates.io</em>からダウンロードし、そのコードをプロジェクトに利用できるようにします。</p>
+<p>次に、<code>rand</code>定義をパッケージのスコープに持たせるために、パッケージの名前<code>rand</code>で始まる<code>use</code>行を追加し、スコープに入れたい項目をリストアップしました。第2章の「乱数の生成」の節では、<code>Rng</code>トレイトをスコープに持ち込み、<code>rand::thread_rng</code>関数を呼び出したことを思い出してください。</p>
+<pre><code class="language-rust ignore">use rand::Rng;
+
+fn main() {
+    let secret_number = rand::thread_rng().gen_range(1, 101);
+}
+</code></pre>
+<p>コミュニティのメンバーが<em>https://crates.io</em>で公開しているパッケージがたくさんあり、そのいずれかをパッケージに引っ張るのは、パッケージの<em>Cargo.toml</em>にリストして項目を定義するために、それらを<code>use</code>でパッケージのスコープに入れます。</p>
+<p>標準ライブラリ（<code>std</code>）もパッケージの外部にあるクレートです。標準ライブラリにはRust言語が付属しているので、<em>Cargo.toml</em>を <code>std</code>をインクルードするように変更する必要はありませんが、<code>use</code>で参照して標準ライブラリが定義した項目をパッケージのスコープに持ち込み、<code>HashMap</code>のように書くこともできます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::collections::HashMap;
+#}</code></pre></pre>
+<p>これは標準ライブラリクレートの名前である<code>std</code>で始まる絶対パスです。</p>
+<a class="header" href="#a大規模なuseリストを整理するためのネストされたパス" id="a大規模なuseリストを整理するためのネストされたパス"><h3>大規模な<code>use</code>リストを整理するためのネストされたパス</h3></a>
+<p>同じパッケージまたは同じモジュールで定義された多数の項目を使用する場合、各項目を独自の行にリストすると、ファイル内に多くの縦方向のスペースが必要になります。たとえば、リスト2-4の数あてゲームで使用したこれら2つの<code>use</code>ステートメントは、<code>std</code>の項目をスコープに持ち込みます。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::cmp::Ordering;
+use std::io;
+// ---snip---
+#}</code></pre></pre>
+<p>リスト7-22のようにネストしたパスを使用して、パスの共通部分を指定し、次に2つのコロンを指定し、異なるパスの部分のリストを中括弧で囲むことで、同じ項目を2つではなく1つの行に1つのスコープにすることができます。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::{cmp::Ordering, io};
+// ---snip---
+#}</code></pre></pre>
+<p><span class="caption">リスト 7-22:ネストされたパスを指定して、同じプレフィックスを持つ複数の項目を2つではなく1行にスコープに入れる</span></p>
+<p>同じパッケージやモジュールから多くの項目をスコープに入れたプログラムでは、ネストされたパスを使うと、たくさんの<code>use</code>ステートメントの数を減らすことができます。</p>
+<p>また、あるパスが完全に共有されているパスを別のパスの一部と重複排除することもできます。たとえば、リスト7-23は2つの<code>use</code>文を示しています。一つは<code>std::io</code>をスコープに持ち、もう一つは <code>std::io::Write</code>をスコープに持ちます。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::io;
+use std::io::Write;
+#}</code></pre></pre>
+<p><span class="caption">リスト 7-23: 2つのパスを2つの<code>use</code>ステートメントのスコープに入れます。1つはもう一方のサブパスです</span></p>
+<p>これら2つのパスの共通部分は<code>std::io</code>であり、これが完全な最初のパスです。これらの2つのパスを1つの<code>use</code>ステートメントに重複排除するには、リスト7-24に示すように、ネストされたパスに<code>self</code>を使用できます。</p>
+<p><span class="filename">ファイル名: src/lib.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::io::{self, Write};
+#}</code></pre></pre>
+<p><span class="caption">リスト 7-24: リスト7-23のパスを1つの <code>use</code>文に重複除外します</span></p>
+<p>これは <code>std::io</code>と<code>std::io::Write</code>の両方をスコープに持ち込みます。</p>
+<a class="header" href="#aすべてのpublic定義をglob演算子でスコープに変換する" id="aすべてのpublic定義をglob演算子でスコープに変換する"><h3>すべてのPublic定義をglob演算子でスコープに変換する</h3></a>
+<p>パスに定義された<em>すべて</em>のパブリックアイテムをスコープに持たせたい場合は、そのパスの後にglob演算子<code>*</code>を指定することができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::collections::*;
+#}</code></pre></pre>
+<p>この<code>use</code>ステートメントは、<code>std::collections</code>で定義されたすべてのパブリックアイテムを現在のスコープに持ち込みます。</p>
+<p>glob演算子の使用には注意してください。どの名前がスコープにあり、どの名前がプログラムで使用されているかを知るのが難しくなります。</p>
+<p>glob演算子は、テスト中の全てを<code>tests</code>モジュールに持っていくためにテストするときによく使われます。第11章の「テストの書き方」の節でそれについて話します。glob演算子は、初期化処理の一部として使用されることもあります。そのパターンの詳細については、<a href="../../std/prelude/index.html%EF%BC%83other-preludes">標準ライブラリのドキュメント</a>を参照してください。</p>
+<a class="header" href="#aモジュールを別々のファイルに分ける" id="aモジュールを別々のファイルに分ける"><h3>モジュールを別々のファイルに分ける</h3></a>
+<p>ここまでの例では、1つのファイルに複数のモジュールを定義していました。モジュールが大きくなると、その定義を別のファイルに移動して、コードをナビゲートしやすくなります。</p>
+<p>例えば、リスト7-8のコードから始めれば、クレートルートファイル(この場合は<em>src/main.rc</em>)を変更して、リストに示すコードを含むように、<code>sound</code>モジュールを独自のファイル<em>src/sound.rs</em>に移動できます</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore">mod sound;
+
+fn main() {
+    // 絶対パス
+    crate::sound::instrument::clarinet();
+
+    // 相対パス
+    sound::instrument::clarinet();
+}
+</code></pre>
+<p><span class="caption">リスト 7-25: 本体が<em>src/sound.rs</em>にある<code>sound</code>モジュールを宣言します。</span></p>
+<p><em>src/sound.rs</em>は、リスト7-26に示す<code>sound</code>モジュールの本体から定義を取得します。</p>
+<p><span class="filename">ファイル名: src/sound.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+pub mod instrument {
+    pub fn clarinet() {
+        // Function body code goes here
+    }
+}
+#}</code></pre></pre>
+<p><span class="caption">リスト 7-26: <em>src/sound.rs</em>の<code>sound</code>モジュールの中の定義</span></p>
+<p>ブロックの代わりに<code>mod sound</code>の後にセミコロンを使うと、モジュールの内容をモジュールと同じ名前の別のファイルからロードするようにRustに指示します。</p>
+<p>この例を続行し、<code>instrument</code>モジュールをそれ自身のファイルに抽出するために、<code>instrument</code>モジュールの宣言だけを含むように<em>src/sound.rs</em>を変更します。</p>
+<p><span class="filename">ファイル名: src/sound.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+pub mod instrument;
+#}</code></pre></pre>
+<p>次に、<code>instrument</code>モジュールで定義された定義を格納する<em>src/sound</em>ディレクトリとファイル<em>src/sound/instrument.rs</em>を作成します。</p>
+<p><span class="filename">ファイル名: src/sound/instrument.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+pub fn clarinet() {
+    // Function body code goes here
+}
+#}</code></pre></pre>
+<p>モジュールツリーは同じままであり、定義が異なるファイルに存在していても、<code>main</code>の関数呼び出しは何の変更もなしに機能し続けます。これにより、モジュールのサイズが大きくなるにつれてモジュールを新しいファイルに移動できます。</p>
+<a class="header" href="#aまとめ" id="aまとめ"><h2>まとめ</h2></a>
+<p>Rustは、パッケージをクレートに編成し、モジュールをクレートにモジュール化し、絶対パスまたは相対パスを指定することによって、あるモジュールで定義されたアイテムを別のモジュールから参照する方法を提供します。これらのパスは<code>use</code>ステートメントでスコープに入れられ、そのスコープ内のアイテムの複数の使用に短いパスを使用できます。モジュールはデフォルトで非公開のコードを定義しますが、<code>pub</code>キーワードを追加することで定義を公開することもできます。</p>
+<p>次に、標準ライブラリのコレクションデータ構造を見ていきます。これは、きちんとしたきれいなコードで使用できます。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch07-01-packages-and-crates-for-making-libraries-and-executables.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch08-00-common-collections.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="ch07-01-packages-and-crates-for-making-libraries-and-executables.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="ch08-00-common-collections.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

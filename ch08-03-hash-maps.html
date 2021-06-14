@@ -1,0 +1,362 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>関連付けられた値を持つキーをhash mapに格納する - プログラミング言語 Rust</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="foreword.html">前書き</a></li><li class="affix"><a href="ch00-00-introduction.html">導入</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> プログラミングの共通概念</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と変更可能性</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数の動作</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 制御フロー</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権について</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とはなにか？</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使用したプログラム例</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumとパターンマッチング</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match制御フロー演算子</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letによる簡潔な制御フロー</a></li></ol></li><li><a href="ch07-00-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> パッケージ、クレート、モジュール</a></li><li><ol class="section"><li><a href="ch07-01-packages-and-crates-for-making-libraries-and-executables.html"><strong aria-hidden="true">7.1.</strong> ライブラリと実行可能ファイルを作成するためのパッケージとクレート</a></li><li><a href="ch07-02-modules-and-use-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> スコープとプライバシーを制御するモジュールシステム</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 共通コレクション</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vectorで一連の値を保持する</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> UTF-8でエンコードされた文字列を格納する</a></li><li><a href="ch08-03-hash-maps.html" class="active"><strong aria-hidden="true">8.3.</strong> 関連付けられた値を持つキーをhash mapに格納する</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト: 共通の振る舞いを定義する</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を有効化する</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> テスト</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストを書く</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストを走らせる</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト: コマンドラインプログラムを構築する</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> Points to Data on the Heap and Has a Known Size</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> The Deref Trait Allows Access to the Data Through a Reference</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> The Drop Trait Runs Code on Cleanup</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Creating Reference Cycles and Leaking Memory is Safe</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Threads</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Message Passing</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared State</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency: Sync and Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects that Allow for Values of Different Types</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns Match the Structure of Values</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns May be Used</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> All the Pattern Syntax</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> Advanced Lifetimes</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> Advanced Traits</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> Advanced Types</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> Advanced Functions &amp; Closures</a></li><li><a href="ch19-06-macros.html"><strong aria-hidden="true">19.6.</strong> Macros</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> A Single Threaded Web Server</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning our Single Threaded Server into a Multithreaded Server</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">プログラミング言語 Rust</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#a関連付けられた値を持つキーをhash-mapに格納する" id="a関連付けられた値を持つキーをhash-mapに格納する"><h2>関連付けられた値を持つキーをhash mapに格納する</h2></a>
+<p>一般的なコレクションの最後は<em>hash map</em>です。<code>HashMap&lt;K、V</code>&gt;型は、型<code>K</code>のキーを型<code>V</code>の値にマッピングします。これらのキーと値をどのようにメモリに格納するかを決める<em>ハッシュ関数</em>を使ってこれを行います。多くのプログラミング言語はこの種のデータ構造をサポートしていますが、ハッシュ、マップ、オブジェクト、ハッシュテーブル、ディクショナリ、連想配列などの異なる名前を使用することがよくあります。</p>
+<p>hash mapは、vectrを使用する場合と同じように、インデックスを使用せずに任意のタイプのキーを使用してデータをルックアップする場合に便利です。 たとえば、ゲームでは、各キーがチームの名前で値が各チームのスコアであるhash mapで各チームのスコアを追跡できます。チーム名を指定するとスコアを取得できます。</p>
+<p>このセクションでは、hash mapの基本的なAPIについて説明しますが、標準ライブラリでは<code>HashMap&lt;K、V&gt;</code>で定義されている関数にはもっと多くの機能が隠されています。詳細は標準ライブラリのマニュアルを参照してください。</p>
+<a class="header" href="#a新しいhash-mapの作成" id="a新しいhash-mapの作成"><h3>新しいhash mapの作成</h3></a>
+<p><code>new</code>で空のhash mapを作成し、<code>insert</code>で要素を追加することができます。リスト8-20では、名前がBlueとYellowの2つのチームの得点を記録しています。ブルーチームは10ポイントでスタートし、イエローチームは50ポイントでスタートします。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+
+scores.insert(String::from(&quot;Blue&quot;), 10);
+scores.insert(String::from(&quot;Yellow&quot;), 50);
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-20:新しいhash mapを作成し、いくつかのキーと値を挿入する</span></p>
+<p>標準ライブラリのコレクション部分から<code>HashMap</code>を最初に<code>使用する</code>必要があることに注意してください。3つの一般的なコレクションのうち、これは最も頻繁に使用されるものではないため、プレリュードに自動的に適用される機能には含まれていません。 hash map、標準ライブラリからのサポートも少なくなっています。例えば、それらを構築するための組み込みマクロはありません。</p>
+<p>vectorと同様に、hash mapはヒープ上にデータを格納します。この<code>HashMap</code>は<code>String</code>型のキーと<code>i32</code>型の値を持っています。 vectorと同様に、hash mapはすべてのキーは同じタイプでなければならず、すべての値は同じタイプでなければなりません。</p>
+<p>hash mapを構築する別の方法は、タプルのベクトルに対して<code>collect</code>メソッドを使うことです。ここで、各タプルはキーとその値から成ります。<code>collect</code>メソッドは<code>HashMap</code>を含む多くのコレクション型にデータを集めます。たとえば、チーム名と初期スコアが2つの別々のベクトルであれば、<code>zip</code>メソッドを使用して&quot;Blue&quot;が10とペアになっているタプルのベクトルを作成することができます。リスト8-21に示すように、<code>collect</code>メソッドを使ってタプルのベクトルをhash mapにすることができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::collections::HashMap;
+
+let teams  = vec![String::from(&quot;Blue&quot;), String::from(&quot;Yellow&quot;)];
+let initial_scores = vec![10, 50];
+
+let scores: HashMap&lt;_, _&gt; = teams.iter().zip(initial_scores.iter()).collect();
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-21: チームのリストと得点のリストからhash mapを作成する</span></p>
+<p><code>HashMap&lt;_, _&gt;</code>型の注釈はここで必要です。なぜなら、指定しない限り何を望んでいるのかわからないため、さまざまなデータ構造に<code>collect</code>することができるからです。ただし、キーと値の型の引数では、アンダースコアを使用し、hash mapに含まれるデータの型に基づいて型を推測できます。</p>
+<a class="header" href="#hash-mapと所有権" id="hash-mapと所有権"><h3>hash mapと所有権</h3></a>
+<p><code>Copy</code>特性を実装する型の場合、<code>i32</code>のように、値はhash mapにコピーされます。リスト8-22に示すように、<code>String</code>のような所有値の場合、値は移動され、hash mapはそれらの値の所有者になります。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::collections::HashMap;
+
+let field_name = String::from(&quot;Favorite color&quot;);
+let field_value = String::from(&quot;Blue&quot;);
+
+let mut map = HashMap::new();
+map.insert(field_name, field_value);
+// field_name and field_value are invalid at this point, try using them and
+// see what compiler error you get!
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-22: hash mapが挿入されると、そのキーと値が所有されていることを示す</span></p>
+<p>変数<code>field_name</code>と<code>field_value</code>を、<code>insert</code>を呼び出してhash mapに移動した後で使用することはできません。</p>
+<p>値への参照をhash mapに挿入すると、値はhash mapに移動されません。 参照が指す値は、少なくともhash mapが有効である限り有効でなければなりません。これらの問題については、第10章の「ライフタイムを使用した参照の検証」のセクションで詳しく説明します。</p>
+<a class="header" href="#hash-mapの値へのアクセス" id="hash-mapの値へのアクセス"><h3>hash mapの値へのアクセス</h3></a>
+<p>リスト8-23に示すように、キーを<code>get</code>メソッドに渡すことで、hash mapから値を取得できます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+
+scores.insert(String::from(&quot;Blue&quot;), 10);
+scores.insert(String::from(&quot;Yellow&quot;), 50);
+
+let team_name = String::from(&quot;Blue&quot;);
+let score = scores.get(&amp;team_name);
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-23: hash mapに保存されているBlueチームのスコアにアクセスする</span></p>
+<p>ここでは、<code>スコア</code>はBlueチームに関連付けられた値を持ち、結果は<code>Some(&amp;10)</code>になります。<code>get</code>は<code>Option&lt;&amp;V&gt;</code>を返すので、結果は<code>Some</code>でラップされます。そのキーの値がhash mapにない場合、<code>get</code>は<code>None</code>を返します。プログラムは、第6章で取り上げた方法の1つで、<code>Option</code>を処理する必要があります。</p>
+<p><code>for</code>ループを使って、vectorと同様の方法でhash mapの各キー/値の組を繰り返し処理できます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+
+scores.insert(String::from(&quot;Blue&quot;), 10);
+scores.insert(String::from(&quot;Yellow&quot;), 50);
+
+for (key, value) in &amp;scores {
+    println!(&quot;{}: {}&quot;, key, value);
+}
+#}</code></pre></pre>
+<p>このコードは各ペアを任意の順序で出力します。</p>
+<pre><code class="language-text">Yellow: 50
+Blue: 10
+</code></pre>
+<a class="header" href="#hash-mapの更新" id="hash-mapの更新"><h3>hash mapの更新</h3></a>
+<p>キーと値の数は増えますが、各キーは一度に1つの値しか関連付けられません。hash mapのデータを変更する場合は、キーにすでに値が割り当てられている場合に、そのケースの処理方法を決定する必要があります。古い値を新しい値に置き換えて、古い値を完全に無視することができます。古い値を保持して新しい値を無視し、キーにすでに値が<em>ない場合</em>にのみ新しい値を追加することができます。または、古い値と新しい値を組み合わせることもできます。これらのそれぞれを行う方法を見てみましょう。</p>
+<a class="header" href="#a値を上書きする" id="a値を上書きする"><h4>値を上書きする</h4></a>
+<p>hash mapにキーと値を挿入し、同じキーに別の値を挿入すると、そのキーに関連付けられた値が置き換えられます。リスト8-24のコードでは<code>insert</code>を2回呼び出していますが、Blueチームのキーの値を両方とも挿入するため、hash mapには1つのキーと値のペアしか含まれません。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+
+scores.insert(String::from(&quot;Blue&quot;), 10);
+scores.insert(String::from(&quot;Blue&quot;), 25);
+
+println!(&quot;{:?}&quot;, scores);
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-24:特定のキーに格納されている値を置き換える</span></p>
+<p>このコードは<code>{&quot;Blue&quot;: 25}</code>を出力します。<code>10</code>の元の値は上書きされています。</p>
+<a class="header" href="#aキーに値がない場合にのみ値を挿入する" id="aキーに値がない場合にのみ値を挿入する"><h4>キーに値がない場合にのみ値を挿入する</h4></a>
+<p>特定のキーに値があるかどうかをチェックし、キーに値がない場合は値を挿入するのが一般的です。hash mapには、これと呼ばれる<code>entry</code>という特別なAPIがあります。このAPIは、チェックしたいキーを引数として受け取ります。<code>entry</code>関数の戻り値は、存在するかもしれないし、存在しないかもしれない値を表す<code>Entry</code>と呼ばれるenumです。Yellowチームのキーに関連する値があるかどうかを確認したいとします。そうでない場合は、値50を挿入し、Blueチームに同じ値を挿入します。<code>entry</code> APIを使用すると、コードはリスト8-25のようになります。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+scores.insert(String::from(&quot;Blue&quot;), 10);
+
+scores.entry(String::from(&quot;Yellow&quot;)).or_insert(50);
+scores.entry(String::from(&quot;Blue&quot;)).or_insert(50);
+
+println!(&quot;{:?}&quot;, scores);
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-25: キーがまだ値を持っていない場合にのみ挿入する<code>entry</code>メソッドの使用
+</span></p>
+<p><code>Entry</code>の<code>or_insert</code>メソッドは、対応する<code>Entry</code>キーが存在すればその値への変更可能な参照を返すように定義され、そうでなければこのキーの新しい値として引数を挿入し、変更可能な参照を返します。このテクニックは、ロジックを書くよりもはるかにクリーンで、さらに、借用チェッカーでうまく機能します。</p>
+<p>リスト8-25のコードを実行すると<code>{&quot;Yellow&quot;: 50, &quot;Blue&quot;: 10}</code>が出力されます。黄色のチームにはすでに値がないので、<code>entry</code>への最初の呼び出しは、値が<code>50</code>のYellowチームのキーを挿入します。ブルーチームが既に値<code>10</code>を持っているので、 <code>entry</code>への2回目の呼び出しはhash mapを変更しません。</p>
+<a class="header" href="#a古い値に基づく値の更新" id="a古い値に基づく値の更新"><h4>古い値に基づく値の更新</h4></a>
+<p>hash mapの別の一般的な使用例は、キーの値をルックアップし、古い値に基づいてキーの値を更新することです。たとえば、リスト8-26は、各単語がテキストに何回出現するかを数えるコードを示しています。単語をキーとしてhash mapを使用し、その単語を何回見たかを追跡するために値を増やします。単語を見たのが初めての場合は、最初に値<code>0</code>を挿入します。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::collections::HashMap;
+
+let text = &quot;hello world wonderful world&quot;;
+
+let mut map = HashMap::new();
+
+for word in text.split_whitespace() {
+    let count = map.entry(word).or_insert(0);
+    *count += 1;
+}
+
+println!(&quot;{:?}&quot;, map);
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-26: 単語とカウントを格納するhash mapを使って単語の出現を数える</span></p>
+<p>このコードは <code>{&quot;world&quot;: 2、&quot;hello&quot;: 1, &quot;wonderful&quot;: 1}</code>を出力します。<code>or_insert</code>メソッドは実際にこのキーの値に変更可能な参照（<code>&amp;mut V</code>）を返します。ここでは、その可変参照を<code>count</code>変数に格納しています。その値に代入するには、まずアスタリスク（<code>*</code>）を使って<code>count</code>を参照解除する必要があります。変更可能な参照は<code>for</code>ループの終わりで範囲外になるので、これらの変更はすべて安全であり、借用ルールによって許可されます。</p>
+<a class="header" href="#aハッシュ関数" id="aハッシュ関数"><h3>ハッシュ関数</h3></a>
+<p>デフォルトでは、<code>HashMap</code>はサービス拒否（DoS）攻撃に抵抗することができる&quot;暗号的に強力&quot;<sup class="footnote-reference"><a href="#siphash">1</a></sup>なハッシュ関数を使用します。 利用可能な最速のハッシングアルゴリズムではありませんが、パフォーマンスの低下に伴うより良いセキュリティのトレードオフが価値があります。コードをプロファイリングして、デフォルトのハッシュ関数が遅すぎると分かったら、別の<em>hasher</em>を指定して別の関数に切り替えることができます。hasherは<code>BuildHasher</code>特性を実装する型です。第10章では、特性とその実装方法について説明します。必ずしも独自のhasherをゼロから実装する必要はありません。[crates.io]（https://crates.io）には、多くの一般的なハッシュアルゴリズムを実装しているハッシャーを提供する他のRustユーザーが共有するライブラリがあります。</p>
+<div class="footnote-definition" id="siphash"><sup class="footnote-definition-label">1</sup>
+<p><a href="https://www.131002.net/siphash/siphash.pdf">https://www.131002.net/siphash/siphash.pdf</a></p>
+</div>
+<a class="header" href="#aまとめ" id="aまとめ"><h2>まとめ</h2></a>
+<p>vector、文字列、およびhash mapは、データを格納、アクセス、および変更する必要がある場合に、プログラムに必要な大量の機能を提供します。ここで解決する必要があるいくつかの演習があります。</p>
+<ul>
+<li>整数のリストが与えられた場合、vectorを使用して平均値（平均値）、中央値（ソートされたとき、中央の値）、およびモード（最も頻繁に発生する値、hash mapはここで役立ちます ）のリスト</li>
+<li>文字列をPig Latinに変換します。 各単語の最初の子音が単語の末尾に移動し、&quot;ay&quot;が追加されるので、&quot;最初&quot;は &quot;irst-fay&quot;になります。母音で始まる単語は末尾に&quot;hay&quot;が追加されます (“apple”は“apple-hay”になります)。UTF-8エンコーディングの詳細を覚えておいてください</li>
+<li>hash mapとvectorを使用して、ユーザーが社内の部門に従業員名を追加できるようにするテキストインタフェースを作成します。たとえば、Sallyをエンジニアリングに追加する」または「AmirをSalesに追加する」などとします。部門内の全員または部門内の全員のリストをアルファベット順に並べ替えることができます</li>
+</ul>
+<p>標準ライブラリのAPIドキュメントでは、これらの演習に役立つベクトル、文字列、およびhash mapのメソッドについて説明しています。</p>
+<p>操作が失敗するより複雑なプログラムになってきているので、エラー処理について議論するのに最適なタイミングです。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch08-02-strings.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch09-00-error-handling.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="ch08-02-strings.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="ch09-00-error-handling.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

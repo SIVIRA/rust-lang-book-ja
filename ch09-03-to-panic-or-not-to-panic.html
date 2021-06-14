@@ -1,0 +1,286 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>panic!すべきかするまいか - プログラミング言語 Rust</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="foreword.html">前書き</a></li><li class="affix"><a href="ch00-00-introduction.html">導入</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> プログラミングの共通概念</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と変更可能性</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数の動作</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 制御フロー</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権について</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とはなにか？</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使用したプログラム例</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumとパターンマッチング</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match制御フロー演算子</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letによる簡潔な制御フロー</a></li></ol></li><li><a href="ch07-00-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> パッケージ、クレート、モジュール</a></li><li><ol class="section"><li><a href="ch07-01-packages-and-crates-for-making-libraries-and-executables.html"><strong aria-hidden="true">7.1.</strong> ライブラリと実行可能ファイルを作成するためのパッケージとクレート</a></li><li><a href="ch07-02-modules-and-use-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> スコープとプライバシーを制御するモジュールシステム</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 共通コレクション</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vectorで一連の値を保持する</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> UTF-8でエンコードされた文字列を格納する</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 関連付けられた値を持つキーをhash mapに格納する</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html" class="active"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト: 共通の振る舞いを定義する</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を有効化する</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> テスト</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストを書く</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストを走らせる</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト: コマンドラインプログラムを構築する</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> Points to Data on the Heap and Has a Known Size</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> The Deref Trait Allows Access to the Data Through a Reference</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> The Drop Trait Runs Code on Cleanup</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Creating Reference Cycles and Leaking Memory is Safe</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Threads</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Message Passing</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared State</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency: Sync and Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects that Allow for Values of Different Types</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns Match the Structure of Values</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns May be Used</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> All the Pattern Syntax</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> Advanced Lifetimes</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> Advanced Traits</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> Advanced Types</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> Advanced Functions &amp; Closures</a></li><li><a href="ch19-06-macros.html"><strong aria-hidden="true">19.6.</strong> Macros</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> A Single Threaded Web Server</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning our Single Threaded Server into a Multithreaded Server</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">プログラミング言語 Rust</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#panicすべきかするまいか" id="panicすべきかするまいか"><h2><code>panic!</code>すべきかするまいか</h2></a>
+<p>では、<code>panic!</code>を呼ぶべきときと<code>Result</code>を返すべきときをどう決めるのでしょうか？コードがパニックすると、回復する方法はありません。復旧の可能性があるかどうかにかかわらず、エラー状況に応じて<code>panic!</code>を呼び出すことができますが、呼び出す側のコードの立場に立ってこの場面は回復不能だという決定を下すことになります。<code>Result</code>値を返すことを選択した場合、決断を下すのではなく、呼び出し側に選択肢を与えます。呼び出しコードは、状況に適した方法で回復しようとするか、この場合の<code>Err</code>値が回復不能であると判断して、<code>panic!</code>を呼び出して回復可能だったエラーを回復不能に変換することもできます。したがって、失敗する可能性のある関数を定義するときは、<code>Result</code>を返すのが良い選択です。</p>
+<p><code>Result</code>を返す代わりにパニックするコードを書く方が適切な場合がたまにあります。例やプロトタイプコード、テストでなぜパニックになるのが適切かを調べてみましょう。そして、コンパイラが失敗かどうかを人間のように考えることができない状況について話し合いましょう。この章では、ライブラリコードをパニックするかどうかを決定する方法に関する一般的なガイドラインを示します。</p>
+<p>###例、プロトタイプコード、テスト</p>
+<p>いくつかの概念を説明するための例を書くときには、堅牢なエラー処理コードを使用することで、この例をあまり明確にすることはできません。例では、<code>unwrap</code>のような、パニックに陥る可能性のあるメソッドへの呼び出しは、アプリケーションにエラーを処理してほしい方法へのプレースホルダーを意味していると理解され、残りのコードが何をしているかによって異なります。</p>
+<p>同様に、<code>unwrap</code>と<code>expect</code>メソッドはエラーを処理する方法を決める準備が整う前のプロトタイプ作成時に非常に便利です。プログラムをより堅牢にする準備ができたときに、コードに明瞭なマーカーが残っているからです。</p>
+<p>テストでメソッド呼び出しが失敗した場合、たとえそのメソッドがテスト中の機能ではなくても、テスト全体が失敗することが望しいです。<code>panic!</code>はテストが失敗としてマークされる方法であるため、<code>unwrap</code>や<code>expect</code>を呼び出すことはまさに何が起こるべきかです。</p>
+<a class="header" href="#aコンパイラよりもプログラマがより情報を持っている場合" id="aコンパイラよりもプログラマがより情報を持っている場合"><h3>コンパイラよりもプログラマがより情報を持っている場合</h3></a>
+<p><code>Result</code>が<code>Ok</code>値を持つことを確実にする他のロジックがあるときに<code>unwrap</code>を呼び出すことも適切でしょうが、ロジックはコンパイラが理解できるものではありません。それでも、まだ処理しなければならない<code>Result</code>値を持っています。なぜなら、呼び出している処理が何であれ、自分の特定の場面では論理的に起こり得なくても、一般的にまだ失敗する可能性はあるからです。手動でコードを調査して<code>Err</code>バリアントは存在しないと確認できたら、<code>unwrap</code>を呼び出すことは完全に受容できることです。ここに例があります。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+use std::net::IpAddr;
+
+let home: IpAddr = &quot;127.0.0.1&quot;.parse().unwrap();
+#}</code></pre></pre>
+<p>ハードコーディングされた文字列を解析することによって<code>IpAddr</code>インスタンスを作成しています。<code>127.0.0.1</code>は有効なIPアドレスであることがわかります。ここで<code>unwrap</code>を使用することは可能です。しかし、ハードコードされた有効な文字列を持っていても、<code>parse</code>メソッドの戻り値の型は変更されません。<code>Result</code>値が得られ、<code>Err</code>のように<code>Result</code>を処理します。コンパイラはこの文字列が常に有効なIPアドレスであることを知るほどスマートではないからです。IPアドレス文字列がプログラムにハードコードされているのではなく、失敗している可能性がある場合は、より堅牢な方法で<code>Result</code>を処理しなければなりません。</p>
+<a class="header" href="#aエラー処理のガイドライン" id="aエラー処理のガイドライン"><h3>エラー処理のガイドライン</h3></a>
+<p>コードが悪い状態になる可能性がある場合は、コードパニックを起こすことをお勧めします。この文脈において<em>悪い状態</em>は、無効な値、矛盾する値、欠損値がコードに渡されたり、次のうちの1つ以上が発生した場合など、いくつかの前提条件、保証、契約、または不変条件が破られた状態です。</p>
+<ul>
+<li>悪い状態がときに起こるとは<em>想定</em>されないとき</li>
+<li>この時点以降、この悪い状態にないことを頼りにコードが書かれている場合</li>
+<li>使用している型にこの情報をコード化するいい手段がないとき</li>
+</ul>
+<p>誰かが自分のコードを呼び出して筋の通らない値を渡してきたら、最善の選択肢は<code>panic!</code>し、開発段階で修正できるように自分たちのコードにバグがあることをライブラリ使用者に通知することかもしれません。同様に自分の制御下にない外部コードを呼び出し、修正しようのない無効な状態を返すときに<code>panic!</code>はしばしば適切です。</p>
+<p>しかし、失敗が予想されるときは、<code>panic!</code>呼び出しを行うよりも<code>Result</code>を返す方が適切です。例えば、不正なデータが与えられたパーサーやレート制限を超えたことを示すステータスを返すHTTPリクエストが含まれます。このような場合、<code>Result</code>を返すことは、呼び出し元コードがどのように処理するかを決定しなければならない可能性が高いことを示します。</p>
+<p>コードが値に対して操作を実行するとき、コードは値が有効であることを確認し、値が有効でない場合はパニックにする必要があります。これは主に安全上の理由によるものです。不正なデータの処理を試みると、コードを脆弱性に晒す可能性があります。これは、境界外のメモリアクセスを試みると、標準ライブラリが <code>panic!</code>を呼び出す主な理由です。現在のデータ構造に属さないメモリにアクセスしようとするのはセキュリティ上の一般的な問題です。関数にはしばしば<em>契約</em>が伴います。入力が特定の要件を満たしている場合にのみその動作が保証されます。契約違反は常に呼び出し側のバグを示し、呼び出しコードで明示的に処理しなければならない種類のエラーではないため、契約違反時にパニックが発生します。実際、コードを呼び出すための合理的な方法はありません。呼び出し元の<em>プログラマ</em>はコードを修正する必要があります。関数の契約、特に違反がパニックの原因となる場合は、関数のAPIドキュメントで説明する必要があります。</p>
+<p>しかし、すべての機能で多くのエラーチェックを行うと、冗長で煩わしいことです。幸いなことに、Rustの型システム(コンパイラが行う型チェック)を使用して、多くのチェックを行うことができます。関数に引数として特定の型がある場合は、コンパイラが有効な値を持つことを既に確認していることを確認して、コードのロジックを進めることができます。例えば、<code>Option</code>ではなく型を持っているならば、プログラムは<em>何もない</em>ではなく<em>何かある</em>ことを想定します。そうするとコードは、<code>Some</code>と<code>None</code>バリアントの2つのケースを処理する必要はありません。それは確実に値を持つケースが1つしかありません。関数に何も渡そうとしないコードはコンパイルされないので、実行時にその関数をチェックする必要はありません。もう一つの例は<code>u32</code>のような符号なし整数型を使用して、引数が決して負でないことを保証するものです。</p>
+<p>Rustの型システムを使用して有効な値をさらに確実に取得し、検証用のカスタム型を作成する方法を考えてみましょう。第2章の数あてゲームを思い出してください。このコードでは、1から100までの数字を推測するようにユーザーに求めました。その数字の間にユーザーの推測があることを確認してから、推測が肯定的であることを確認しました。この場合、その結果はそれほど悲惨ではありませんでした。「大きすぎ」、「小さすぎ」という結果は正しいでしょう。しかし、ユーザを有効な推測に導き、ユーザが範囲外の数字を推測したり、例えばユーザが文字を代わりに入力したりしたときに別の挙動をするようにしたら、有益な改善になるでしょう。</p>
+<p>これを行う一つの方法は、ただの<code>u32</code>の代わりに<code>i32</code>として推測をパースし、負の数になる可能性を許可し、それから数字が範囲に収まっているというチェックを追加することです。</p>
+<pre><code class="language-rust ignore">loop {
+    // --snip--
+
+    let guess: i32 = match guess.trim().parse() {
+        Ok(num) =&gt; num,
+        Err(_) =&gt; continue,
+    };
+
+    if guess &lt; 1 || guess &gt; 100 {
+        println!(&quot;The secret number will be between 1 and 100.&quot;);
+        continue;
+    }
+
+    match guess.cmp(&amp;secret_number) {
+    // --snip--
+}
+</code></pre>
+<p>この<code>if</code>式は値が範囲外であるかどうかをチェックし、ユーザに問題を告通知し、<code>continue</code>を呼び出してループの次の繰り返しを始め、別の推測を求めます。<code>if</code>式の後、<code>guess</code>は1から100の間にあることを知って、秘密の数の比較を進めることができます。</p>
+<p>しかし、これは理想的な解決策ではありません。プログラムが1〜100の値でしか動作しないことが絶対に重要で、この要件を持つ多くの機能を持っていれば、このようなチェックをすべての機能に持たせることは面倒でパフォーマンスにも影響を及ぼす可能性があります。</p>
+<p>その代わりに新しい型を作成し、検証をどこにでも繰り返すのではなく型のインスタンスを作成する関数に入れることができます。そうすれば、関数が新しい型をシグニチャに使用し、受け取った値を確実に使用することは安全です。リスト9-10は、<code>new</code>関数が1と100の間の値を受け取った場合にのみ、<code>Guess</code>のインスタンスを生成する<code>Guess</code>型を定義する1つの方法を示しています：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+pub struct Guess {
+    value: i32,
+}
+
+impl Guess {
+    pub fn new(value: i32) -&gt; Guess {
+        if value &lt; 1 || value &gt; 100 {
+            panic!(&quot;Guess value must be between 1 and 100, got {}.&quot;, value);
+        }
+
+        Guess {
+            value
+        }
+    }
+
+    pub fn value(&amp;self) -&gt; i32 {
+        self.value
+    }
+}
+#}</code></pre></pre>
+<p><span class="caption">リスト 9-10: 値が1から100の場合のみ処理を継続する<code>Guess</code>型</span></p>
+<p>まず、<code>u32</code>型のvalueをフィールドに持つ<code>Guess</code>という名前の構造体を定義しています。ここに数値が保管されます。</p>
+<p>次に、<code>Guess</code>に<code>new</code>という名前の関数を実装して、<code>Guess</code>値のインスタンスを生成します。<code>new</code>関数は、<code>i32</code>型の<code>value</code>という1つの引数を持ち、<code>Guess</code>を返すように定義されています。<code>new</code>関数の本体にあるコードは<code>value</code>をテストして1から100の間であることを確認します。<code>value</code>がこのテストに合格しなかった場合、<code>panic!</code>呼び出しを行います。この範囲外の<code>value</code>を持つ<code>Guess</code>を作成すると<code>Guess::new</code>が依存している契約に違反するので、修正する必要があるバグがあるという呼び出しコードを書いています。<code>Guess::new</code>がパニックに陥るかもしれない条件は、公開されているAPIドキュメントで議論されるべきです。第14章で作成したAPIドキュメントに<code>panic!</code>の可能性を示すドキュメントの表記法について説明します。1valueがテスト1に合格した場合、<code>value</code>フィールドが<code>value</code>引数にセットされた新しいGuessを作成して返します。</p>
+<p>次に、<code>self</code>を借用し、他の引数を持たず、<code>i32</code>を返す<code>value</code>というメソッドを実装します。この種のメソッドは、<em>ゲッター</em>と呼ばれることもあります。その目的は、フィールドからデータを取得して返すことです。<code>Guess</code>構造体の<code>value</code>フィールドがプライベートであるため、このパブリックメソッドは必要です。<code>value</code>フィールドはプライベートであることが重要です。<code>Guess</code>構造体を使用するコードは<code>value</code>を直接設定することはできません。モジュールの外側のコードは、<code>Guess::new</code>関数を使って <code>Guess</code>が<code>Guess::new</code>関数の条件でチェックされていない<code>value</code>を持つことができないようにします。</p>
+<p>引数を一つ持つか、1から100の範囲の数値のみを返す関数はシグニチャで<code>u32</code>ではなく、<code>Guess</code>を取るか返し、本体内で追加の確認を行う必要はなくなります。</p>
+<a class="header" href="#aまとめ" id="aまとめ"><h2>まとめ</h2></a>
+<p>Rustのエラー処理機能は、プログラマがより頑健なコードを書く手助けをするように設計されています。<code>panic!</code>マクロは、プログラムが処理できない状態にあり、無効だったり不正な値で処理を継続するのではなく、プロセスに処理を中止するよう指示することを通知します。<code>Result</code>列挙型は、Rustの型システムを使用して、コードが回復可能な方法で処理が失敗するかもしれないことを示唆します。<code>Result</code>を使用して、呼び出し側のコードに成功や失敗する可能性を処理する必要があることも教えます。適切な場面で<code>panic!</code>や<code>Result</code>を使用することで、必然的な問題の眼前でコードの信頼性を上げてくれます。</p>
+<p>ここまでで、標準ライブラリが<code>Option</code>や<code>Resul</code>列挙型などでジェネリクスを有効活用するところを目の当たりにしたので、ジェネリクスの動作法と自分のコードでの使用方法について語りましょう。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch09-02-recoverable-errors-with-result.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch10-00-generics.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="ch09-02-recoverable-errors-with-result.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="ch10-00-generics.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

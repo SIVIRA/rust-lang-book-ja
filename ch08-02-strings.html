@@ -1,0 +1,427 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>UTF-8でエンコードされた文字列を格納する - プログラミング言語 Rust</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="foreword.html">前書き</a></li><li class="affix"><a href="ch00-00-introduction.html">導入</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> プログラミングの共通概念</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と変更可能性</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数の動作</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 制御フロー</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権について</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とはなにか？</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使用したプログラム例</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumとパターンマッチング</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match制御フロー演算子</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letによる簡潔な制御フロー</a></li></ol></li><li><a href="ch07-00-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> パッケージ、クレート、モジュール</a></li><li><ol class="section"><li><a href="ch07-01-packages-and-crates-for-making-libraries-and-executables.html"><strong aria-hidden="true">7.1.</strong> ライブラリと実行可能ファイルを作成するためのパッケージとクレート</a></li><li><a href="ch07-02-modules-and-use-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> スコープとプライバシーを制御するモジュールシステム</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 共通コレクション</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vectorで一連の値を保持する</a></li><li><a href="ch08-02-strings.html" class="active"><strong aria-hidden="true">8.2.</strong> UTF-8でエンコードされた文字列を格納する</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 関連付けられた値を持つキーをhash mapに格納する</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト: 共通の振る舞いを定義する</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を有効化する</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> テスト</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストを書く</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストを走らせる</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト: コマンドラインプログラムを構築する</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> Points to Data on the Heap and Has a Known Size</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> The Deref Trait Allows Access to the Data Through a Reference</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> The Drop Trait Runs Code on Cleanup</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Creating Reference Cycles and Leaking Memory is Safe</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Threads</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Message Passing</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared State</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency: Sync and Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects that Allow for Values of Different Types</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns Match the Structure of Values</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns May be Used</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> All the Pattern Syntax</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> Advanced Lifetimes</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> Advanced Traits</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> Advanced Types</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> Advanced Functions &amp; Closures</a></li><li><a href="ch19-06-macros.html"><strong aria-hidden="true">19.6.</strong> Macros</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> A Single Threaded Web Server</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning our Single Threaded Server into a Multithreaded Server</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">プログラミング言語 Rust</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#utf-8でエンコードされた文字列を格納する" id="utf-8でエンコードされた文字列を格納する"><h2>UTF-8でエンコードされた文字列を格納する</h2></a>
+<p>第4章で文字列について説明しましたが、ここではそれらをさらに詳しく見ていきます。可能性のあるエラーを表示するためのRustの傾向、多くのプログラマーが信用できるデータ構造よりも複雑な文字列、UTF-8の3つの理由のため、新しいRust開発者は一般的に文字列に固執します。これらの要素は、他のプログラミング言語から来ているときには難しいように見えます。</p>
+<p>文字列はバイトの集合として実装されているので、コレクションのコンテキストで文字列を議論すると便利です。さらに、これらのバイトがテキストとして解釈されるときに便利な機能を提供するいくつかのメソッドがあります。このセクションでは、作成、更新、および読み込みなど、すべてのコレクション型が持つ<code>String</code>の操作について説明します。<code>String</code>が他のコレクションとどのように異なっているか、すなわち<code>String</code>への索引付けが人とコンピュータが<code>String</code>データをどのように解釈するかの違いによってどのように複雑になるかを議論します。</p>
+<a class="header" href="#a文字列とは" id="a文字列とは"><h3>文字列とは？</h3></a>
+<p>最初に、<em>string</em>という用語の意味を定義します。Rustはコア言語では文字列型が1つしかありません。これは、通常は借用された形式の<code>&amp;str</code>で見られる文字列スライス<code>str</code>です。第4章では、他の場所に格納されたUTF-8でエンコードされた文字列データへの参照である<em>文字列スライス</em>について説明しました。たとえば、文字列リテラルはプログラムのバイナリ出力に格納されるため、文字列スライスです。</p>
+<p>コア言語にコード化されるのではなく、Rustの標準ライブラリによって提供される<code>String</code>型は、拡張可能で、変更可能な、所有されたUTF-8でエンコードされた文字列型です。Rust開発者がRustの&quot;strings&quot;を参照するとき、それらは通常、それらの型の1つだけではなく、<code>String</code>型と文字列slice<code>&amp;str</code>型を意味します。このセクションは主に<code>String</code>について書かれていますが、どちらのタイプもRustの標準ライブラリで頻繁に使用されています。また、<code>String</code>と文字列スライスの両方がUTF-8でエンコードされています。</p>
+<p>Rustの標準ライブラリには、<code>OsString</code>、<code>OsStr</code>、<code>CString</code>、<code>CStr</code>といった他の多くの文字列型も含まれています。ライブラリのテンプレートは、文字列データを格納するためのさらに多くのオプションを提供します。それらの名前が<code>String</code>や<code>Str</code>でどのように終わるかを見てください。以前に見た<code>String</code>や<code>str</code>のように、所有し、借用しているバリアントを参照します。 これらの文字列型は、異なるエンコーディングでテキストを格納したり、異なる方法でメモリに表現することができます。この章では、他の文字列型については説明しません。APIの使用方法とそれぞれが適切な場合のAPIドキュメントを参照してください。</p>
+<a class="header" href="#a新しい文字列の作成" id="a新しい文字列の作成"><h3>新しい文字列の作成</h3></a>
+<p>リスト8-11に示す<code>Vec&lt;T&gt;</code>で利用可能な操作の多くは、文字列を作成する<code>new</code>関数から始まる<code>String</code>でも利用できます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let mut s = String::new();
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-11: 新しい空の<code>String</code>を作成する</span></p>
+<p>この行は、<code>s</code>という新しい空文字列を作成し、データを読み込むことができます。多くの場合、文字列を開始する初期データがあります。そのためには、文字列リテラルのように、<code>Display</code>トレイトを実装する任意の型で利用できる<code>to_string</code>メソッドを使用します。リスト8-12に2つの例を示します。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let data = &quot;initial contents&quot;;
+
+let s = data.to_string();
+
+// the method also works on a literal directly:
+let s = &quot;initial contents&quot;.to_string();
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-12: <code>to_string</code>メソッドを使って文字列リテラルから<code>String</code>を作成する</span></p>
+<p>このコードは <code>initial contents</code>を含む文字列を作成します。</p>
+<p>文字列リテラルから<code>String</code>を生成するために<code>String::from</code>関数を使うこともできます。リスト8-13のコードは、リスト8-12のコードに<code>to_string</code>を使用したコードに相当します。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let s = String::from(&quot;initial contents&quot;);
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-13: <code>String::from</code>関数を使って文字列リテラルから<code>String</code>を作成する</span></p>
+<p>文字列は非常に多くのものに使用されているため、文字列にはさまざまな汎用APIを使用でき、多くのオプションが用意されています。それらのいくつかは冗長に見えるかもしれませんが、彼らはすべて自分の場所を持っています。この場合、<code>String::from</code>と<code>to_string</code>は同じことをするので、どちらを選んでもかまいません。</p>
+<p>文字列はUTF-8でエンコードされているので、リスト8-14に示すように、適切にエンコードされたデータをエンコードすることができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let hello = String::from(&quot;السلام عليكم&quot;);
+let hello = String::from(&quot;Dobrý den&quot;);
+let hello = String::from(&quot;Hello&quot;);
+let hello = String::from(&quot;שָׁלוֹם&quot;);
+let hello = String::from(&quot;नमस्ते&quot;);
+let hello = String::from(&quot;こんにちは&quot;);
+let hello = String::from(&quot;안녕하세요&quot;);
+let hello = String::from(&quot;你好&quot;);
+let hello = String::from(&quot;Olá&quot;);
+let hello = String::from(&quot;Здравствуйте&quot;);
+let hello = String::from(&quot;Hola&quot;);
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-14: 文字列の異なる言語での挨拶の保存</span></p>
+<p>これらはすべて有効な <code>String</code>値です。</p>
+<a class="header" href="#a文字列の更新" id="a文字列の更新"><h3>文字列の更新</h3></a>
+<p><code>Vec&lt;T&gt;</code>の内容と同じように、<code>String</code>のサイズが大きくなり、内容を変更することができます。さらに、<code>+</code>演算子や <code>format!</code>マクロを使うと、<code>String</code>値を連結することができます。</p>
+<a class="header" href="#push_strとpushを使って文字列に追加する" id="push_strとpushを使って文字列に追加する"><h4><code>push_str</code>と<code>push</code>を使って文字列に追加する</h4></a>
+<p>リスト8-15に示すように、文字列スライスを追加するために<code>push_str</code>メソッドを使って<code>String</code>を拡張することができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let mut s = String::from(&quot;foo&quot;);
+s.push_str(&quot;bar&quot;);
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-15: <code>push_str</code>メソッドを使って文字列スライスを<code>String</code>に追加する</span></p>
+<p>これらの2行の後に、<code>s</code>は<code>foobar</code>を含みます。<code>push_str</code>メソッドは文字列スライスを取るので、必ずしも引数の所有権を取る必要はありません。例えば、リスト8-16のコードでは内容を<code>s1</code>に追加した後に<code>s2</code>を使用できます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let mut s1 = String::from(&quot;foo&quot;);
+let s2 = &quot;bar&quot;;
+s1.push_str(s2);
+println!(&quot;s2 is {}&quot;, s2);
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-16: 文字列スライスの内容を <code>String</code>に追加した後で使用する</span></p>
+<p><code>push_str</code>メソッドが<code>s2</code>の所有権を取った場合、最後の行にその値を出力することはできません。しかし、このコードは期待どおりに動作します。</p>
+<p><code>push</code>メソッドは引数として単一の文字をとり、それを<code>String</code>に追加します。コードリスト8-17は<code>push</code>メソッドを使って<code>String</code>に文字lを追加するコードを示しています：</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let mut s = String::from(&quot;lo&quot;);
+s.push('l');
+#}</code></pre></pre>
+<p><span class="caption">リスト 8-17: <code>push</code>を使って<code>String</code>値に一つの文字を追加する</span></p>
+<p>このコードの結果として、<code>s</code>は<code>lol</code>を含みます。</p>
+<a class="header" href="#a演算子やformatマクロとの連結" id="a演算子やformatマクロとの連結"><h4><code>+</code>演算子や<code>format!</code>マクロとの連結</h4></a>
+<p>しばしば、2つの既存の文字列を結合したいと思うでしょう。1つの方法は、リスト8-18に示すように、<code>+</code>演算子を使うことです。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let s1 = String::from(&quot;Hello, &quot;);
+let s2 = String::from(&quot;world!&quot;);
+let s3 = s1 + &amp;s2; // Note s1 has been moved here and can no longer be used
+#}</code></pre></pre>
+<p><span class="caption">Listing 8-18: <code>+</code>演算子を使って2つの<code>String</code>値を新しい<code>String</code>値に結合します</span></p>
+<p>文字列<code>s3</code>はこのコードの結果として<code>Hello、world!</code>を含みます。なぜなら<code>s1</code>は加算の後にもはや有効でなく、<code>s2</code>への参照を使用した理由は、<code>+</code>演算子を使用したときに呼び出されるメソッドのシグニチャと関係しているからです。<code>+</code>演算子は <code>add</code>メソッドを使います。そのシグニチャは次のようになります。</p>
+<pre><code class="language-rust ignore">fn add(self, s: &amp;str) -&gt; String {
+</code></pre>
+<p>これは標準ライブラリにある正確な署名ではありません。標準ライブラリでは、<code>add</code>はジェネリックを使って定義されています。ここでは、一般的なものに代わる具体的な型の<code>add</code>のシグニチャを見ています。これは、このメソッドを<code>String</code>値で呼び出すときに起こります。第10章でジェネリックについて説明します。このシグニチャは、<code>+</code>演算子のトリッキーなビットを理解するために必要な手がかりを与えてくれます。</p>
+<p>まず、<code>s2</code>は<code>&amp;</code>を持ちます。つまり、<code>add</code>関数の<code>s</code>引数のために、2番目の文字列の<em>参照</em>を最初の文字列に追加しています。<code>&amp;str</code>を<code>String</code>に変換します。2つの<code>String</code>値を一緒に追加することはできません。<code>&amp;s2</code>の型は、<code>&amp;str</code>ではなく、<code>add</code>への2番目の引数で指定された<code>&amp;String</code>です。なぜ、リスト8-18はコンパイルされるのでしょうか？</p>
+<p><code>add</code>の呼び出しで<code>&amp;s2</code>を使うことができるのは、コンパイラが<code>&amp;String</code>引数を<code>&amp;str</code>に強制することができるからです。 <code>add</code>メソッドを呼び出すと、Rustは<em>deref強制</em>を使用します。ここで<code>&amp;s2</code>は<code>&amp;s2[..]</code>になります。第15章でより深く説明します。<code>add</code>は<code>s</code>引数の所有権を取らないので、<code>s2</code>はこの操作の後でも有効な<code>String</code>です。</p>
+<p>次に、<code>self</code>は<code>&amp;</code>を持たないので、<code>add</code>は<code>self</code>の所有権を取ります。これは、リスト8-18の<code>s1</code>が<code>add</code>コールに移動し、それ以降は無効になることを意味します。したがって、<code>s3 = s1 + &amp;s2;</code>は両方の文字列をコピーして新しい文字列を作成するように見えますが、実際に、<code>s1</code>の所有権を取得し<code>s2</code>の内容のコピーを追加し、その後の所有権を返します。言い換えれば、それはコピーをたくさん作っているように見えますが、そうではありません。実装はコピーよりも効率的です。</p>
+<p>複数の文字列を連結する必要がある場合、<code>+</code>演算子の動作は扱いにくくなります。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let s1 = String::from(&quot;tic&quot;);
+let s2 = String::from(&quot;tac&quot;);
+let s3 = String::from(&quot;toe&quot;);
+
+let s = s1 + &quot;-&quot; + &amp;s2 + &quot;-&quot; + &amp;s3;
+#}</code></pre></pre>
+<p>この時点で、<code>s</code>は<code>tic-tac-toe</code>になります。 <code>+</code>と<code>&quot;</code>の文字はすべて、何が起こっているのかを見るのは難しいです。複雑な文字列を組み合わせるには、<code>format！</code>マクロを使うことができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let s1 = String::from(&quot;tic&quot;);
+let s2 = String::from(&quot;tac&quot;);
+let s3 = String::from(&quot;toe&quot;);
+
+let s = format!(&quot;{}-{}-{}&quot;, s1, s2, s3);
+#}</code></pre></pre>
+<p>このコードは<code>s</code>を<code>tic-tac-toe</code>に設定します。<code>format!</code>マクロは<code>println!</code>と同じように動作しますが、出力を画面に出力するのではなく、その内容を含む<code>String</code>を返します。<code>format!</code>を使ったコードのバージョンははるかに読みやすく、その引数の所有権を取ることはありません。</p>
+<a class="header" href="#aストリングへの索引付け" id="aストリングへの索引付け"><h3>ストリングへの索引付け</h3></a>
+<p>他の多くのプログラミング言語では、文字列内の個々の文字にインデックスで参照してアクセスすることは、有効かつ一般的な操作です。しかし、Rustの索引構文を使用して<code>String</code>の部分にアクセスしようとすると、エラーが発生します。リスト8-19の無効なコードを考えてみましょう。</p>
+<pre><code class="language-rust ignore does_not_compile">let s1 = String::from(&quot;hello&quot;);
+let h = s1[0];
+</code></pre>
+<p><span class="caption">リスト 8-19: 文字列でIndex構文を使用しようとする</span></p>
+<p>このコードでは、次のエラーが発生します。</p>
+<pre><code class="language-text">error[E0277]: the trait bound `std::string::String: std::ops::Index&lt;{integer}&gt;` is not satisfied
+ --&gt;
+  |
+3 |     let h = s1[0];
+  |             ^^^^^ the type `std::string::String` cannot be indexed by `{integer}`
+  |
+  = help: the trait `std::ops::Index&lt;{integer}&gt;` is not implemented for `std::string::String`
+</code></pre>
+<p>エラーとノートはストーリーに伝えます。Rust文字列はインデックス作成をサポートしていません。しかし、どうしてですか？ その質問に答えるために、Rustが文字列をメモリにどのように格納するかについて議論する必要があります。</p>
+<a class="header" href="#a内部表現" id="a内部表現"><h4>内部表現</h4></a>
+<p><code>String</code>は<code>Vec&lt;u8&gt;</code>のラッパーです。リスト8-14の適切にエンコードされたUTF-8のサンプル・ストリングのいくつかを見てみましょう。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let len = String::from(&quot;Hola&quot;).len();
+#}</code></pre></pre>
+<p>この場合、lenは4であり、これは文字列&quot;Hola&quot;を格納するベクトルが4バイト長であることを意味する。これらの文字のそれぞれは、UTF-8でエンコードされたときに1バイトをとります。しかし、次の行はどうでしょうか？（この行は、アラビア数字3ではなく、キリル文字Zeで始まることに注意してください）</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let len = String::from(&quot;Здравствуйте&quot;).len();
+#}</code></pre></pre>
+<p>Rustの答えは24です。これは、文字列の各Unicodeスカラー値が2バイトの記憶域を取るため、UTF-8で&quot;文字列をエンコードする&quot;バイト数です。したがって、文字列のバイトへのインデックスは、有効なUnicodeスカラー値と必ずしも相関しません。実証するために、この無効な錆のコードを考えてみましょう。</p>
+<pre><code class="language-rust ignore does_not_compile">let hello = &quot;Здравствуйте&quot;;
+let answer = &amp;hello[0];
+</code></pre>
+<p><code>answer</code>の値はどうあるべきでしょう？最初の文字は<code>З</code>でしょうか？UTF-8でエンコードされている場合、<code>З</code>の最初のバイトは<code>208</code>で、二番目のバイトは<code>151</code>です。したがって、<code>answer</code>は実際には<code>208</code>ですが、<code>208</code>はそれ自身で有効な文字ではありません。<code>208</code>を返すことは、ユーザーがこの文字列の最初の文字を尋ねた場合、ユーザーが望むものではない可能性があります。しかし、それはRustがバイトインデックス0で持つ唯一のデータです。文字列にラテン文字だけが含まれていても、一般的には返されるバイト値は望ましくありません。<code>&amp;&quot;hello&quot;[0]</code>が<code>h</code>ではなく<code>104</code>を返します。予期しない値を返さず、直ちに発見されない可能性のあるバグを引き起こさないように、Rustはこのコードをまったくコンパイルせず、開発プロセスの初期段階で誤解を防止します。</p>
+<a class="header" href="#aバイトとスカラの値とグレーフェームクラスタ" id="aバイトとスカラの値とグレーフェームクラスタ"><h4>バイトとスカラの値とグレーフェームクラスタ</h4></a>
+<p>UTF-8についてのもう一つの点は、実際にはRustの観点から、文字列をバイト、スカラー値、および文字列クラスター（<em>文字</em>と呼ぶものに最も近いもの）として見るための3つの関連する方法があるということです。</p>
+<p>Devanagariスクリプトに書かれたヒンディー語の&quot;नमस्ते&quot;を見ると、これは次のような<code>u8</code>値のベクトルとして格納されます。</p>
+<pre><code class="language-text">[224, 164, 168, 224, 164, 174, 224, 164, 184, 224, 165, 141, 224, 164, 164,
+224, 165, 135]
+</code></pre>
+<p>これは18バイトで、コンピュータが最終的にこのデータをどのように格納するかです。Rustの<code>char</code>型のUnicodeスカラー値として見れば、それらのバイトは次のようになります。</p>
+<pre><code class="language-text">['न', 'म', 'स', '्', 'त', 'े']
+</code></pre>
+<p>ここには6つの<code>char</code>値がありますが、第4と第6は文字ではありません。それは特に意味をなさない発音区別記号です。最後に、それらを書記官クラスターとして見ると、ヒンズー語を構成する4つの文字を人が何と呼ぶかを知ることができます。</p>
+<pre><code class="language-text">[&quot;न&quot;, &quot;म&quot;, &quot;स्&quot;, &quot;ते&quot;]
+</code></pre>
+<p>Rustはデータがどのような人間言語であっても、各プログラムが必要とする解釈を選択できるように、コンピュータが格納する生の文字列データを解釈するさまざまな方法を提供します。</p>
+<p>Rustの最終的な理由は、文字列を取得するために<code>String</code>にインデックスを付けることができないということです。なぜなら、インデックス処理は常に一定の時間(0(1))を取ることが予想されるからです。しかし、Rustは有効な文字がいくつあるのかを判断するために、最初からインデックスまで内容を通らなければならないので、<code>String</code>でそのパフォーマンスを保証することはできません。</p>
+<a class="header" href="#aスライシング文字列" id="aスライシング文字列"><h3>スライシング文字列</h3></a>
+<p>文字列インデクシング操作の戻り値の型は、バイト値、文字、グラフェンクラスター、または文字列スライスのどれであるべきかが明確でないため、文字列へのインデックス付けはしばしば悪い考えです。したがって、実際にインデックスを使用して文字列スライスを作成する必要がある場合、Rustはより具体的になるように指示します。具体的にはインデックス作成で文字列スライスが必要であることを示すには、単一の数値で<code>[]</code>を使用してインデックスを作成するのではなく、<code>[]</code>を使用して範囲を指定して特定のバイトを含む文字列スライスを作成します。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let hello = &quot;Здравствуйте&quot;;
+
+let s = &amp;hello[0..4];
+#}</code></pre></pre>
+<p>ここで、<code>s</code>は文字列の最初の4バイトを含む<code>&amp;str</code>です。以前は、これらの文字のそれぞれが2バイトであることに言及しました。これは<code>s</code>が<code>Зд</code>であることを意味します。</p>
+<p><code>&amp;hello [0..1]</code>を使うとどうなりますか？答えはvectorで無効なインデックスがアクセスされたのと同じ方法で、実行時にRustがパニックに陥ります。</p>
+<pre><code class="language-text">thread 'main' panicked at 'byte index 1 is not a char boundary; it is inside 'З' (bytes 0..2) of `Здравствуйте`', src/libcore/str/mod.rs:2188:4
+</code></pre>
+<p>文字列スライスを作成するには、プログラムをクラッシュさせる可能性があるため、範囲を使用して慎重に文字列スライスを作成する必要があります。</p>
+<a class="header" href="#a文字列を反復処理するための方法" id="a文字列を反復処理するための方法"><h3>文字列を反復処理するための方法</h3></a>
+<p>文字列内の要素には他の方法でアクセスできます。</p>
+<p>個々のUnicodeスカラー値に対して操作を行う必要がある場合は、<code>chars</code>メソッドを使用するのが最良の方法です。&quot;नमस्ते&quot;で <code>chars</code>を呼び出すと、<code>char</code>型の6つの値が分離され、各要素にアクセスするために結果を繰り返し処理できます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+for c in &quot;नमस्ते&quot;.chars() {
+    println!(&quot;{}&quot;, c);
+}
+#}</code></pre></pre>
+<p>このコードは以下を出力します。</p>
+<pre><code class="language-text">न
+म
+स
+्
+त
+े
+</code></pre>
+<p><code>bytes</code>メソッドはドメインにふさわしいかもしれない生のバイトを返します。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+for b in &quot;नमस्ते&quot;.bytes() {
+    println!(&quot;{}&quot;, b);
+}
+#}</code></pre></pre>
+<p>このコードは、この <code>String</code>を構成する18バイトを出力します。</p>
+<pre><code class="language-text">224
+164
+// --snip--
+165
+135
+</code></pre>
+<p>しかし、有効なUnicodeスカラ値は1バイト以上で構成されることを覚えておいてください。</p>
+<p>文字列から書記素クラスタを得ることは複雑なので、この機能は標準ライブラリでは提供されていません。この機能が必要な場合は、 <a href="https://crates.io">crates.io</a>でcrateを利用できます</p>
+<a class="header" href="#a文字列は単純ではありません" id="a文字列は単純ではありません"><h3>文字列は単純ではありません</h3></a>
+<p>まとめると、文字列は複雑です。異なるプログラミング言語は、この複雑さをどのようにプログラマに提示するかについて異なる選択をします。RustはすべてのRustプログラムのデフォルトの動作である<code>String</code>データの正しい処理を行うことを選択しました。これは、プログラマがUTF-8データを先に処理することをもっと考慮する必要があることを意味します。このトレードオフは、他のプログラミング言語よりも複雑なストリングを提供しますが、開発ライフサイクルの後半で非ASCII文字を含むエラーを処理する必要がなくなります。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch08-01-vectors.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch08-03-hash-maps.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="ch08-01-vectors.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="ch08-03-hash-maps.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Enumとパターンマッチング - プログラミング言語 Rust</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="foreword.html">前書き</a></li><li class="affix"><a href="ch00-00-introduction.html">導入</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> プログラミングの共通概念</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と変更可能性</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数の動作</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 制御フロー</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権について</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とはなにか？</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li><a href="ch04-03-slices.html"><strong aria-hidden="true">4.3.</strong> スライス</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使用したプログラム例</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html" class="active"><strong aria-hidden="true">6.1.</strong> Enumとパターンマッチング</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match制御フロー演算子</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letによる簡潔な制御フロー</a></li></ol></li><li><a href="ch07-00-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> パッケージ、クレート、モジュール</a></li><li><ol class="section"><li><a href="ch07-01-packages-and-crates-for-making-libraries-and-executables.html"><strong aria-hidden="true">7.1.</strong> ライブラリと実行可能ファイルを作成するためのパッケージとクレート</a></li><li><a href="ch07-02-modules-and-use-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> スコープとプライバシーを制御するモジュールシステム</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 共通コレクション</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vectorで一連の値を保持する</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> UTF-8でエンコードされた文字列を格納する</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 関連付けられた値を持つキーをhash mapに格納する</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト: 共通の振る舞いを定義する</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を有効化する</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> テスト</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストを書く</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストを走らせる</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト: コマンドラインプログラムを構築する</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> Points to Data on the Heap and Has a Known Size</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> The Deref Trait Allows Access to the Data Through a Reference</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> The Drop Trait Runs Code on Cleanup</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Creating Reference Cycles and Leaking Memory is Safe</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Threads</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Message Passing</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared State</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency: Sync and Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects that Allow for Values of Different Types</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns Match the Structure of Values</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns May be Used</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> All the Pattern Syntax</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> Advanced Lifetimes</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> Advanced Traits</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> Advanced Types</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> Advanced Functions &amp; Closures</a></li><li><a href="ch19-06-macros.html"><strong aria-hidden="true">19.6.</strong> Macros</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> A Single Threaded Web Server</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning our Single Threaded Server into a Multithreaded Server</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">プログラミング言語 Rust</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#a列挙型とパターンマッチング" id="a列挙型とパターンマッチング"><h2>列挙型とパターンマッチング</h2></a>
+<p>この例ではコードで表現したいと思う状況を見て列挙型が構造体よりも有用で適切な理由を見てみましょう。IPアドレスで作業する必要があるとします。現在、IPアドレスにはバージョン4とバージョン6の2つの主要な標準が使用されています。これらは、プログラムが遭遇するIPアドレスのための唯一の可能性です。列挙がその名前を取得するところのすべての可能な値を<em>列挙</em>できます。</p>
+<p>どのIPアドレスもバージョン4またはバージョン6のいずれかのアドレスにすることができますが、同時に両方を使用することはできません。列挙型の値は変種の1つに過ぎないため、IPアドレスのそのプロパティは列挙型のデータ構造を適切にします。バージョン4とバージョン6の両方のアドレスは基本的にはIPアドレスなので、コードがあらゆる種類のIPアドレスに適用される状況を処理する場合、同じタイプとして扱う必要があります。</p>
+<p>この概念をコードで表現するには、<code>IpAddrKind</code>列挙を定義し、IPアドレスが<code>V4</code>と<code>V6</code>で可能な種類を列挙します。これらは列挙型の<em>変種</em>として知られています。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+enum IpAddrKind {
+    V4,
+    V6,
+}
+#}</code></pre></pre>
+<p><code>IpAddrKind</code>は、コードのどこかで使用できるカスタムデータ型になりました。</p>
+<a class="header" href="#a列挙型の値" id="a列挙型の値"><h3>列挙型の値</h3></a>
+<p>次のように<code>IpAddrKind</code>の2つの変種のそれぞれのインスタンスを作成することができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+# enum IpAddrKind {
+#     V4,
+#     V6,
+# }
+#
+let four = IpAddrKind::V4;
+let six = IpAddrKind::V6;
+#}</code></pre></pre>
+<p>列挙型のバリアントはその識別子の下に名前空間があり、二重のコロンを使用してそれらを区切ることに注意してください。これが便利な理由は、<code>IpAddrKind::V4</code>と<code>IpAddrKind::V6</code>の両方の値が同じタイプである、つまり<code>IpAddrKind</code>です。たとえば<code>IpAddrKind</code>をとる関数を定義することができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+# enum IpAddrKind {
+#     V4,
+#     V6,
+# }
+#
+fn route(ip_type: IpAddrKind) { }
+#}</code></pre></pre>
+<p>そして、この関数をどちらかのバリアントで呼び出すことができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+# enum IpAddrKind {
+#     V4,
+#     V6,
+# }
+#
+# fn route(ip_type: IpAddrKind) { }
+#
+route(IpAddrKind::V4);
+route(IpAddrKind::V6);
+#}</code></pre></pre>
+<p>列挙型を使用するとさらに利点があります。実際のIPアドレス<em>データ</em>を格納する方法がない瞬間、IPアドレスタイプについてもっと考えてみてください。どんな種類であるかを知っているだけです。第5章で構造体について学んだことを考えると、リスト6-1に示すように、この問題に取り組むことができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+enum IpAddrKind {
+    V4,
+    V6,
+}
+
+struct IpAddr {
+    kind: IpAddrKind,
+    address: String,
+}
+
+let home = IpAddr {
+    kind: IpAddrKind::V4,
+    address: String::from(&quot;127.0.0.1&quot;),
+};
+
+let loopback = IpAddr {
+    kind: IpAddrKind::V6,
+    address: String::from(&quot;::1&quot;),
+};
+#}</code></pre></pre>
+<p><span class="caption">リスト 6-1: <code>struct</code>を使ってIPアドレスのデータと<code>IpAddrKind</code>バリアントを保存する</span></p>
+<p>ここでは<code>IpAddrKind</code>型（これまでに定義した列挙型）の<code>kind</code>フィールドと<code>String</code>型の<code>address</code>フィールドの2つのフィールドを持つ<code>struct IpAddr</code>を定義しました。この構造体には2つのインスタンスがあります。最初の<code>home</code>は、関連するアドレスデータが<code>127.0.0.1</code>で<code>kind</code>が<code>IpAddrKind::V4</code>であるという値を持っています。2番目のインスタンス<code>loopback</code>は<code>kind</code>値として<code>IpAddrKind</code>のバリアント<code>V6</code>を持ち、<code>::1</code>というアドレスを持っています。構造体を使って<code>kind</code>と<code>address</code>の値を束ねていますので、このバリアントは値に関連付けられます。</p>
+<p>構造体内の列挙型ではなく単に列挙型を使用して、各列挙型バリアントに直接データを入れて、同じ概念をより簡潔な方法で表現できます。<code>IpAddr</code>列挙型のこの新しい定義では、<code>V4</code>と<code>V6</code>の両方のバリエーションに<code>String</code>値が関連付けられていると言われています。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+enum IpAddr {
+    V4(String),
+    V6(String),
+}
+
+let home = IpAddr::V4(String::from(&quot;127.0.0.1&quot;));
+
+let loopback = IpAddr::V6(String::from(&quot;::1&quot;));
+#}</code></pre></pre>
+<p>列挙型の各変種にデータを直接添付するので、余分な構造体は必要ありません。</p>
+<p>構造体ではなく列挙型を使用することには別の利点があります。それぞれのバリアントは、関連するデータのタイプと量を異ならせることができます。バージョン4のIPアドレスは常に4つの数値コンポーネントを持ち、0から255までの値を持ちます。もし<code>V4</code>アドレスを4つの<code>u8</code>値として保存したいが<code>V6</code>アドレスを<code>String</code>値として表現したいのであれば構造体ではできません。列挙型は簡単にこのケースを処理できます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+enum IpAddr {
+    V4(u8, u8, u8, u8),
+    V6(String),
+}
+
+let home = IpAddr::V4(127, 0, 0, 1);
+
+let loopback = IpAddr::V6(String::from(&quot;::1&quot;));
+#}</code></pre></pre>
+<p>バージョン4とバージョン6のIPアドレスを格納するためにデータ構造を定義するいくつかの異なる方法を示しました。しかし、IPアドレスを保存して、どのような種類のものをエンコードしたいのかは、<a href="../../std/net/enum.IpAddr.html">標準ライブラリには使用できる定義があります</a><!-- ignore --> と共通しています。標準ライブラリが<code>IpAddr</code>をどのように定義しているかを見ていきましょう。定義し使用した正確な列挙型と変種を持っていますが、アドレスデータを2つの異なる構造体の形でバリアント内に埋め込みます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+struct Ipv4Addr {
+    // --snip--
+}
+
+struct Ipv6Addr {
+    // --snip--
+}
+
+enum IpAddr {
+    V4(Ipv4Addr),
+    V6(Ipv6Addr),
+}
+#}</code></pre></pre>
+<p>このコードは列挙型の内部に任意の種類のデータ（文字列、数値型、または構造体など）を入れることができることを示しています。別の列挙型を含めることもできます。</p>
+<p>標準ライブラリに<code>IpAddr</code>の定義が含まれていても、標準ライブラリの定義をスコープに持たないので、独自の定義を作成して使用することができます。第7章では型をスコープ内に持ち込む方法について詳しく説明します。</p>
+<p>リスト6-2の列挙型の別の例を見てみましょう。これはそのバリエーションに埋め込まれた多種多様な型を持っています。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+#}</code></pre></pre>
+<p><span class="caption">リスト 6-2: <code>Message</code>列挙体でそれぞれ異なる量と値の型を格納します。</span></p>
+<p>この列挙型にはさまざまな種類の4つのバリアントがあります。</p>
+<ul>
+<li><code>Quit</code>には、それに関連するデータは全くありません</li>
+<li><code>Move</code>はその内部に無名の構造体を含みます</li>
+<li><code>Write</code>は単一の<code>String</code>を含みます</li>
+<li><code>ChangeColor</code>は3つの<code>i32</code>値を含みます</li>
+</ul>
+<p>リスト6-2のような変形を持つ列挙型を定義することは列挙型が<code>struct</code>キーワードを使用せず、すべてのバリアントが<code>Message</code>型の下で一緒にグループ化される点を除いて、異なる種類の構造体を定義することと似ています。次の構造体は前の列挙型が保持するデータと同じデータを保持できます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+struct QuitMessage; // unit struct
+struct MoveMessage {
+    x: i32,
+    y: i32,
+}
+struct WriteMessage(String); // tuple struct
+struct ChangeColorMessage(i32, i32, i32); // tuple struct
+#}</code></pre></pre>
+<p>しかし、それぞれ独自の型を持つ異なる構造体を使用した場合、リスト6-2で定義されている<code>Message</code>列挙型でできるように、これらのメッセージのいずれかを取る関数を一つの型で簡単に定義することはできませんでした。</p>
+<p>列挙型と構造体の間にはもう1つの類似点があります。つまり<code>impl</code>を使って構造体にメソッドを定義できるのと同様に、enumでメソッドを定義することもできます。<code>call</code>という名前のメソッドがあり、<code>Message</code>列挙型で定義することができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+# enum Message {
+#     Quit,
+#     Move { x: i32, y: i32 },
+#     Write(String),
+#     ChangeColor(i32, i32, i32),
+# }
+#
+impl Message {
+    fn call(&amp;self) {
+        // method body would be defined here
+    }
+}
+
+let m = Message::Write(String::from(&quot;hello&quot;));
+m.call();
+#}</code></pre></pre>
+<p>メソッドの本体はメソッドを呼び出した値を取得するために<code>self</code>を使います。この例では値<code>Message::Write(String::from(&quot;hello&quot;))</code>を持つ変数<code>m</code>を作成しました。これは<code>self</code>が<code>m.call()</code>が実行されたときに<code>call</code>メソッドを呼び出します。</p>
+<p>標準ライブラリの別の列挙型をよく見てみましょう。まずは<code>Option</code>です。</p>
+<a class="header" href="#option列挙型とそのnull値に対する利点" id="option列挙型とそのnull値に対する利点"><h3><code>Option</code>列挙型とそのNull値に対する利点</h3></a>
+<p>前のセクションではIpAddr列挙型がRustの型システムを使ってプログラムのデータだけでなくより多くの情報をエンコードする方法を見てきました。このセクションでは、標準ライブラリによって定義された別の列挙型である<code>Option</code>のケーススタディについて説明します。 <code>Option</code>型は値が何かになる可能性がある、あるいは何もできないという非常に一般的なシナリオをエンコードするので、多くの場所で使用されます。この概念を型システムの観点から表現すると、コンパイラは処理する必要があるすべてのケースを処理したかどうかをチェックできます。この機能により、他のプログラミング言語で非常に一般的なバグを防ぐことができます。</p>
+<p>プログラミング言語の設計はどの機能を含むかという点ではよく考えられますが除外する機能も重要です。Rustには他の多くの言語が持つNull機能はありません。<em>Null</em>はそこに値がないことを意味する値です。nullを持つ言語では、変数は常にnullまたはnot-nullの2つの状態のいずれかになります。</p>
+<p>2009年のプレゼンテーション「Null References：The Billion Dollar Mistake」では、nullの発明者であるTony Hoareがこう言っています。</p>
+<blockquote>
+<p>それは10億ドルにも相当する私の誤りだ。null参照を発明したのは1965年のことだった。当時、私はオブジェクト指向言語 (ALGOL W) における参照のための包括的型システムを設計していた。目標は、コンパイラでの自動チェックで全ての参照が完全に安全であることを保証することだった。しかし、私は単にそれが容易だというだけで、無効な参照を含める誘惑に抵抗できなかった。これは、後に数え切れない過ち、脆弱性、システムクラッシュを引き起こし、過去40年間で10億ドル相当の苦痛と損害を引き起こしたとみられる。</p>
+</blockquote>
+<p>ull値の問題は、null値をnull値として使用しようとすると、何らかのエラーが発生することです。このnullまたはnot-nullプロパティは広く使用されているため、この種のエラーは非常に簡単です。</p>
+<p>しかし、nullが表現しようとしている概念はまだ有用なものです。nullは何らかの理由で現在無効であるか存在しない値です。</p>
+<p>問題は実際にはコンセプトではなく、特定の実装である。 そのため、Rustにはnullはありませんが、値の存在または不在をエンコードできる列挙型があります。この列挙型は<code>Option &lt;T&gt;</code>であり、<a href="../../std/option/enum.Option.html">標準ライブラリで定義されたもの</a><!-- ignore -->では次のようになります。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+enum Option&lt;T&gt; {
+    Some(T),
+    None,
+}
+#}</code></pre></pre>
+<p><code>Option&lt;T&gt;</code>列挙型は非常に有用であり、それを明示的にスコープに入れる必要はありません。加えてそのバリアントもそうです。<code>Some</code>と<code>None</code>を<code>Option::</code>プレフィックスなしで直接使うことができます。<code>Option &lt;T&gt;</code>列挙型はまだ普通の列挙型であり、<code>Some(T)</code>と<code>None</code>は<code>Option&lt;T&gt;</code>型のバリアントです。</p>
+<p><code>&lt;T&gt;</code>構文はまだ説明していないRustの特徴です。これはジェネリック型引数です。ジェネリックについては第10章で詳しく説明します。今のところ、<code>&lt;T&gt;</code>は<code>Option</code>列挙型の<code>Some</code>バリアントが一つのピースを保持できることを意味します。任意の型のデータの数値型と文字列型を保持するための<code>Option</code>値の使用例をいくつか示します。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let some_number = Some(5);
+let some_string = Some(&quot;a string&quot;);
+
+let absent_number: Option&lt;i32&gt; = None;
+#}</code></pre></pre>
+<p><code>Some</code>ではなく<code>None</code>を使用する場合、<code>Some</code>バリアントが保持する型をコンパイラが推測することができないので、<code>Option&lt;T&gt;</code>の型をRustに伝える必要があります。</p>
+<p><code>Some</code>値があるとき値が存在しその値が<code>Some</code>内に保持されていることがわかります。ある意味で「None」という値があるときは、有効な値がないためnullと同じ意味です。では、なぜ<code>Option&lt;T&gt;</code>はnullよりも優れているのでしょうか？</p>
+<p><code>Option&lt;T&gt;</code>と<code>T</code>（ここで<code>T</code>は任意の型とすることができる）は異なる型であるため（<code>Option&lt;i8&gt;</code>に<code>i8</code>を追加しようとしている）、このコードはコンパイルされません。</p>
+<pre><code class="language-rust ignore does_not_compile">let x: i8 = 5;
+let y: Option&lt;i8&gt; = Some(5);
+
+let sum = x + y;
+</code></pre>
+<p>このコードを実行すると、次のようなエラーメッセージが表示されます。</p>
+<pre><code class="language-text">error[E0277]: the trait bound `i8: std::ops::Add&lt;std::option::Option&lt;i8&gt;&gt;` is
+not satisfied
+ --&gt;
+  |
+5 |     let sum = x + y;
+  |                 ^ no implementation for `i8 + std::option::Option&lt;i8&gt;`
+  |
+</code></pre>
+<p>このエラーメッセージは異なる型のため<code>i8</code>と<code>Option&lt;i8&gt;</code>の加算ができないことを意味します。Rustに<code>i8</code>のような型の値があるとき、コンパイラは常に正しい値を持つことを保証します。その値を使用する前に、nullをチェックする必要はありません。<code>Option&lt;i8&gt;</code>（あるいは扱っている値の種類）があるときだけ、値を持たない可能性について心配する必要があります。コンパイラは値を使う前にそのケースを処理するようにします。</p>
+<p>つまり、<code>Option&lt;T&gt;</code>を<code>T</code>に変換してから<code>T</code>演算を実行する必要があります。一般に、これはnullに関する最も一般的な問題の1つをキャッチするのに役立ちます。実際には何かがnullではないと仮定します。</p>
+<p>値がNULLではないと心配する必要はなく、コードに自信を持たせることができます。nullになる可能性のある値を持つためには、その値の型を<code>Option&lt;T&gt;</code>にすることによって明示的にオプトインする必要があります。次に、その値を使用するときは、値がnullの場合に明示的に処理する必要があります。値に<code>Option&lt;T&gt;</code>以外の型がある場合は、値がnullではないとみなすことができます。これは、Rustがnullの普及を制限し、Rustコードの安全性を高めるための意図的な設計決定でした。</p>
+<p>そのため<code>Option&lt;T&gt;</code>型の値を持っているときに、<code>Some</code>バリアントから<code>T</code>値をどのように取得すれば、その値を使うことができるのでしょうか？<code>Option&lt;T&gt;</code>列挙型は、さまざまな状況で便利な多数のメソッドを持っています。<a href="../../std/option/enum.Option.html">このドキュメント</a><!-- ignore -->でそれらをチェックすることができます。<code>Option&lt;T&gt;</code>のメソッドに慣れると、非常に役立ちます。</p>
+<p><code>Option&lt;T&gt;</code>の値を使うためには、それぞれのバリアントを扱うコードが必要です。<code>Some(T)</code>値を持っているときにのみ実行されるいくつかのコードを必要とし、このコードは<code>T</code>を使用することができます。<code>None</code>の値を持っていて、そのコードに<code>T</code>の値がない場合、他のコードを実行します。<code>match</code>式は、列挙型で使用されるときにこれを行うコントロールフロー構造です。列挙型のバリアントに応じて異なるコードを実行し、一致する値の中でデータを使用することができます。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch06-00-enums.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch06-02-match.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="ch06-00-enums.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="ch06-02-match.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>

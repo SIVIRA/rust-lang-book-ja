@@ -1,0 +1,446 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>スライス - プログラミング言語 Rust</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+        <link rel="stylesheet" href="ferris.css">
+        
+        <link rel="stylesheet" href="theme/2018-edition.css">
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li class="affix"><a href="foreword.html">前書き</a></li><li class="affix"><a href="ch00-00-introduction.html">導入</a></li><li><a href="ch01-00-getting-started.html"><strong aria-hidden="true">1.</strong> 入門</a></li><li><ol class="section"><li><a href="ch01-01-installation.html"><strong aria-hidden="true">1.1.</strong> インストール</a></li><li><a href="ch01-02-hello-world.html"><strong aria-hidden="true">1.2.</strong> Hello, World!</a></li><li><a href="ch01-03-hello-cargo.html"><strong aria-hidden="true">1.3.</strong> Hello, Cargo!</a></li></ol></li><li><a href="ch02-00-guessing-game-tutorial.html"><strong aria-hidden="true">2.</strong> 数当てゲームをプログラムする</a></li><li><a href="ch03-00-common-programming-concepts.html"><strong aria-hidden="true">3.</strong> プログラミングの共通概念</a></li><li><ol class="section"><li><a href="ch03-01-variables-and-mutability.html"><strong aria-hidden="true">3.1.</strong> 変数と変更可能性</a></li><li><a href="ch03-02-data-types.html"><strong aria-hidden="true">3.2.</strong> データ型</a></li><li><a href="ch03-03-how-functions-work.html"><strong aria-hidden="true">3.3.</strong> 関数の動作</a></li><li><a href="ch03-04-comments.html"><strong aria-hidden="true">3.4.</strong> コメント</a></li><li><a href="ch03-05-control-flow.html"><strong aria-hidden="true">3.5.</strong> 制御フロー</a></li></ol></li><li><a href="ch04-00-understanding-ownership.html"><strong aria-hidden="true">4.</strong> 所有権について</a></li><li><ol class="section"><li><a href="ch04-01-what-is-ownership.html"><strong aria-hidden="true">4.1.</strong> 所有権とはなにか？</a></li><li><a href="ch04-02-references-and-borrowing.html"><strong aria-hidden="true">4.2.</strong> 参照と借用</a></li><li><a href="ch04-03-slices.html" class="active"><strong aria-hidden="true">4.3.</strong> スライス</a></li></ol></li><li><a href="ch05-00-structs.html"><strong aria-hidden="true">5.</strong> 構造体を使用して関係のあるデータを構造化する</a></li><li><ol class="section"><li><a href="ch05-01-defining-structs.html"><strong aria-hidden="true">5.1.</strong> 構造体を定義し、インスタンス化する</a></li><li><a href="ch05-02-example-structs.html"><strong aria-hidden="true">5.2.</strong> 構造体を使用したプログラム例</a></li><li><a href="ch05-03-method-syntax.html"><strong aria-hidden="true">5.3.</strong> メソッド記法</a></li></ol></li><li><a href="ch06-00-enums.html"><strong aria-hidden="true">6.</strong> Enumとパターンマッチング</a></li><li><ol class="section"><li><a href="ch06-01-defining-an-enum.html"><strong aria-hidden="true">6.1.</strong> Enumとパターンマッチング</a></li><li><a href="ch06-02-match.html"><strong aria-hidden="true">6.2.</strong> match制御フロー演算子</a></li><li><a href="ch06-03-if-let.html"><strong aria-hidden="true">6.3.</strong> if letによる簡潔な制御フロー</a></li></ol></li><li><a href="ch07-00-packages-crates-and-modules.html"><strong aria-hidden="true">7.</strong> パッケージ、クレート、モジュール</a></li><li><ol class="section"><li><a href="ch07-01-packages-and-crates-for-making-libraries-and-executables.html"><strong aria-hidden="true">7.1.</strong> ライブラリと実行可能ファイルを作成するためのパッケージとクレート</a></li><li><a href="ch07-02-modules-and-use-to-control-scope-and-privacy.html"><strong aria-hidden="true">7.2.</strong> スコープとプライバシーを制御するモジュールシステム</a></li></ol></li><li><a href="ch08-00-common-collections.html"><strong aria-hidden="true">8.</strong> 共通コレクション</a></li><li><ol class="section"><li><a href="ch08-01-vectors.html"><strong aria-hidden="true">8.1.</strong> vectorで一連の値を保持する</a></li><li><a href="ch08-02-strings.html"><strong aria-hidden="true">8.2.</strong> UTF-8でエンコードされた文字列を格納する</a></li><li><a href="ch08-03-hash-maps.html"><strong aria-hidden="true">8.3.</strong> 関連付けられた値を持つキーをhash mapに格納する</a></li></ol></li><li><a href="ch09-00-error-handling.html"><strong aria-hidden="true">9.</strong> エラー処理</a></li><li><ol class="section"><li><a href="ch09-01-unrecoverable-errors-with-panic.html"><strong aria-hidden="true">9.1.</strong> panic!で回復不能なエラー</a></li><li><a href="ch09-02-recoverable-errors-with-result.html"><strong aria-hidden="true">9.2.</strong> Resultで回復可能なエラー</a></li><li><a href="ch09-03-to-panic-or-not-to-panic.html"><strong aria-hidden="true">9.3.</strong> panic!すべきかするまいか</a></li></ol></li><li><a href="ch10-00-generics.html"><strong aria-hidden="true">10.</strong> ジェネリック型、トレイト、ライフタイム</a></li><li><ol class="section"><li><a href="ch10-01-syntax.html"><strong aria-hidden="true">10.1.</strong> ジェネリックなデータ型</a></li><li><a href="ch10-02-traits.html"><strong aria-hidden="true">10.2.</strong> トレイト: 共通の振る舞いを定義する</a></li><li><a href="ch10-03-lifetime-syntax.html"><strong aria-hidden="true">10.3.</strong> ライフタイムで参照を有効化する</a></li></ol></li><li><a href="ch11-00-testing.html"><strong aria-hidden="true">11.</strong> テスト</a></li><li><ol class="section"><li><a href="ch11-01-writing-tests.html"><strong aria-hidden="true">11.1.</strong> テストを書く</a></li><li><a href="ch11-02-running-tests.html"><strong aria-hidden="true">11.2.</strong> テストを走らせる</a></li><li><a href="ch11-03-test-organization.html"><strong aria-hidden="true">11.3.</strong> テストの体系化</a></li></ol></li><li><a href="ch12-00-an-io-project.html"><strong aria-hidden="true">12.</strong> 入出力プロジェクト: コマンドラインプログラムを構築する</a></li><li><ol class="section"><li><a href="ch12-01-accepting-command-line-arguments.html"><strong aria-hidden="true">12.1.</strong> Accepting Command Line Arguments</a></li><li><a href="ch12-02-reading-a-file.html"><strong aria-hidden="true">12.2.</strong> Reading a File</a></li><li><a href="ch12-03-improving-error-handling-and-modularity.html"><strong aria-hidden="true">12.3.</strong> Refactoring to Improve Modularity and Error Handling</a></li><li><a href="ch12-04-testing-the-librarys-functionality.html"><strong aria-hidden="true">12.4.</strong> Developing the Library’s Functionality with Test Driven Development</a></li><li><a href="ch12-05-working-with-environment-variables.html"><strong aria-hidden="true">12.5.</strong> Working with Environment Variables</a></li><li><a href="ch12-06-writing-to-stderr-instead-of-stdout.html"><strong aria-hidden="true">12.6.</strong> Writing Error Messages to Standard Error Instead of Standard Output</a></li></ol></li><li><a href="ch13-00-functional-features.html"><strong aria-hidden="true">13.</strong> Functional Language Features: Iterators and Closures</a></li><li><ol class="section"><li><a href="ch13-01-closures.html"><strong aria-hidden="true">13.1.</strong> Closures: Anonymous Functions that Can Capture Their Environment</a></li><li><a href="ch13-02-iterators.html"><strong aria-hidden="true">13.2.</strong> Processing a Series of Items with Iterators</a></li><li><a href="ch13-03-improving-our-io-project.html"><strong aria-hidden="true">13.3.</strong> Improving Our I/O Project</a></li><li><a href="ch13-04-performance.html"><strong aria-hidden="true">13.4.</strong> Comparing Performance: Loops vs. Iterators</a></li></ol></li><li><a href="ch14-00-more-about-cargo.html"><strong aria-hidden="true">14.</strong> CargoとCrates.ioについてより詳しく</a></li><li><ol class="section"><li><a href="ch14-01-release-profiles.html"><strong aria-hidden="true">14.1.</strong> リリースプロファイルでビルドをカスタマイズする</a></li><li><a href="ch14-02-publishing-to-crates-io.html"><strong aria-hidden="true">14.2.</strong> Crates.ioにクレートを公開する</a></li><li><a href="ch14-03-cargo-workspaces.html"><strong aria-hidden="true">14.3.</strong> Cargoのワークスペース</a></li><li><a href="ch14-04-installing-binaries.html"><strong aria-hidden="true">14.4.</strong> cargo installでCrates.ioからバイナリをインストールする</a></li><li><a href="ch14-05-extending-cargo.html"><strong aria-hidden="true">14.5.</strong> 独自のコマンドでCargoを拡張する</a></li></ol></li><li><a href="ch15-00-smart-pointers.html"><strong aria-hidden="true">15.</strong> Smart Pointers</a></li><li><ol class="section"><li><a href="ch15-01-box.html"><strong aria-hidden="true">15.1.</strong> Box<T> Points to Data on the Heap and Has a Known Size</a></li><li><a href="ch15-02-deref.html"><strong aria-hidden="true">15.2.</strong> The Deref Trait Allows Access to the Data Through a Reference</a></li><li><a href="ch15-03-drop.html"><strong aria-hidden="true">15.3.</strong> The Drop Trait Runs Code on Cleanup</a></li><li><a href="ch15-04-rc.html"><strong aria-hidden="true">15.4.</strong> Rc<T>, the Reference Counted Smart Pointer</a></li><li><a href="ch15-05-interior-mutability.html"><strong aria-hidden="true">15.5.</strong> RefCell<T> and the Interior Mutability Pattern</a></li><li><a href="ch15-06-reference-cycles.html"><strong aria-hidden="true">15.6.</strong> Creating Reference Cycles and Leaking Memory is Safe</a></li></ol></li><li><a href="ch16-00-concurrency.html"><strong aria-hidden="true">16.</strong> Fearless Concurrency</a></li><li><ol class="section"><li><a href="ch16-01-threads.html"><strong aria-hidden="true">16.1.</strong> Threads</a></li><li><a href="ch16-02-message-passing.html"><strong aria-hidden="true">16.2.</strong> Message Passing</a></li><li><a href="ch16-03-shared-state.html"><strong aria-hidden="true">16.3.</strong> Shared State</a></li><li><a href="ch16-04-extensible-concurrency-sync-and-send.html"><strong aria-hidden="true">16.4.</strong> Extensible Concurrency: Sync and Send</a></li></ol></li><li><a href="ch17-00-oop.html"><strong aria-hidden="true">17.</strong> Object Oriented Programming Features of Rust</a></li><li><ol class="section"><li><a href="ch17-01-what-is-oo.html"><strong aria-hidden="true">17.1.</strong> Characteristics of Object-Oriented Languages</a></li><li><a href="ch17-02-trait-objects.html"><strong aria-hidden="true">17.2.</strong> Using Trait Objects that Allow for Values of Different Types</a></li><li><a href="ch17-03-oo-design-patterns.html"><strong aria-hidden="true">17.3.</strong> Implementing an Object-Oriented Design Pattern</a></li></ol></li><li><a href="ch18-00-patterns.html"><strong aria-hidden="true">18.</strong> Patterns Match the Structure of Values</a></li><li><ol class="section"><li><a href="ch18-01-all-the-places-for-patterns.html"><strong aria-hidden="true">18.1.</strong> All the Places Patterns May be Used</a></li><li><a href="ch18-02-refutability.html"><strong aria-hidden="true">18.2.</strong> Refutability: Whether a Pattern Might Fail to Match</a></li><li><a href="ch18-03-pattern-syntax.html"><strong aria-hidden="true">18.3.</strong> All the Pattern Syntax</a></li></ol></li><li><a href="ch19-00-advanced-features.html"><strong aria-hidden="true">19.</strong> Advanced Features</a></li><li><ol class="section"><li><a href="ch19-01-unsafe-rust.html"><strong aria-hidden="true">19.1.</strong> Unsafe Rust</a></li><li><a href="ch19-02-advanced-lifetimes.html"><strong aria-hidden="true">19.2.</strong> Advanced Lifetimes</a></li><li><a href="ch19-03-advanced-traits.html"><strong aria-hidden="true">19.3.</strong> Advanced Traits</a></li><li><a href="ch19-04-advanced-types.html"><strong aria-hidden="true">19.4.</strong> Advanced Types</a></li><li><a href="ch19-05-advanced-functions-and-closures.html"><strong aria-hidden="true">19.5.</strong> Advanced Functions &amp; Closures</a></li><li><a href="ch19-06-macros.html"><strong aria-hidden="true">19.6.</strong> Macros</a></li></ol></li><li><a href="ch20-00-final-project-a-web-server.html"><strong aria-hidden="true">20.</strong> Final Project: Building a Multithreaded Web Server</a></li><li><ol class="section"><li><a href="ch20-01-single-threaded.html"><strong aria-hidden="true">20.1.</strong> A Single Threaded Web Server</a></li><li><a href="ch20-02-multithreaded.html"><strong aria-hidden="true">20.2.</strong> Turning our Single Threaded Server into a Multithreaded Server</a></li><li><a href="ch20-03-graceful-shutdown-and-cleanup.html"><strong aria-hidden="true">20.3.</strong> Graceful Shutdown and Cleanup</a></li></ol></li><li><a href="appendix-00.html"><strong aria-hidden="true">21.</strong> Appendix</a></li><li><ol class="section"><li><a href="appendix-01-keywords.html"><strong aria-hidden="true">21.1.</strong> A - Keywords</a></li><li><a href="appendix-02-operators.html"><strong aria-hidden="true">21.2.</strong> B - Operators and Symbols</a></li><li><a href="appendix-03-derivable-traits.html"><strong aria-hidden="true">21.3.</strong> C - Derivable Traits</a></li><li><a href="appendix-04-useful-development-tools.html"><strong aria-hidden="true">21.4.</strong> D - Useful Development Tools</a></li><li><a href="appendix-05-editions.html"><strong aria-hidden="true">21.5.</strong> E - Editions</a></li><li><a href="appendix-06-translation.html"><strong aria-hidden="true">21.6.</strong> F - Translations</a></li><li><a href="appendix-07-nightly-rust.html"><strong aria-hidden="true">21.7.</strong> G - How Rust is Made and “Nightly Rust”</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">プログラミング言語 Rust</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#aスライス" id="aスライス"><h2>スライス</h2></a>
+<p>所有権を持たない別のデータ型は<em>スライス</em>です。スライスを使用すると、コレクション全体ではなくコレクション内の要素の連続したシーケンスを参照できます。</p>
+<p>小さなプログラミング上の問題があります。文字列をとり、その文字列で見つかった最初の単語を返す関数を書くとします。関数が文字列内にスペースを見つけられない場合は、文字列全体が1つの単語でなければならないため、文字列全体が返されるとします。</p>
+<p>この関数のシグニチャについて考えてみましょう。</p>
+<pre><code class="language-rust ignore">fn first_word(s: &amp;String) -&gt; ?
+</code></pre>
+<p>この関数<code>first_word</code>は、引数として<code>&amp;String</code>を持っています。今回は所有権を望まないのでこれは問題ありません。しかし、何を返すべきですか？実際に文字列の<em>部分</em>について話す方法を持っていません。しかし、単語の終わりのインデックスを返すことができます。リスト4-7に示すように、それを試してみましょう。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+fn first_word(s: &amp;String) -&gt; usize {
+    let bytes = s.as_bytes();
+
+    for (i, &amp;item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return i;
+        }
+    }
+
+    s.len()
+}
+#}</code></pre></pre>
+<p><span class="caption">リスト 4-7: <code>String</code>引数のスペースのインデックス値を返す<code>first_word</code>関数</span></p>
+<p><code>String</code>要素を要素単位で調べ、値が空白かどうかをチェックする必要があるので、<code>as_bytes</code>メソッドを使って、<code>String</code>をバイトの配列に変換します。</p>
+<pre><code class="language-rust ignore">let bytes = s.as_bytes();
+</code></pre>
+<p>次に、<code>iter</code>メソッドを使用してバイト配列のイテレータを作成します。</p>
+<pre><code class="language-rust ignore">for (i, &amp;item) in bytes.iter().enumerate() {
+</code></pre>
+<p>イテレータについては第13章で詳しく説明します。今の段階では<code>iter</code>はコレクション内の各要素を返すメソッドであり、<code>iter</code>の結果を<code>enumerate</code>でラップして、各要素をタプルの一部として返すメソッドであることに注意してください。<code>enumerate</code>から返されたタプルの最初の要素はインデックスであり、2番目の要素は要素への参照です。これは、インデックスを自分で計算するよりも少し便利です。</p>
+<p><code>enumerate</code>メソッドはタプルを返すので、Rustの他の場所と同様に、パターンを使ってそのタプルを破棄することができます。したがって、<code>for</code>ループではタプルのインデックスに<code>i</code>を、タプルに1バイトの<code>&amp;item</code>を持つパターンを指定します。<code>.iter().enumerate()</code>から要素への参照を取得するので、パターンには<code>&amp;</code>を使います。</p>
+<p><code>for</code>ループの中で、バイトリテラル構文を使ってスペースを表すバイトを検索します。スペースを見つけるとその位置を返します。それ以外の場合は、<code>s.len()</code>を使って文字列の長さを返します。</p>
+<pre><code class="language-rust ignore">    if item == b' ' {
+        return i;
+    }
+}
+s.len()
+</code></pre>
+<p>文字列の最初の単語の終わりのインデックスを見つける方法がありますが問題があります。それ自身で<code>usize</code>を返していますが、<code>&amp;String</code>の文脈では意味のある数字です。言い換えれば、<code>String</code>とは別の値なので、それが将来有効であるという保証はありません。リスト4-7の <code>first_word</code>関数を使用するリスト4-8のプログラムを考えてみましょう。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"># fn first_word(s: &amp;String) -&gt; usize {
+#     let bytes = s.as_bytes();
+#
+#     for (i, &amp;item) in bytes.iter().enumerate() {
+#         if item == b' ' {
+#             return i;
+#         }
+#     }
+#
+#     s.len()
+# }
+#
+fn main() {
+    let mut s = String::from(&quot;hello world&quot;);
+
+    let word = first_word(&amp;s); // wordは値5を取得します
+
+    s.clear(); // これは文字列を空にし&quot;&quot;と等しくします
+
+    // wordはここでも値5を持っていますが、意味のある値5を使用できるStringはありません。 
+    // wordが完全に無効になりました！
+}
+</code></pre></pre>
+<p><span class="caption">リスト 4-8: <code>first_word</code>関数を呼び出して結果を格納し<code>String</code>の内容を変更します</span></p>
+<p>このプログラムはエラーなしでコンパイルされ<code>s.clear()</code>を呼び出した後に<code>word</code>を使用した場合も同様です。<code>word</code>は<code>s</code>の状態に全く接続されていないので<code>word</code>は値<code>5</code>を含んでいます。この値に<code>s</code>を変数<code>s</code>で使用して最初の単語を抽出しようとしましたが、<code>word</code>に<code>5</code>を保存してから<code>s</code>の内容が変わったのでバグでしょう。</p>
+<p><code>word</code>のインデックスが<code>s</code>のデータと同期しなくなることを心配するのは退屈でエラーが起こりやすいです。<code>second_word</code>関数を書くと、これらのインデックスを管理することはさらに脆弱になります。そのシグニチャは次のようになります。</p>
+<pre><code class="language-rust ignore">fn second_word(s: &amp;String) -&gt; (usize, usize) {
+</code></pre>
+<p>ここでは開始位置と終了位置を追跡していますが、特定の状態のデータから計算された値はさらに多くなりますが、その状態にまったく結びついていません。3つの無関係な変数を浮動させて、同期させておく必要があります。</p>
+<p>Rustには文字列スライスというこの問題の解決策があります。</p>
+<a class="header" href="#a文字列スライス" id="a文字列スライス"><h3>文字列スライス</h3></a>
+<p><em>文字列スライス</em>は<code>String</code>の一部への参照であり次のようになります。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let s = String::from(&quot;hello world&quot;);
+
+let hello = &amp;s[0..5];
+let world = &amp;s[6..11];
+#}</code></pre></pre>
+<p>これは<code>String</code>全体を参照するのと似ていますが、余分な<code>[0..5]</code>ビットが付いています。<code>String</code>全体への参照ではなく<code>String</code>の一部への参照です。<code>start..end</code>構文は、<code>start</code>で始まり<code>end</code>まで続く範囲です。<code>end</code>を含めたい場合、<code>..</code>の代わりに<code>..=</code>を使うことができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let s = String::from(&quot;hello world&quot;);
+
+let hello = &amp;s[0..=4];
+let world = &amp;s[6..=10];
+#}</code></pre></pre>
+<p><code>=</code>は <code>..</code>と<code>..=</code>の違いは最後の数字を含めるかどうかで覚えておくと良いでしょう。</p>
+<p><code>[starting_index..ending_index]</code>を指定することで括弧内のスコープを使用してスライスを作成できます。ここで<code>beginning_index</code>はスライスの最初の位置で、<code>ending_index</code>はスライスの最後の位置より1つ多くなります。内部的にはスライスデータ構造はスライスの開始位置と長さを格納します。これは<code>ending_index</code>から<code>starting_index</code>を差し引いたものに相当します。したがって、<code>let world = &amp;s[6..11];</code>の場合、<code>world</code>は<code>s</code>の7番目のバイトと5の長さの値を指すポインタを含むスライスになります。</p>
+<p>図4-6にこれを示します。</p>
+<p><img alt="world containing a pointer to the 6th byte of String s and a length 5" src="img/trpl04-06.svg" class="center" style="width: 50%;" /></p>
+<p><span class="caption">図 4-6: <code>String</code>の一部を参照する文字列スライス</span></p>
+<p>Rustの<code>..</code>のスコープ構文では、最初のインデックス(ゼロ)から開始する場合は2つのピリオドの前に値をドロップできます。言い換えればこれらは等しいです。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let s = String::from(&quot;hello&quot;);
+
+let slice = &amp;s[0..2];
+let slice = &amp;s[..2];
+#}</code></pre></pre>
+<p>同じトークンでスライスに<code>String</code>の最後のバイトが含まれている場合は、末尾の数字を削除することができます。これは、これらが等しいことを意味します。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let s = String::from(&quot;hello&quot;);
+
+let len = s.len();
+
+let slice = &amp;s[3..len];
+let slice = &amp;s[3..];
+#}</code></pre></pre>
+<p>両方の値をドロップして、文字列全体をスライスすることもできます。したがって、これらは等しいです。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let s = String::from(&quot;hello&quot;);
+
+let len = s.len();
+
+let slice = &amp;s[0..len];
+let slice = &amp;s[..];
+#}</code></pre></pre>
+<blockquote>
+<p>注意：文字列スライス範囲のインデックスは有効なUTF-8文字境界で指定する必要があります。マルチバイト文字の途中で文字列スライスを作成しようとすると、プログラムはエラーで終了します。文字列スライスを導入する目的で、このセクションでのみASCIIを仮定しています。UTF-8処理のより詳細な説明は、第8章の「文字列」のセクションにあります。</p>
+</blockquote>
+<p>この情報を念頭に置いて、スライスを返すために<code>first_word</code>を書き直してみましょう。&quot;string slice&quot;を表す型は<code>&amp;str</code>と書かれています。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+fn first_word(s: &amp;String) -&gt; &amp;str {
+    let bytes = s.as_bytes();
+
+    for (i, &amp;item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &amp;s[0..i];
+        }
+    }
+
+    &amp;s[..]
+}
+#}</code></pre></pre>
+<p>リスト4-7と同じ方法で単語の終わりのインデックスを取得します。スペースの最初のオカレンスを探します。スペースを見つけると文字列の始まりとスペースのインデックスを開始と終了のインデックスとして使用して文字列スライスを返します。</p>
+<p><code>first_word</code>を呼び出すと、基礎となるデータに結びついた単一の値が返されます。値はスライスの開始点への参照とスライス内の要素の数で構成されます。</p>
+<p>スライスを返すことは<code>second_word</code>関数のためにも機能します。</p>
+<pre><code class="language-rust ignore">fn second_word(s: &amp;String) -&gt; &amp;str {
+</code></pre>
+<p>コンパイラは<code>String</code>への参照が有効であることを保証するので、簡単なAPIを持っています。リスト4-8のプログラムのバグを覚えておいてください。最初の単語の終わりまでインデックスを取得した後、インデックスを無効にするために文字列をクリアした場合はどうでしょうか？そのコードは論理的に間違っていましたが、即時のエラーは表示されませんでした。空文字列で最初の単語インデックスを使用しようとした場合、問題が後で表示されます。スライスはこのバグを不可能にし、コードの問題がはるかに早いことを知らせます。<code>first_word</code>のスライス版を使用すると、コンパイル時エラーが発生します。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><code class="language-rust ignore does_not_compile">fn main() {
+    let mut s = String::from(&quot;hello world&quot;);
+
+    let word = first_word(&amp;s);
+
+    s.clear(); // エラー！
+
+    println!(&quot;the first word is: {}&quot;, word);
+}
+</code></pre>
+<p>コンパイラのエラーは次のとおりです。</p>
+<pre><code class="language-text">error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
+  --&gt; src/main.rs:10:5
+   |
+8  |     let word = first_word(&amp;s);
+   |                           -- immutable borrow occurs here
+9  | 
+10 |     s.clear(); // エラー！
+   |     ^^^^^^^^^ mutable borrow occurs here
+11 |     
+12 |     println!(&quot;the first word is: {}&quot;, word);
+   |                                       ---- borrow later used here
+</code></pre>
+<p>借用のルールから、何かへの不変な参照があれば、変更可能な参照を取ることができないことを思い出してください。<code>clear</code>は<code>String</code>を切り捨てる必要があるため、変更可能な参照を取得しようとしますが失敗します。RustはAPIを使いやすくしただけでなく、コンパイル時にクラス全体のエラーをなくしました。</p>
+<a class="header" href="#a文字列リテラルはスライス" id="a文字列リテラルはスライス"><h4>文字列リテラルはスライス</h4></a>
+<p>バイナリの内部に格納されている文字列リテラルについて話したことを思い出してください。スライスについて知ったので、文字列リテラルを正しく理解することができます。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let s = &quot;Hello, world!&quot;;
+#}</code></pre></pre>
+<p><code>s</code>の型は<code>&amp;str</code>です。これはバイナリの特定の点を指すスライスです。これは文字列リテラルが不変である理由です。<code>&amp;str</code>は不変の参照です。</p>
+<a class="header" href="#a引数としての文字列スライス" id="a引数としての文字列スライス"><h4>引数としての文字列スライス</h4></a>
+<p>リテラルと<code>String</code>のスライスを取ることができることを知っていると、<code>first_word</code>の改善点が1つ増えています。</p>
+<pre><code class="language-rust ignore">fn first_word(s: &amp;String) -&gt; &amp;str {
+</code></pre>
+<p>経験豊富なRust開発者は<code>String</code>と<code>str</code>の両方で同じ関数を使うことができるので代わりに次のように書くでしょう。</p>
+<pre><code class="language-rust ignore">fn first_word(s: &amp;str) -&gt; &amp;str {
+</code></pre>
+<p>文字列スライスがある場合はそれを直接渡すことができます。<code>String</code>を持っていれば<code>String</code>全体のスライスを渡すことができます。<code>String</code>への参照の代わりに文字列スライスを取る関数を定義することは、APIを機能を失うことなく、より一般的かつ有用なものにします。</p>
+<p><span class="filename">ファイル名: src/main.rs</span></p>
+<pre><pre class="playpen"><code class="language-rust"># fn first_word(s: &amp;str) -&gt; &amp;str {
+#     let bytes = s.as_bytes();
+#
+#     for (i, &amp;item) in bytes.iter().enumerate() {
+#         if item == b' ' {
+#             return &amp;s[0..i];
+#         }
+#     }
+#
+#     &amp;s[..]
+# }
+fn main() {
+    let my_string = String::from(&quot;hello world&quot;);
+
+    // first_word works on slices of `String`s
+    let word = first_word(&amp;my_string[..]);
+
+    let my_string_literal = &quot;hello world&quot;;
+
+    // first_word works on slices of string literals
+    let word = first_word(&amp;my_string_literal[..]);
+
+    // Because string literals *are* string slices already,
+    // this works too, without the slice syntax!
+    let word = first_word(my_string_literal);
+}
+</code></pre></pre>
+<a class="header" href="#aその他のスライス" id="aその他のスライス"><h3>その他のスライス</h3></a>
+<p>想像の通り、文字列スライスは文字列に固有のものです。しかし、より一般的なスライスタイプもあります。
+この配列を考えてみましょう。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let a = [1, 2, 3, 4, 5];
+#}</code></pre></pre>
+<p>文字列の一部を参照したいのと同じように、配列の一部を参照することもできます。次のようにします。</p>
+<pre><pre class="playpen"><code class="language-rust">
+# #![allow(unused_variables)]
+#fn main() {
+let a = [1, 2, 3, 4, 5];
+
+let slice = &amp;a[1..3];
+#}</code></pre></pre>
+<p>このスライスは<code>&amp;[i32]</code>型です。これは最初の要素と長さへの参照を格納することによって、文字列スライスと同じように動作します。この種のスライスをあらゆる種類の他のコレクションに使用します。これらのコレクションについては、第8章のベクトルについて説明します。</p>
+<a class="header" href="#aまとめ" id="aまとめ"><h2>まとめ</h2></a>
+<p>所有権、借用、およびスライスの概念は、コンパイル時にRustプログラムにおけるメモリの安全性を保証します。Rust言語は、他のシステムプログラミング言語と同じ方法でメモリ使用量を制御できますが、所有者が範囲外になったときにデータ所有者がデータを自動的にクリーンアップするということは、追加コードを記述したりデバッグする必要なくこの制御を得ることができます。</p>
+<p>所有権はRustの他の部分のどれくらいが影響を受けるのかに影響を及ぼします。そのためこれらの概念については残りの部分でさらに詳しく説明します。第5章に進み<code>struct</code>でデータをまとめてみましょう。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="ch04-02-references-and-borrowing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="ch05-00-structs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="ch04-02-references-and-borrowing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="ch05-00-structs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+        <script type="text/javascript" src="ferris.js"></script>
+        
+
+        
+
+    </body>
+</html>
